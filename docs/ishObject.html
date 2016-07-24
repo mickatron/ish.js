@@ -1,0 +1,3537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | ishObject class</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extends"><a href="ish.html#extends">extends</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ishObject">
+        
+        <a href="ishObject.html">ishObject</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ishObject.context"><a href="ishObject.html#.context">context</a></li>
+            
+            <li data-name="ishObject.length"><a href="ishObject.html#.length">length</a></li>
+            
+            <li data-name="ishObject.selector"><a href="ishObject.html#.selector">selector</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ishObject.addClass"><a href="ishObject.html#.addClass">addClass</a></li>
+            
+            <li data-name="ishObject.attr"><a href="ishObject.html#.attr">attr</a></li>
+            
+            <li data-name="ishObject.css"><a href="ishObject.html#.css">css</a></li>
+            
+            <li data-name="ishObject.dimension"><a href="ishObject.html#.dimension">dimension</a></li>
+            
+            <li data-name="ishObject.forEach"><a href="ishObject.html#.forEach">forEach</a></li>
+            
+            <li data-name="ishObject.hasClass"><a href="ishObject.html#.hasClass">hasClass</a></li>
+            
+            <li data-name="ishObject.height"><a href="ishObject.html#.height">height</a></li>
+            
+            <li data-name="ishObject.indexOf"><a href="ishObject.html#.indexOf">indexOf</a></li>
+            
+            <li data-name="ishObject.invoke"><a href="ishObject.html#.invoke">invoke</a></li>
+            
+            <li data-name="ishObject.nth"><a href="ishObject.html#.nth">nth</a></li>
+            
+            <li data-name="ishObject.off"><a href="ishObject.html#.off">off</a></li>
+            
+            <li data-name="ishObject.offset"><a href="ishObject.html#.offset">offset</a></li>
+            
+            <li data-name="ishObject.on"><a href="ishObject.html#.on">on</a></li>
+            
+            <li data-name="ishObject.removeClass"><a href="ishObject.html#.removeClass">removeClass</a></li>
+            
+            <li data-name="ishObject.trigger"><a href="ishObject.html#.trigger">trigger</a></li>
+            
+            <li data-name="ishObject.width"><a href="ishObject.html#.width">width</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.tween">
+        
+        <a href="ish.tween.html">ish.tween</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.tween.frameCount"><a href="ish.tween.html#.frameCount">frameCount</a></li>
+            
+            <li data-name="ish.tween.this.active"><a href="ish.tween.html#.this.active">this.active</a></li>
+            
+            <li data-name="ish.tween.this.frame"><a href="ish.tween.html#.this.frame">this.frame</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.tween.this.nextFrame"><a href="ish.tween.html#.this.nextFrame">this.nextFrame</a></li>
+            
+            <li data-name="ish.tween.this.start"><a href="ish.tween.html#.this.start">this.start</a></li>
+            
+            <li data-name="ish.tween.this.stop"><a href="ish.tween.html#.this.stop">this.stop</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.easing">
+        
+        <a href="ish.easing.html">ish.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.easing.easeInCirc"><a href="ish.easing.html#.easeInCirc">easeInCirc</a></li>
+            
+            <li data-name="ish.easing.easeInCubic"><a href="ish.easing.html#.easeInCubic">easeInCubic</a></li>
+            
+            <li data-name="ish.easing.easeInExpo"><a href="ish.easing.html#.easeInExpo">easeInExpo</a></li>
+            
+            <li data-name="ish.easing.easeInOutCirc"><a href="ish.easing.html#.easeInOutCirc">easeInOutCirc</a></li>
+            
+            <li data-name="ish.easing.easeInOutCubic"><a href="ish.easing.html#.easeInOutCubic">easeInOutCubic</a></li>
+            
+            <li data-name="ish.easing.easeInOutExpo"><a href="ish.easing.html#.easeInOutExpo">easeInOutExpo</a></li>
+            
+            <li data-name="ish.easing.easeInOutQuad"><a href="ish.easing.html#.easeInOutQuad">easeInOutQuad</a></li>
+            
+            <li data-name="ish.easing.easeInOutQuart"><a href="ish.easing.html#.easeInOutQuart">easeInOutQuart</a></li>
+            
+            <li data-name="ish.easing.easeInOutQuint"><a href="ish.easing.html#.easeInOutQuint">easeInOutQuint</a></li>
+            
+            <li data-name="ish.easing.easeInOutSine"><a href="ish.easing.html#.easeInOutSine">easeInOutSine</a></li>
+            
+            <li data-name="ish.easing.easeInQuad"><a href="ish.easing.html#.easeInQuad">easeInQuad</a></li>
+            
+            <li data-name="ish.easing.easeInQuart"><a href="ish.easing.html#.easeInQuart">easeInQuart</a></li>
+            
+            <li data-name="ish.easing.easeInQuint"><a href="ish.easing.html#.easeInQuint">easeInQuint</a></li>
+            
+            <li data-name="ish.easing.easeInSine"><a href="ish.easing.html#.easeInSine">easeInSine</a></li>
+            
+            <li data-name="ish.easing.easeOutCirc"><a href="ish.easing.html#.easeOutCirc">easeOutCirc</a></li>
+            
+            <li data-name="ish.easing.easeOutCubic"><a href="ish.easing.html#.easeOutCubic">easeOutCubic</a></li>
+            
+            <li data-name="ish.easing.easeOutExpo"><a href="ish.easing.html#.easeOutExpo">easeOutExpo</a></li>
+            
+            <li data-name="ish.easing.easeOutQuad"><a href="ish.easing.html#.easeOutQuad">easeOutQuad</a></li>
+            
+            <li data-name="ish.easing.easeOutQuart"><a href="ish.easing.html#.easeOutQuart">easeOutQuart</a></li>
+            
+            <li data-name="ish.easing.easeOutQuint"><a href="ish.easing.html#.easeOutQuint">easeOutQuint</a></li>
+            
+            <li data-name="ish.easing.easeOutSine"><a href="ish.easing.html#.easeOutSine">easeOutSine</a></li>
+            
+            <li data-name="ish.easing.linear"><a href="ish.easing.html#.linear">linear</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.this.destroy"><a href="ish.responsive.html#.this.destroy">this.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                
+
+
+
+
+<section>
+
+<header class="c-page-header">
+	<div class="l-constrained c-content-block">
+		 
+		<h1 class="c-page-header__title">The ishObject class</h1>
+	</div>
+</header>
+
+<article class="l-constrained">
+
+
+	
+		<div class="c-api-doc--intro c-content-block">
+			
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id="ishObject">ishObject()</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="src_js_ish.core.js.html">src/js/ish.core.js</a>, <a href="src_js_ish.core.js.html#line1">line 1</a>
+        
+
+      <a href="src_js_ish.core.js.html#line1" class="button outline">src/js/ish.core.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>When you invoke the <code>ish('selector')</code> method <code>ishObject</code> members are inherited through Prototype Delegation to the returned collection.
+The result is just like a jQuery Object, there is utility methods, a length, context and selector property.</p>
+    </div>
+    
+
+    
+        
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>// Cache an ishObject collectionvar collection = ish('selector');// Call an ishObject methodish('selector').attr('attributeName');// There is a length propertyish('selector').length; // and also a selector property which refers to the first parameter passed into ish();ish('selector').selector;// You can call native methods on collection items just like you would in jQueryish('selector')[0].style.display = 'block';</code></pre>
+
+    
+</div>
+		</div>
+	
+
+	
+
+	
+
+<!--
+	
+
+	 
+
+	
+
+-->
+   
+
+
+
+	
+		<h3 class="c-api-doc__title">Properties</h3>
+
+		<div class="c-api-doc c-content-block--faux-border">
+			
+				
+<div class="c-content-block__inner">
+	<h4 class="c-api-doc__name" id=".context">context<span class="type-signature"></span></h4>
+
+	<a href="src_js_ish.core.js.html#line95" class="c-api-doc__goto-source c-button--outline">line 95</a>
+
+	
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="src_js_ish.core.js.html">src/js/ish.core.js</a>, <a href="src_js_ish.core.js.html#line95">line 95</a>
+        
+
+      <a href="src_js_ish.core.js.html#line95" class="button outline">src/js/ish.core.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+	
+
+	
+	<div class="description">
+		<p>The context as given when calling ish(selector, context).</p>
+	</div>
+	
+
+	
+
+	
+
+	
+</div>
+
+			
+				
+<div class="c-content-block__inner">
+	<h4 class="c-api-doc__name" id=".length">length<span class="type-signature"></span></h4>
+
+	<a href="src_js_ish.core.js.html#line82" class="c-api-doc__goto-source c-button--outline">line 82</a>
+
+	
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="src_js_ish.core.js.html">src/js/ish.core.js</a>, <a href="src_js_ish.core.js.html#line82">line 82</a>
+        
+
+      <a href="src_js_ish.core.js.html#line82" class="button outline">src/js/ish.core.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+	
+
+	
+	<div class="description">
+		<p>The number of items found in the collection.</p>
+	</div>
+	
+
+	
+
+	
+
+	
+</div>
+
+			
+				
+<div class="c-content-block__inner">
+	<h4 class="c-api-doc__name" id=".selector">selector<span class="type-signature"></span></h4>
+
+	<a href="src_js_ish.core.js.html#line88" class="c-api-doc__goto-source c-button--outline">line 88</a>
+
+	
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="src_js_ish.core.js.html">src/js/ish.core.js</a>, <a href="src_js_ish.core.js.html#line88">line 88</a>
+        
+
+      <a href="src_js_ish.core.js.html#line88" class="button outline">src/js/ish.core.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+	
+
+	
+	<div class="description">
+		<p>The selector string as given when calling ish(selector, context, forceSelector). This value can be overridden if using the ish() forceSelector parameter.</p>
+	</div>
+	
+
+	
+
+	
+
+	
+</div>
+
+			
+		</div>
+	
+
+	
+		<h3 class="c-api-doc__title">Methods</h3>
+		<div class="c-api-doc c-content-block--faux-border">
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".addClass">addClass(name)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.class-modifiers.js.html#line50" class="c-api-doc__goto-source c-button--outline">line 50</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Adds a class name to each Node in the given ishObject.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>[description]</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">name</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>string</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[description]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').addClass('className');</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".attr">attr(name, value)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.core.js.html#line175" class="c-api-doc__goto-source c-button--outline">line 175</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Gets an attributes value for the first element in the <code>ishObject</code>. If the second argument is supplied the 
+method sets an attribute and its value on all <code>Node</code>'s in the given <code>ishObject</code>.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+|
+
+<code>String</code>
+
+
+	
+
+	
+	    <p>If setting an attribute the method returns the <code>ishObject</code> which called it 
+and is chainable. If getting an attribute value the method will return the value found or undefined if 
+it's not found.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">name</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A valid CSS attribute selector.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">value</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The attirbute value to be set.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').attr('attribute-name'); //get an attribute valueish('selector').attr('attribute-name','attribute-value'); //set an attribute value</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".css">css(prop, value)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.core.js.html#line304" class="c-api-doc__goto-source c-button--outline">line 304</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Gets the CSS value of the first element in the supplied <code>ishObject</code>. Or sets the CSS value on all items in an <code>ishObject</code>.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>Returns the <code>ishObject</code> which called it. Method is chainable.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">prop</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the CSS property in camelCase. eg. 'margin-left' would be passed as 'marginLeft'.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">value</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Exclude the horizontal scrollbars height from the result.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').css();</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".dimension">dimension(type, margins, clientHeight)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.core.js.html#line262" class="c-api-doc__goto-source c-button--outline">line 262</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Gets the width or height the first element in the supplied <code>ishObject</code>.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>Integer</code>
+
+
+	
+
+	
+	    <p>The height of the element.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">type</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>'width' or 'height'.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">margins</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Boolean</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Include margins in the return result.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">clientHeight</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Boolean</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Exclude the horizontal scrollbars height from the result.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').width();</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".forEach">forEach(fn, scope)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.core.js.html#line128" class="c-api-doc__goto-source c-button--outline">line 128</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Iterates an <code>ishObject</code> returning each <code>Node</code> in an individual <code>ishObject</code>, along with its index 
+in the original collection. This method will iterate every item in the collection and cannot be broken.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>Returns the <code>ishObject</code> which called it. Method is chainable.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">fn</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>function</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The callback function which will be called with each iteration</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">scope</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The scope in which the callback function will be called.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector', function( $item, index ) {    //iterates the collections Dom Nodes, cannot be broken out of.    });</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".hasClass">hasClass(test)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.class-modifiers.js.html#line7" class="c-api-doc__goto-source c-button--outline">line 7</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Tests if a particular class name is found on a Node within the given ishObject. 
+This method will check the whole collection, if you want to check a specific 
+selector you will be required to filter the collection before making the check.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>boolean</code>
+
+
+	
+
+	
+	    <p>If the class name was found on the collection.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">test</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The class name to test against the collection.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').hasClass('className');</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".height">height(margins, clientHeight)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.dimension.abstracts.js.html#line1" class="c-api-doc__goto-source c-button--outline">line 1</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Gets the height of the first element in the supplied <code>ishObject</code>. This method is an abstraction of <code>ishObject.dimension</code>.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>Integer</code>
+
+
+	
+
+	
+	    <p>The height of the element.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">margins</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Boolean</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Include margins in the return result.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">clientHeight</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Boolean</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Exclude the horizontal scrollbars height from the result.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').height();</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".indexOf">indexOf(needle)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.core.js.html#line152" class="c-api-doc__goto-source c-button--outline">line 152</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Gets the index of a specific <code>Node</code> in an <code>ishObject</code></p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>Number</code>
+
+
+	
+
+	
+	    <p>Index of the <code>Node</code> in the <code>ishObject</code>. Returns -1 if not found.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">needle</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Node</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The <code>Node</code> to find in the <code>ishObject</code>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').indexOf(Node);</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".invoke">invoke(module, options, context)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.invoke.js.html#line1" class="c-api-doc__goto-source c-button--outline">line 1</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>A factory helper function. Creates a module which will do work on the DOM. For example, carousels, dialogs, modals... Using this method is useful when you want to instantiate multiple instances on a collection of DOM Nodes, if you just want to create a single instance you can use the Function.call() syntax or similar.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>Object</code>
+
+
+	
+
+	
+	    <p>Each instance in referenced by number in the order they were invoked.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">module</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The module or components function body.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">options</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The module or components options Object.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">context</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An Object context to invoke/execute the module or component upon.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>// basic usage, no options, context or parentObject usedish('selector').invoke(function($element, options) {		//The module code body},{options},null);</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".nth">nth(int)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.core.js.html#line113" class="c-api-doc__goto-source c-button--outline">line 113</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Returns the item at the specified index in the <code>ishObject</code>.</p>
+    </div>
+    
+
+    
+        
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">int</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Number</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The index of the item in the <code>ishObject</code>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').nth(0); //gets the first node</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".off">off(event, fn)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.events.js.html#line67" class="c-api-doc__goto-source c-button--outline">line 67</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Dettach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'removeEventListener' so any valid Javascript event can be used. 
+Its inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>Method is chainable, returns the ish Object which called the method.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">event</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>string</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The type of event you're adding to the Node/s</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">fn</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>function</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The Node to find in the ish Object.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>var fn = function(event) {    //mousedown event};ish('selector').on('mousedown', mousedownHandler); //onish('selector').off('mousedown', fn); //off</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".offset">offset()</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.core.js.html#line238" class="c-api-doc__goto-source c-button--outline">line 238</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Returns the left and top offset in pixels for the first element in the <code>ishObject</code>.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>Object</code>
+
+
+	
+
+	
+	    <p>An <code>Object</code> with values for left and top offsets in pixel values.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').offset();</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".on">on(event, fn, delegate)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.events.js.html#line16" class="c-api-doc__goto-source c-button--outline">line 16</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Attach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'addeventListener' so any valid Javascript event can be used. 
+It's inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>Method is chainable, returns the ish Object which called the method.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">event</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The type of event you're adding to the Node/s</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">fn</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>function</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A callback to be fired when the event is triggered.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">delegate</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A valid CSS selector to delegate the event to.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>var fn = function(event) {    //mousedown event};ish('selector').on('mousedown', fn);</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".removeClass">removeClass(name)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.class-modifiers.js.html#line28" class="c-api-doc__goto-source c-button--outline">line 28</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Removes a class name from each Node in the given ishObject.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>[description]</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">name</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[description]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').removeClass('className');</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".trigger">trigger(type, data)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.events.js.html#line101" class="c-api-doc__goto-source c-button--outline">line 101</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Triggers an event.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>Method is chainable, returns the ish Object which called the method.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">type</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>string</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The type of event to trigger.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">data</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Any</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>var fn = function(event) {    //mousedown event};ish('selector').on('mousedown', fn); //onish('selector').trigger('mousedown'); //fires mousedown</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".width">width(margins, clientHeight)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="src_js_ish.dimension.abstracts.js.html#line14" class="c-api-doc__goto-source c-button--outline">line 14</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Gets the width of the first element in the supplied <code>ishObject</code>. This method is an abstraction of <code>ishObject.dimension</code>.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>Integer</code>
+
+
+	
+
+	
+	    <p>The height of the element.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">margins</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Boolean</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Include margins in the return result.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">clientHeight</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Boolean</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Exclude the horizontal scrollbars height from the result.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector').width();</code></pre>
+
+    
+</div>
+			       
+		</div>
+	
+
+	
+
+ 
+</article>
+
+</section>
+
+
+
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jul 25 2016 00:25:00 GMT+1000 (AUS Eastern Standard Time)
+    </footer> -->
+<script src="/dist/ish.min.js"> </script>
+<script src="/docs/main.js"> </script>
+
+</body>
+</html>

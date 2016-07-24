@@ -1,0 +1,53 @@
+{
+  "name": "ish.js",
+  "version": "0.0.1-alpha",
+  "author": "Michael Hargreaves <code@digitalfeast.com.au> (http://digitalfeast.com.au)",
+  "license": "MIT",
+  "description": "A tiny jQ'ish Javascript library.",
+  "main": "ish.js",
+  "bugs": {
+    "url": "https://github.com/mickatron/ish.js/issues",
+    "email": "code@digitalfeast.com.au"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mickatron/ish.js.git"
+  },
+  "keywords": [
+    "javascript",
+    "browser",
+    "jQuery",
+    "library",
+    "ish",
+    "ish.js",
+    "ish-js"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-file-include": "^0.13.7",
+    "gulp-include": "^2.1.0",
+    "gulp-jsdoc": "^0.1.4",
+    "gulp-jshint": "^1.11.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.4.3",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.1",
+    "gulp-watch": "^4.3.5",
+    "jasmine-core": "^2.3.4",
+    "jsdoc": "^3.3.3",
+    "jshint-stylish": "^2.0.1",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-cli": "^0.1.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "phantomjs": "^1.9.18"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
