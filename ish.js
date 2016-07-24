@@ -4,7 +4,6 @@
  * @version 0.0.1 (alpha)
  * @license MIT
  *
- * 
  * @fileoverview 
 
 Ish.js is a super tiny Javascript library with a jQuery'ish syntax. 

@@ -154,13 +154,13 @@ button {
   font-family: "Zag";
   font-style: normal;
   font-weight: 700;
-  src: url("/docs/zag_bold-webfont.eot?#iefix") format("embedded-opentype"), url("/docs/zag_bold-webfont.woff") format("woff"), url("/docs/zag_bold-webfont.ttf") format("truetype"), url("/docs/zag_bold-webfont.svg#ZagBoldRegular") format("svg"); }
+  src: url("zag_bold-webfont.eot?#iefix") format("embedded-opentype"), url("zag_bold-webfont.woff") format("woff"), url("zag_bold-webfont.ttf") format("truetype"), url("zag_bold-webfont.svg#ZagBoldRegular") format("svg"); }
 
 @font-face {
   font-family: "Zag";
   font-style: normal;
   font-weight: normal;
-  src: url("/docs/zag_regular-webfont.eot?#iefix") format("embedded-opentype"), url("/docs/zag_regular-webfont.woff") format("woff"), url("/docs/zag_regular-webfont.ttf") format("truetype"), url("/docs/zag_regular-webfont.svg#ZagRegular") format("svg"); }
+  src: url("zag_regular-webfont.eot?#iefix") format("embedded-opentype"), url("zag_regular-webfont.woff") format("woff"), url("zag_regular-webfont.ttf") format("truetype"), url("zag_regular-webfont.svg#ZagRegular") format("svg"); }
 
 /* Open Sans Fonts
 -------------------------------------------- */
@@ -168,19 +168,19 @@ button {
   font-family: "Open Sans";
   font-style: normal;
   font-weight: 600;
-  src: url("/docs/OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("/docs/OpenSans-Semibold-webfont.woff") format("woff"), url("/docs/OpenSans-Semibold-webfont.ttf") format("truetype"), url("/docs/OpenSans-Semibold-webfont.svg#ZagRegular") format("svg"); }
+  src: url("OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("OpenSans-Semibold-webfont.woff") format("woff"), url("OpenSans-Semibold-webfont.ttf") format("truetype"), url("OpenSans-Semibold-webfont.svg#ZagRegular") format("svg"); }
 
 @font-face {
   font-family: "Open Sans";
   font-style: normal;
   font-weight: normal;
-  src: url("/docs/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("/docs/OpenSans-Regular-webfont.woff") format("woff"), url("/docs/OpenSans-Regular-webfont.ttf") format("truetype"), url("/docs/OpenSans-Regular-webfont.svg#ZagRegular") format("svg"); }
+  src: url("OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("OpenSans-Regular-webfont.woff") format("woff"), url("OpenSans-Regular-webfont.ttf") format("truetype"), url("OpenSans-Regular-webfont.svg#ZagRegular") format("svg"); }
 
 @font-face {
   font-family: "Open Sans";
   font-style: normal;
   font-weight: 300;
-  src: url("/docs/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"), url("/docs/OpenSans-Light-webfont.woff") format("woff"), url("/docs/OpenSans-Light-webfont.ttf") format("truetype"), url("/docs/OpenSans-Light-webfont.svg#ZagRegular") format("svg"); }
+  src: url("OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"), url("OpenSans-Light-webfont.woff") format("woff"), url("OpenSans-Light-webfont.ttf") format("truetype"), url("OpenSans-Light-webfont.svg#ZagRegular") format("svg"); }
 
 html {
   color: #1E1E14;
