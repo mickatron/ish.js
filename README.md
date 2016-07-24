@@ -101,7 +101,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
 
  
  [docs]: http://ish.digitalfeast.com.au/js/docs
- [tut1]: http://ish.digitalfeast.com.au/js/docs/tutorial-getting_started.html
+ [tut1]: http://ish.digitalfeast.com.au/js/docs/tutorial-Getting_Started.html
  [tut2]: http://ish.digitalfeast.com.au/js/docs/tutorial-Compiling_a_Custom_Package.html
 
 

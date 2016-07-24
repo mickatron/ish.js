@@ -3,7 +3,7 @@
 As the code base is still alpha Bower and NPM have not been setup just yet. For now you can clone the project using Git.
 
 	// Git
-	$ git clone
+	$ git clone https://github.com/mickatron/ish.js.git
 	// Bower
 	//Coming Soon
 	// NPM
