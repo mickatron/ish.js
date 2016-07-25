@@ -152,7 +152,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
 	$.extend(obj1,obj2);
 })(ish);
  */
-var ish = (function(document, window, $) {
+var ish = function(document, window, $) {
 	'use strict';
 	/* Lib Core
 	---------------------------------------*/
@@ -1369,5 +1369,5 @@ var ish = (function(document, window, $) {
 
 	return $;
 
-})(document, this); 
+}(document, this); 
 //# sourceMappingURL=ish.js.map

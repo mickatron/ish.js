@@ -1,5 +1,5 @@
 
-var ish = (function(document, window, $) {
+var ish = function(document, window, $) {
   'use strict';
   /* Lib core
   ---------------------------------------*/
@@ -8,4 +8,4 @@ var ish = (function(document, window, $) {
 
   return $;
 
-})(document, this);
+}(document, this);
