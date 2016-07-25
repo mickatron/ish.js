@@ -79,10 +79,16 @@ var tweener = function() {
  *   to: 0,
  *   duration: 1000,
  *   easing: 'linear',
- *   onBeforeTween: function() { },
- *   ontween: function() { },
- *   oncomplete: function() { }
- * });
+ *   onBeforeTween: function (){
+ *   	//onBeforeTween operations
+ *   },
+ *   ontween: function (value){
+ *   	ish('.selector').css('opacity', value)
+ *   },
+ *   oncomplete: function (){ 
+ *   	//onComplete operations
+ *   }
+ * }).start();
  */
 var tween = function(animationParams) {
 

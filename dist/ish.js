@@ -874,10 +874,16 @@ var ish = function(document, window, $) {
 	 *   to: 0,
 	 *   duration: 1000,
 	 *   easing: 'linear',
-	 *   onBeforeTween: function() { },
-	 *   ontween: function() { },
-	 *   oncomplete: function() { }
-	 * });
+	 *   onBeforeTween: function (){
+	 *   	//onBeforeTween operations
+	 *   },
+	 *   ontween: function (value){
+	 *   	ish('.selector').css('opacity', value)
+	 *   },
+	 *   oncomplete: function (){ 
+	 *   	//onComplete operations
+	 *   }
+	 * }).start();
 	 */
 	var tween = function(animationParams) {
 	
@@ -996,7 +1002,7 @@ var ish = function(document, window, $) {
 	// Refactored from; http://www.schillmania.com/content/projects/javascript-animation-3/
 	
 	/**
-	 * Easing equations mainly used in animation to calculate tween frame values. Each method shared the same parameters and return value as below/
+	 * Easing equations mainly used in animation to calculate tween frame values. Each method shares the same parameters and return value as below.
 	 * <div class="c-returns"><h5 class="c-returns__header">Returns</h5><code>Number</code><p>The tween value for the currentFrame.</p></div><h5>Parameters:</h5>
 	<table class="c-params">
 	<thead>
