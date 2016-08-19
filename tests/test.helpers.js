@@ -59,7 +59,7 @@ if (!Function.prototype.bind) {
     //console.log(url);
     ish.ajax({
       type: 'GET',
-      URL: url,
+      url: url,
       success: function(data) {
         appendToDom('section');
         ish('section')[0].innerHTML = data.toString();

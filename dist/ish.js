@@ -638,7 +638,7 @@ var ish = function(document, window, $) {
 	 * @memberof ish
 	 * @param  {Object} options
 	 * @param  {String} options.type Acceptable values are; 'GET','POST','PUT','JSON'.
-	 * @param  {String} options.URL  The URL of the request.
+	 * @param  {String} options.url  The url of the request.
 	 * @param  {Function} options.success A callback function triggered when the ajax call is successful.
 	 * @param  {Function} options.error  A callback function triggered if the ajax call is unsuccessful.
 	 * @param  {Object} options.data A custom data object to pass with the request.
@@ -653,7 +653,7 @@ var ish = function(document, window, $) {
 	 * 
 	 * ish.ajax({
 	 * 	type:'JSON',
-	 * 	URL: 'http://domain.com/ajaxhandler',
+	 * 	url: 'http://domain.com/ajaxhandler',
 	 * 	success: onSuccess,
 	 * 	error: onError,
 	 * 	data: {"JSON":"data"}
@@ -663,7 +663,7 @@ var ish = function(document, window, $) {
 	
 		var settings = $.extend({
 			type: 'GET', // PUT OR JSON, GET, POST
-			URL: '',
+			url: '',
 			success: function(message) {},
 			error: function(message) {},
 			data: ''
@@ -675,7 +675,7 @@ var ish = function(document, window, $) {
 		}
 	
 		var xhr = new XMLHttpRequest();
-		xhr.open(settings.type, encodeURI(settings.URL));
+		xhr.open(settings.type, encodeURI(settings.url));
 	
 		if (settings.type === 'PUT') {
 			xhr.setRequestHeader('Content-Type', 'application/json');

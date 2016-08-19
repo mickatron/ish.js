@@ -16,7 +16,7 @@ describe('ajax', function() {
 		// ajax call
 		ish.ajax({
 			type: 'GET',
-			URL: '/base/tests/test.response.json',
+			url: '/base/tests/test.response.json',
 			success: callback,
 			error: failCallback
 		});
