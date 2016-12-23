@@ -15,13 +15,12 @@
  */
 ishObject.invoke = function(module, options, context) {
 	options = options || {};
-	context = context || {};
 	var createdModules = {}; // could/should this be an array?
 	options.selector = this.selector;
 	this.forEach(function($el, i) {
+		var currContext = context || {};
 		options.node = $el[0];
 		createdModules[i] = module.call(context, options, $el[0], options.selector);
-		if (!context) context = {};
 	});
 	return createdModules;
 };
