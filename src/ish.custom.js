@@ -12,22 +12,22 @@ var ish = function(document, window, $) {
   'use strict';
   /* Lib Core
   ---------------------------------------*/
-  //=require /src/js/ish.core.js
-  //=require /src/js/ish.events.js
+  //=require /js/ish.core.js
+  //=require /js/ish.events.js
 
   /* Lib Optional
   ---------------------------------------*/
-  //=require /src/js/ish.dimension.abstracts.js 
-  //=require /src/js/ish.ajax.js 
-  //=require /src/js/ish.forms.js 
-  //=require /src/js/ish.class-modifiers.js
-  //=require /src/js/ish.invoke.js 
+  //=require /js/ish.dimension.abstracts.js 
+  //=require /js/ish.ajax.js 
+  //=require /js/ish.forms.js 
+  //=require /js/ish.class-modifiers.js
+  //=require /js/ish.invoke.js 
 
   /* Lib Optional Components
   ---------------------------------------*/
-  //=require /src/js/ish.tween.js 
-  //=require /src/js/ish.easing.js
-  //=require /src/js/ish.responsive.js
+  //=require /js/ish.tween.js 
+  //=require /js/ish.easing.js
+  //=require /js/ish.responsive.js
 
   return $;
 

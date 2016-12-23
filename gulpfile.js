@@ -14,14 +14,7 @@ var cleanFiles = ['dist/*', 'build/*', 'docs/*'];
 var _karmaConf = __dirname + '/karma.conf.js';
 var _src = ["ish.js","ish.lite.js"];
 var _srcDest = 'dist';
-var _minifyGlobs = function(){
-  var arr = [];
-  for (var i = _src.length - 1; i >= 0; i--) {
-    arr.push( _srcDest +"/"+ _src[i] );
-  }
-  return arr;
-}();
-
+var _minifyGlobs = _src.map( function(x){ return _srcDest+'/'+x; } );
 
 gulp.task('cleanjs', function() {
   return del(cleanFiles);
@@ -34,7 +27,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task("bundlejs", ['cleanjs'], function() {
-  return gulp.src(_src)
+  return gulp.src( _src.map(function(x){ return './src/'+x;}) )
     .pipe(sourcemaps.init())  // TODO: having issues with source maps
     .pipe(include())
     .pipe(sourcemaps.write('.')) // TODO: having issues with source maps
@@ -61,7 +54,7 @@ gulp.task('minifyjs', ['bundlejs'], function() {
 
 
 gulp.task('docjs', ['bundlejs'], shell.task([
-  'jsdoc -c conf.json ish.js'
+  'jsdoc -c conf.json ./src/ish.js'
 ]));
 
 gulp.task('default', ['buildjs']);

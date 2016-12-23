@@ -99,9 +99,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
  -  Tween class is very verbose to use, I like its flexibility but I'm really missing the simplicity and ease of jQuery's animate().
  -  Tweens are not super smooth at certain settings, particulary longer time frames.
  -  Error reporting. There is none at the moment.
- -	Improved Documentation and Theme   
- -  Improved testing
- -  Improved Aajx functionality 
+ -	Improved Documentation Theme
  
  [docs]: http://isj.digitalfeast.com.au/js/docs
  [tut1]: http://ish.digitalfeast.com.au/js/docs/tutorial-Getting_Started.html
@@ -156,21 +154,21 @@ var ish = function(document, window, $) {
 	'use strict';
 	/* Lib Core
 	---------------------------------------*/
-	//=require /src/js/ish.core.js
-	//=require /src/js/ish.events.js
+	//=require /js/ish.core.js
+	//=require /js/ish.events.js
 
 	/* Lib Optional
 	---------------------------------------*/
-	//=require /src/js/ish.dimension.abstracts.js 
-	//=require /src/js/ish.ajax.js
-	//=require /src/js/ish.class-modifiers.js
-	//=require /src/js/ish.invoke.js 
+	//=require /js/ish.dimension.abstracts.js 
+	//=require /js/ish.ajax.js
+	//=require /js/ish.class-modifiers.js
+	//=require /js/ish.invoke.js 
 
 	/* Lib Optional Components
 	---------------------------------------*/
-	//=require /src/js/ish.tween.js 
-	//=require /src/js/ish.easing.js
-	//=require /src/js/ish.responsive.js
+	//=require /js/ish.tween.js 
+	//=require /js/ish.easing.js
+	//=require /js/ish.responsive.js
 
 	return $;
 

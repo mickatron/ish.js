@@ -535,9 +535,8 @@ var lib = {
 				_heightBreakOK = false;
 			}
 	
-	
 			setWidths();
-			console.log('toggleOnOff '+evt.data.name );
+			
 			if (_heightBreakOK && _widthBreakOK && !_isScrollBarShowing) {
 				_isScrollBarShowing = true;
 				$bar.css('width', _barContainerWidthWithScrollbar + 'px');
@@ -550,7 +549,6 @@ var lib = {
 				$bar.css('width', 'auto');
 				$bar.off('mouseenter', slideToggleHandler);
 			}
-			console.log(_eventPrefix + '.state');
 			$this.trigger(_eventPrefix + '.state', { 
 				active: _isScrollBarShowing
 			});
@@ -575,7 +573,7 @@ var lib = {
 			// remove divs
 			outer.parentNode.removeChild(outer);
 			return widthNoScroll - widthWithScroll;
-		}
+		};
 	
 		var setWidths = function(){
 			_barContainerWidth = $bar.width();

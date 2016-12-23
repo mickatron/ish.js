@@ -99,9 +99,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
  -  Tween class is very verbose to use, I like its flexibility but I'm really missing the simplicity and ease of jQuery's animate().
  -  Tweens are not super smooth at certain settings, particulary longer time frames.
  -  Error reporting. There is none at the moment.
- -	Improved Documentation and Theme   
- -  Improved testing
- -  Improved Aajx functionality 
+ -	Improved Documentation Theme
  
  [docs]: http://isj.digitalfeast.com.au/js/docs
  [tut1]: http://ish.digitalfeast.com.au/js/docs/tutorial-Getting_Started.html
@@ -632,34 +630,36 @@ var ish = function(document, window, $) {
 		return this.dimension('width', margins, clientWidth);
 	};
 	/**
-	 * Make an XHR request. The implementation is currently very basic.
+	 * Make an XHR request. The implementation is currently very basic, the response is not parsed as JSON or converted to a String, you will have to do that to the response manually when it's returned. 
 	 * @name  ajax
 	 * @function
 	 * @memberof ish
 	 * @param  {Object} options
 	 * @param  {String} options.type Acceptable values are; 'GET','POST','PUT','DELETE'.
 	 * @param  {String} options.url  The url of the request.
-	 * @param  {Function} options.success A callback function triggered when the ajax call is successful.
+	 * @param  {Function} options.success A callback function triggered when the ajax call is successful. The responseText is passed as the first parameter of the function, other values are availiable from the XMLHttpRequest Object returned from this component.
 	 * @param  {Function} options.error  A callback function triggered if the ajax call is unsuccessful.
 	 * @param  {Object} options.data A custom data object to pass with the request.
 	 * @param  {Object} options.headers An Object with String key values representing the header and its values. You can add custom header values here. 
 	 * @param  {String} options.headers.Accept By default the Accept header is ommited although it is a common one to set so it gains a mention here. Common values are: `"text/plain"`, `"text/html"`, `"application/xml, text/xml"`, `"application/json, text/javascript"`
 	 * @param  {String} options.headers.Content-Type Default value is `'application/x-www-form-urlencoded'` other values often used are: `'text/plain'`, `'multipart/form-data'`, `'application/json'` or `'text/xml'`.
 	 * @param  {String} options.headers.X-Requested-With Default value is 'XMLHttpRequest'.
-	 * @return {ish}     Returns the ish Object.
+	 * @return {ish}     Returns the XMLHttpRequest Object.
 	 * @example
-	 * var onSuccess = function(data){
+	 * var reqSuccess = function(data){
 	 * 	//success
+	 * 	console.log('success', data, req);
 	 * };
-	 * var onError = function(data){
+	 * var reqError = function(statusText, status){
 	 * 	//error
+	 * 	console.log('There was an error. '+status+' : '+statusText, req);
 	 * };
 	 * 
-	 * ish.ajax({
+	 * var req = ish.ajax({
 	 * 	type:'JSON',
 	 * 	url: 'http://domain.com/ajaxhandler',
-	 * 	success: onSuccess,
-	 * 	error: onError,
+	 * 	success: reqSuccess,
+	 * 	error: reqError,
 	 * 	data: {"JSON":"data"}
 	 * });
 	 */
@@ -668,8 +668,8 @@ var ish = function(document, window, $) {
 		var settings = $.extend({
 			type: 'GET', // PUT OR JSON, GET, POST
 			url: '',
-			success: function(message) {},
-			error: function(message) {},
+			success: null,
+			error: null,
 			data: '',
 			headers: {
 				"X-Requested-With": 'XMLHttpRequest',
@@ -677,33 +677,27 @@ var ish = function(document, window, $) {
 			}
 		}, options);
 	
-	/*
-		{
-			text: "text/plain",
-			html: "text/html",
-			xml: "application/xml, text/xml",
-			json: "application/json, text/javascript"
-		}
-	*/
-	
 		var xhr = new XMLHttpRequest();
 		xhr.open(settings.type, encodeURI(settings.url));
-		// REQUEST HEADERS
+	
+		var _successFn = settings.success;
+		var _errorFn = settings.error;
+		// SET REQUEST HEADERS
 		var _headers = settings.headers;
 		for ( var prop in _headers ) {
 			xhr.setRequestHeader(prop, _headers[prop]);
 		}
-		
+		// Listen to ONLOAD EVENT
 		xhr.onload = function() {
 			if (xhr.status === 200) {
-				settings.success(xhr.responseText);
+				if(_successFn) _successFn( xhr.responseText );
 			} else {
-				settings.error(xhr.status);
+				if(_errorFn) _errorFn( xhr.statusText, xhr.status );
 			}
 		};
 	
 		xhr.send(settings.data);
-		return this;
+		return xhr; // Theres no publics so just return the xhr obj.
 	};
 	//=require ish.core.js
 	
