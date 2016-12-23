@@ -51,6 +51,7 @@ $.ajax = function(options) {
 
 	if (settings.type === 'POST') {
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 	}
 
 	xhr.onload = function() {
