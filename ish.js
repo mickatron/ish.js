@@ -162,7 +162,7 @@ var ish = function(document, window, $) {
 	/* Lib Optional
 	---------------------------------------*/
 	//=require /src/js/ish.dimension.abstracts.js 
-	//=require /src/js/ish.ajax.js 
+	//=require /src/js/ish.ajax.js
 	//=require /src/js/ish.class-modifiers.js
 	//=require /src/js/ish.invoke.js 
 
