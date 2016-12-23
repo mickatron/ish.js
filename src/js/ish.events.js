@@ -45,7 +45,7 @@ ishObject.on = function(event, fn, delegate) {
 	} else {
 		this[forEach](function(el) {
 			el[0].addEventListener(event, fn, false);
-		});
+		}, this);
 	}
 	return this;
 };
