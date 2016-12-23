@@ -380,7 +380,7 @@ var ish = function(document, window, $) {
   	} else {
   		this[forEach](function(el) {
   			el[0].addEventListener(event, fn, false);
-  		});
+  		}, this);
   	}
   	return this;
   };

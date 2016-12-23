@@ -533,7 +533,7 @@ var ish = function(document, window, $) {
 		} else {
 			this[forEach](function(el) {
 				el[0].addEventListener(event, fn, false);
-			});
+			}, this);
 		}
 		return this;
 	};
@@ -637,11 +637,15 @@ var ish = function(document, window, $) {
 	 * @function
 	 * @memberof ish
 	 * @param  {Object} options
-	 * @param  {String} options.type Acceptable values are; 'GET','POST','PUT','JSON'.
+	 * @param  {String} options.type Acceptable values are; 'GET','POST','PUT','DELETE'.
 	 * @param  {String} options.url  The url of the request.
 	 * @param  {Function} options.success A callback function triggered when the ajax call is successful.
 	 * @param  {Function} options.error  A callback function triggered if the ajax call is unsuccessful.
 	 * @param  {Object} options.data A custom data object to pass with the request.
+	 * @param  {Object} options.headers An Object with String key values representing the header and its values. You can add custom header values here. 
+	 * @param  {String} options.headers.Accept By default the Accept header is ommited although it is a common one to set so it gains a mention here. Common values are: `"text/plain"`, `"text/html"`, `"application/xml, text/xml"`, `"application/json, text/javascript"`
+	 * @param  {String} options.headers.Content-Type Default value is `'application/x-www-form-urlencoded'` other values often used are: `'text/plain'`, `'multipart/form-data'`, `'application/json'` or `'text/xml'`.
+	 * @param  {String} options.headers.X-Requested-With Default value is 'XMLHttpRequest'.
 	 * @return {ish}     Returns the ish Object.
 	 * @example
 	 * var onSuccess = function(data){
@@ -666,26 +670,30 @@ var ish = function(document, window, $) {
 			url: '',
 			success: function(message) {},
 			error: function(message) {},
-			data: ''
+			data: '',
+			headers: {
+				"X-Requested-With": 'XMLHttpRequest',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
 		}, options);
 	
-		settings.type = settings.type.toUpperCase();
-		if (settings.type === "JSON") {
-			settings.type = 'PUT';
+	/*
+		{
+			text: "text/plain",
+			html: "text/html",
+			xml: "application/xml, text/xml",
+			json: "application/json, text/javascript"
 		}
+	*/
 	
 		var xhr = new XMLHttpRequest();
 		xhr.open(settings.type, encodeURI(settings.url));
-	
-		if (settings.type === 'PUT') {
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			data = JSON.stringify(settings.data);
+		// REQUEST HEADERS
+		var _headers = settings.headers;
+		for ( var prop in _headers ) {
+			xhr.setRequestHeader(prop, _headers[prop]);
 		}
-	
-		if (settings.type === 'POST') {
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		}
-	
+		
 		xhr.onload = function() {
 			if (xhr.status === 200) {
 				settings.success(xhr.responseText);
@@ -780,13 +788,12 @@ var ish = function(document, window, $) {
 	 */
 	ishObject.invoke = function(module, options, context) {
 		options = options || {};
-		context = context || {};
 		var createdModules = {}; // could/should this be an array?
 		options.selector = this.selector;
 		this.forEach(function($el, i) {
+			var currContext = context || {};
 			options.node = $el[0];
 			createdModules[i] = module.call(context, options, $el[0], options.selector);
-			if (!context) context = {};
 		});
 		return createdModules;
 	};
