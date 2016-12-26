@@ -17,7 +17,7 @@ There's two compiled files available in the dist folder.
 
 ### Compiling a custom version
 
-See the 'Compiling a Custom Package Tutorial'.
+See the, [Compiling a custom Ish.js package tutorial][tut2].
 
 ## Browser Support
 
@@ -95,10 +95,8 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
  - (Coming soon) Using the Tween Utility
 
 ## Immediate To-dos;
-
- -  Tween class is very verbose to use, I like its flexibility but I'm really missing the simplicity and ease of jQuery's animate().
- -  Tweens are not super smooth at certain settings, particulary longer time frames.
  -  Error reporting. There is none at the moment.
+ - 	Increase unit tests coverage
  -	Improved Documentation Theme
  
  [docs]: http://isj.digitalfeast.com.au/js/docs
@@ -135,7 +133,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
 
 
 /**
- * @constructor ish
+ * @namespace ish
  * @description A jQuery'ish set of utility methods. There is very few methods available under this namespace, the ish('selector') will by far be the most commonly used method. You'll also find an extends method and an optional AJAX utility.
  * @example
 (function($){
@@ -155,7 +153,7 @@ var ish = function(document, window, $) {
 	/* Lib Core
 	---------------------------------------*/
 	/**
-	 * @class ishObject
+	 * @mixin ishObject
 	 * @description
 	 * When you invoke the `ish('selector')` method `ishObject` members are inherited through Prototype Delegation to the returned collection.
 	 * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
@@ -326,7 +324,7 @@ var ish = function(document, window, $) {
 				return -1;
 			}
 		}
-		return this;
+		//return this;
 	};
 	/**
 	 * Gets an attributes value for the first element in the `ishObject`. If the second argument is supplied the 
@@ -730,8 +728,8 @@ var ish = function(document, window, $) {
 	 * Removes a class name from each Node in the given ishObject.
 	 * @name ishObject.removeClass
 	 * @function
-	 * @param  {String} name [description]
-	 * @return {ishObject}      [description]
+	 * @param  {String} name 	The class name you wish to remove from the element/s. 
+	 * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 
 	 * @example
 	 * ish('selector').removeClass('className');
 	 */
@@ -752,8 +750,8 @@ var ish = function(document, window, $) {
 	 * Adds a class name to each Node in the given ishObject.
 	 * @name ishObject.addClass
 	 * @function
-	 * @param  {string} name [description]
-	 * @return {ishObject}      [description]
+	 * @param  {string} name 	The class name you wish to add to the element/s. 
+	 * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 
 	 * @example
 	 * ish('selector').addClass('className');
 	 */
@@ -787,7 +785,7 @@ var ish = function(document, window, $) {
 		this.forEach(function($el, i) {
 			var currContext = context || {};
 			options.node = $el[0];
-			createdModules[i] = module.call(context, options, $el[0], options.selector);
+			createdModules[i] = module.call(currContext, options, $el[0], options.selector);
 		});
 		return createdModules;
 	};

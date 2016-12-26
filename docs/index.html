@@ -29,6 +29,8 @@
         
         <a href="ish.html">ish</a>
         
+        <!--<span class="static">static</span>-->
+        
         
         
         
@@ -365,7 +367,7 @@
 <li><code>ish.lite.min.js</code> is around 3KB and includes only the ish.core.js and ish.events.js methods. Minified it weighs in just under 3KB.</li>
 <li><code>ish.min.js</code> weighs in at around 8kb and incldes all Ish.js library methods.</li>
 </ul>
-<h3>Compiling a custom version</h3><p>See the 'Compiling a Custom Package Tutorial'.</p>
+<h3>Compiling a custom version</h3><p>See the, <a href="http://ish.digitalfeast.com.au/js/docs/tutorial-Compiling_a_Custom_Package.html">Compiling a custom Ish.js package tutorial</a>.</p>
 <h2>Browser Support</h2><ul>
 <li>IE9+</li>
 <li>Firefox</li>
@@ -423,199 +425,8 @@ $.tween(options);</code></pre><h2>Tutorials</h2><ul>
 <li>(Coming soon) Using the Tween Utility</li>
 </ul>
 <h2>Immediate To-dos;</h2><ul>
-<li>Tween class is very verbose to use, I like its flexibility but I'm really missing the simplicity and ease of jQuery's animate().</li>
-<li>Tweens are not super smooth at certain settings, particulary longer time frames.</li>
 <li>Error reporting. There is none at the moment.</li>
-<li>Improved Documentation Theme</li>
-</ul>
-				
-				  
-			</div>
-		</div> 
-  
-	
-
-	
-
-	
-
-<!--
-	
-
-	 
-
-	
-
--->
-   
-
-
-
-	
-
-	
-
-	
-
- 
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header class="c-page-header">
-	<div class="l-constrained c-content-block">
-		 
-		<h1 class="c-page-header__title">ish.js API Documentation</h1>
-	</div>
-</header>
-
-<article class="l-constrained">
-
-
-	
-		
-		<div class="c-api-doc--intro c-content-blockr">
-			<div class="c-content-block__inner">
-				
-
-
-<dl class="c-details">
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.0.1 (alpha)</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li><a href="mailto:code@digitalfeast.com.au">Michael Hargreaves</a></li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li>MIT</li></ul></dd>
-    
-
-    
-
-    
-
-    <!--<dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-
-        <a href="ish.js.html">ish.js</a>, <a href="ish.js.html#line1">line 1</a>
-        
-
-      <a href="ish.js.html#line1" class="button outline">ish.js</a>
-
-    </li></ul></dd>-->
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-				
-					<p>Ish.js is a super tiny Javascript library with a jQuery'ish syntax. </p>
-<h2>Distributed files</h2><p>There's two compiled files available in the dist folder.</p>
-<ul>
-<li><code>ish.lite.min.js</code> is around 3KB and includes only the ish.core.js and ish.events.js methods. Minified it weighs in just under 3KB.</li>
-<li><code>ish.min.js</code> weighs in at around 8kb and incldes all Ish.js library methods.</li>
-</ul>
-<h3>Compiling a custom version</h3><p>See the 'Compiling a Custom Package Tutorial'.</p>
-<h2>Browser Support</h2><ul>
-<li>IE9+</li>
-<li>Firefox</li>
-<li>Chrome</li>
-<li>Safari</li>
-</ul>
-<h2>Mobile Support</h2><p>TBA</p>
-<h2>Installation &amp; Quick Start</h2><p>Install with Git, Bower or NPM. </p>
-<pre class="prettyprint source"><code>// Git
-$ git clone https://github.com/mickatron/ish.js.git
-// Bower
-//Coming Soon
-// NPM
-//Coming Soon</code></pre><p>Then include the 'dist/ish.min.js' file on your html page and you're ready to go.</p>
-<pre class="prettyprint source"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;/path/to/ish.min.js&quot;></code></pre><h2>Core Methods</h2><pre class="prettyprint source"><code>// querySelectorAll based Selector Engine.
-ish('selector','context');
-
-// Selector Engine Utilities.
-ish('selector').nth();
-ish('selector').indexOf();
-ish('selector').forEach();
-
-// Basic Utils.
-ish('selector').attr();
-ish('selector').css();  
-ish('selector').offset();  
-ish('selector').dimension();
-
-// Event Methods.
-ish('selector').on();
-ish('selector').off();
-ish('selector').trigger();
-
-// Library Utils.
-ish.extends();</code></pre><h2>Optional Methods</h2><pre class="prettyprint source"><code>// AJAX
-ish.ajax();
-
-// ish().dimension Abstracts
-ish('selector').width();
-ish('selector').height();
-
-// Classname Utils.
-ish('selector').hasClass();
-ish('selector').addClass();
-ish('selector').removeClass();
-
-//  Responsive Breakpoint Component.
-$.responsive(options);
-
-// Tweening & Easing Components.
-$.tween(options);</code></pre><h2>Tutorials</h2><ul>
-<li><a href="http://ish.digitalfeast.com.au/js/docs/tutorial-Getting_Started.html">Getting Started</a></li>
-<li><a href="http://ish.digitalfeast.com.au/js/docs/tutorial-Compiling_a_Custom_Package.html">Compiling a custom Ish.js package</a></li>
-<li>(Coming soon) Using the Responsive Utility</li>
-<li>(Coming soon) Using the Tween Utility</li>
-</ul>
-<h2>Immediate To-dos;</h2><ul>
-<li>Tween class is very verbose to use, I like its flexibility but I'm really missing the simplicity and ease of jQuery's animate().</li>
-<li>Tweens are not super smooth at certain settings, particulary longer time frames.</li>
-<li>Error reporting. There is none at the moment.</li>
+<li>Increase unit tests coverage</li>
 <li>Improved Documentation Theme</li>
 </ul>
 				
@@ -660,7 +471,7 @@ $.tween(options);</code></pre><h2>Tutorials</h2><ul>
 </div>
 
     <!-- <footer>
-        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Dec 24 2016 01:21:26 GMT+1100 (AUS Eastern Daylight Time)
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Dec 25 2016 21:31:14 GMT+1100 (AUS Eastern Daylight Time)
     </footer> -->
 <script src="../dist/ish.min.js"> </script>
 <script src="main.js"> </script>

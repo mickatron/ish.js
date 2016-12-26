@@ -1,5 +1,5 @@
 /**
- * @class ishObject
+ * @mixin ishObject
  * @description
  * When you invoke the `ish('selector')` method `ishObject` members are inherited through Prototype Delegation to the returned collection.
  * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
@@ -170,7 +170,7 @@ ishObject.indexOf = function(needle) {
 			return -1;
 		}
 	}
-	return this;
+	//return this;
 };
 /**
  * Gets an attributes value for the first element in the `ishObject`. If the second argument is supplied the 

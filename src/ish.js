@@ -17,7 +17,7 @@ There's two compiled files available in the dist folder.
 
 ### Compiling a custom version
 
-See the 'Compiling a Custom Package Tutorial'.
+See the, [Compiling a custom Ish.js package tutorial][tut2].
 
 ## Browser Support
 
@@ -95,10 +95,8 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
  - (Coming soon) Using the Tween Utility
 
 ## Immediate To-dos;
-
- -  Tween class is very verbose to use, I like its flexibility but I'm really missing the simplicity and ease of jQuery's animate().
- -  Tweens are not super smooth at certain settings, particulary longer time frames.
  -  Error reporting. There is none at the moment.
+ - 	Increase unit tests coverage
  -	Improved Documentation Theme
  
  [docs]: http://isj.digitalfeast.com.au/js/docs
@@ -135,7 +133,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
 
 
 /**
- * @constructor ish
+ * @namespace ish
  * @description A jQuery'ish set of utility methods. There is very few methods available under this namespace, the ish('selector') will by far be the most commonly used method. You'll also find an extends method and an optional AJAX utility.
  * @example
 (function($){

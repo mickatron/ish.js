@@ -6,7 +6,6 @@ l- layout
 c- component
 m- module
 
-
 u- utility
 t- type
 i- icon
@@ -118,7 +117,7 @@ TODO: make them $font-size-giga etc...
 
 @media (min-width: 780px) {
   html {
-    font-size: 18px; } }
+    font-size: 16px; } }
 
 @media (min-width: 1920px) {
   html {
@@ -305,11 +304,11 @@ h1, h2, h3, h4, h5, h6, p {
 
 @media (min-width: 780px) {
   h1 {
-    font-size: 2.36859rem; } }
+    font-size: 1.728rem; } }
 
 @media (min-width: 1920px) {
   h1 {
-    font-size: 2.36859rem; } }
+    font-size: 1.728rem; } }
 
 @media (min-width: 0px) {
   h2 {
@@ -321,11 +320,11 @@ h1, h2, h3, h4, h5, h6, p {
 
 @media (min-width: 780px) {
   h2 {
-    font-size: 1.77689rem; } }
+    font-size: 1.44rem; } }
 
 @media (min-width: 1920px) {
   h2 {
-    font-size: 1.77689rem; } }
+    font-size: 1.44rem; } }
 
 @media (min-width: 0px) {
   h3 {
@@ -337,11 +336,11 @@ h1, h2, h3, h4, h5, h6, p {
 
 @media (min-width: 780px) {
   h3 {
-    font-size: 1.333rem; } }
+    font-size: 1.2rem; } }
 
 @media (min-width: 1920px) {
   h3 {
-    font-size: 1.333rem; } }
+    font-size: 1.2rem; } }
 
 @media (min-width: 0px) {
   h4 {
@@ -369,11 +368,11 @@ h1, h2, h3, h4, h5, h6, p {
 
 @media (min-width: 780px) {
   h5 {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 1920px) {
   h5 {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 0px) {
   h6 {
@@ -385,11 +384,11 @@ h1, h2, h3, h4, h5, h6, p {
 
 @media (min-width: 780px) {
   h6 {
-    font-size: 0.56278rem; } }
+    font-size: 0.69444rem; } }
 
 @media (min-width: 1920px) {
   h6 {
-    font-size: 0.56278rem; } }
+    font-size: 0.69444rem; } }
 
 @media (min-width: 0px) {
   p {
@@ -442,11 +441,11 @@ hr {
 
 @media (min-width: 780px) {
   code, kbd, pre, samp {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 1920px) {
   code, kbd, pre, samp {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 code {
   background: #f2f2f2;
@@ -469,11 +468,11 @@ code {
 
 @media (min-width: 780px) {
   .t-giga {
-    font-size: 5.61023rem; } }
+    font-size: 2.98598rem; } }
 
 @media (min-width: 1920px) {
   .t-giga {
-    font-size: 5.61023rem; } }
+    font-size: 2.98598rem; } }
 
 @media (min-width: 0px) {
   .t-mega {
@@ -485,11 +484,11 @@ code {
 
 @media (min-width: 780px) {
   .t-mega {
-    font-size: 4.20873rem; } }
+    font-size: 2.48832rem; } }
 
 @media (min-width: 1920px) {
   .t-mega {
-    font-size: 4.20873rem; } }
+    font-size: 2.48832rem; } }
 
 @media (min-width: 0px) {
   .t-kilo {
@@ -501,11 +500,11 @@ code {
 
 @media (min-width: 780px) {
   .t-kilo {
-    font-size: 3.15733rem; } }
+    font-size: 2.0736rem; } }
 
 @media (min-width: 1920px) {
   .t-kilo {
-    font-size: 3.15733rem; } }
+    font-size: 2.0736rem; } }
 
 @media (min-width: 0px) {
   .t-alpha {
@@ -517,11 +516,11 @@ code {
 
 @media (min-width: 780px) {
   .t-alpha {
-    font-size: 2.36859rem; } }
+    font-size: 1.728rem; } }
 
 @media (min-width: 1920px) {
   .t-alpha {
-    font-size: 2.36859rem; } }
+    font-size: 1.728rem; } }
 
 @media (min-width: 0px) {
   .t-beta {
@@ -533,11 +532,11 @@ code {
 
 @media (min-width: 780px) {
   .t-beta {
-    font-size: 1.77689rem; } }
+    font-size: 1.44rem; } }
 
 @media (min-width: 1920px) {
   .t-beta {
-    font-size: 1.77689rem; } }
+    font-size: 1.44rem; } }
 
 @media (min-width: 0px) {
   .t-gamma {
@@ -549,11 +548,11 @@ code {
 
 @media (min-width: 780px) {
   .t-gamma {
-    font-size: 1.333rem; } }
+    font-size: 1.2rem; } }
 
 @media (min-width: 1920px) {
   .t-gamma {
-    font-size: 1.333rem; } }
+    font-size: 1.2rem; } }
 
 @media (min-width: 0px) {
   .t-delta {
@@ -581,11 +580,11 @@ code {
 
 @media (min-width: 780px) {
   .t-epsilon {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 1920px) {
   .t-epsilon {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 0px) {
   .t-zeta {
@@ -597,11 +596,11 @@ code {
 
 @media (min-width: 780px) {
   .t-zeta {
-    font-size: 0.56278rem; } }
+    font-size: 0.69444rem; } }
 
 @media (min-width: 1920px) {
   .t-zeta {
-    font-size: 0.56278rem; } }
+    font-size: 0.69444rem; } }
 
 @media (min-width: 0px) {
   .t-milli {
@@ -613,11 +612,11 @@ code {
 
 @media (min-width: 780px) {
   .t-milli {
-    font-size: 0.42219rem; } }
+    font-size: 0.5787rem; } }
 
 @media (min-width: 1920px) {
   .t-milli {
-    font-size: 0.42219rem; } }
+    font-size: 0.5787rem; } }
 
 @media (min-width: 0px) {
   .t-micro {
@@ -629,11 +628,11 @@ code {
 
 @media (min-width: 780px) {
   .t-micro {
-    font-size: 0.31672rem; } }
+    font-size: 0.48225rem; } }
 
 @media (min-width: 1920px) {
   .t-micro {
-    font-size: 0.31672rem; } }
+    font-size: 0.48225rem; } }
 
 /* Text Effects */
 .t-relief {
@@ -665,10 +664,10 @@ label {
       font-size: 0.69444rem; } }
   @media (min-width: 780px) {
     label {
-      font-size: 0.56278rem; } }
+      font-size: 0.69444rem; } }
   @media (min-width: 1920px) {
     label {
-      font-size: 0.56278rem; } }
+      font-size: 0.69444rem; } }
 
 input, textarea {
   background: #636363;
@@ -685,10 +684,10 @@ input, textarea {
       font-size: 0.83333rem; } }
   @media (min-width: 780px) {
     input, textarea {
-      font-size: 0.75019rem; } }
+      font-size: 0.83333rem; } }
   @media (min-width: 1920px) {
     input, textarea {
-      font-size: 0.75019rem; } }
+      font-size: 0.83333rem; } }
 
 textarea {
   height: 10rem;
@@ -717,10 +716,10 @@ textarea {
         font-size: 0.83333rem; } }
     @media (min-width: 780px) {
       .c-site-logo__text {
-        font-size: 0.75019rem; } }
+        font-size: 0.83333rem; } }
     @media (min-width: 1920px) {
       .c-site-logo__text {
-        font-size: 0.75019rem; } }
+        font-size: 0.83333rem; } }
 
 .c-menu {
   border-top: 1px solid rgba(255, 255, 255, 0.25); }
@@ -735,10 +734,10 @@ textarea {
         font-size: 0.83333rem; } }
     @media (min-width: 780px) {
       .c-menu__title {
-        font-size: 0.75019rem; } }
+        font-size: 0.83333rem; } }
     @media (min-width: 1920px) {
       .c-menu__title {
-        font-size: 0.75019rem; } }
+        font-size: 0.83333rem; } }
     .c-menu__title--alpha {
       border-bottom: 1px solid rgba(255, 255, 255, 0.25);
       color: rgba(255, 255, 255, 0.5);
@@ -751,10 +750,10 @@ textarea {
           font-size: 0.83333rem; } }
       @media (min-width: 780px) {
         .c-menu__title--alpha {
-          font-size: 0.75019rem; } }
+          font-size: 0.83333rem; } }
       @media (min-width: 1920px) {
         .c-menu__title--alpha {
-          font-size: 0.75019rem; } }
+          font-size: 0.83333rem; } }
   .c-menu--alpha li {
     border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
     .c-menu--alpha li svg {
@@ -802,10 +801,10 @@ textarea {
           font-size: 1.728rem; } }
       @media (min-width: 780px) {
         .c-page-header__title--flourished:before, .c-page-header__title--flourished:after {
-          font-size: 2.36859rem; } }
+          font-size: 1.728rem; } }
       @media (min-width: 1920px) {
         .c-page-header__title--flourished:before, .c-page-header__title--flourished:after {
-          font-size: 2.36859rem; } }
+          font-size: 1.728rem; } }
     .c-page-header__title--flourished:before {
       left: -1rem; }
     .c-page-header__title--flourished:after {
@@ -839,10 +838,10 @@ textarea {
       font-size: 0.83333rem; } }
   @media (min-width: 780px) {
     .c-button, .c-button--small, .c-button--large, .c-button--outline, .c-button--truthy, .c-button--falsey, .c-button--alt, .c-button--alt-outline {
-      font-size: 0.75019rem; } }
+      font-size: 0.83333rem; } }
   @media (min-width: 1920px) {
     .c-button, .c-button--small, .c-button--large, .c-button--outline, .c-button--truthy, .c-button--falsey, .c-button--alt, .c-button--alt-outline {
-      font-size: 0.75019rem; } }
+      font-size: 0.83333rem; } }
   .c-button:hover, .c-button--small:hover, .c-button--large:hover, .c-button--outline:hover, .c-button--truthy:hover, .c-button--falsey:hover, .c-button--alt:hover, .c-button--alt-outline:hover {
     background: #174469;
     border-color: #174469; }
@@ -864,10 +863,10 @@ textarea {
       font-size: 0.69444rem; } }
   @media (min-width: 780px) {
     .c-button--small {
-      font-size: 0.56278rem; } }
+      font-size: 0.69444rem; } }
   @media (min-width: 1920px) {
     .c-button--small {
-      font-size: 0.56278rem; } }
+      font-size: 0.69444rem; } }
 
 .c-button--large {
   border-bottom-width: 4px; }
@@ -1165,10 +1164,10 @@ table {
       font-size: 0.83333rem; } }
   @media (min-width: 780px) {
     .c-params, .c-params code, .c-params p, .c-props, .c-props code, .c-props p {
-      font-size: 0.75019rem; } }
+      font-size: 0.83333rem; } }
   @media (min-width: 1920px) {
     .c-params, .c-params code, .c-params p, .c-props, .c-props code, .c-props p {
-      font-size: 0.75019rem; } }
+      font-size: 0.83333rem; } }
   .c-params td.c-description > p:first-child, .c-props td.c-description > p:first-child {
     margin-top: 0;
     padding-top: 0; }
@@ -1201,10 +1200,10 @@ table {
         font-size: 0.83333rem; } }
     @media (min-width: 780px) {
       .prettyprint code {
-        font-size: 0.75019rem; } }
+        font-size: 0.83333rem; } }
     @media (min-width: 1920px) {
       .prettyprint code {
-        font-size: 0.75019rem; } }
+        font-size: 0.83333rem; } }
 
 @media (min-width: 0px) {
   .c-api-doc h3, .c-api-doc--intro h3 {
@@ -1216,11 +1215,11 @@ table {
 
 @media (min-width: 780px) {
   .c-api-doc h3, .c-api-doc--intro h3 {
-    font-size: 1.77689rem; } }
+    font-size: 1.44rem; } }
 
 @media (min-width: 1920px) {
   .c-api-doc h3, .c-api-doc--intro h3 {
-    font-size: 1.77689rem; } }
+    font-size: 1.44rem; } }
 
 @media (min-width: 0px) {
   .c-api-doc h4, .c-api-doc--intro h4 {
@@ -1232,11 +1231,11 @@ table {
 
 @media (min-width: 780px) {
   .c-api-doc h4, .c-api-doc--intro h4 {
-    font-size: 1.333rem; } }
+    font-size: 1.2rem; } }
 
 @media (min-width: 1920px) {
   .c-api-doc h4, .c-api-doc--intro h4 {
-    font-size: 1.333rem; } }
+    font-size: 1.2rem; } }
 
 @media (min-width: 0px) {
   .c-api-doc h5, .c-api-doc--intro h5 {
@@ -1248,11 +1247,11 @@ table {
 
 @media (min-width: 780px) {
   .c-api-doc h5, .c-api-doc--intro h5 {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 1920px) {
   .c-api-doc h5, .c-api-doc--intro h5 {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 0px) {
   .c-api-doc h6, .c-api-doc--intro h6 {
@@ -1264,11 +1263,11 @@ table {
 
 @media (min-width: 780px) {
   .c-api-doc h6, .c-api-doc--intro h6 {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 @media (min-width: 1920px) {
   .c-api-doc h6, .c-api-doc--intro h6 {
-    font-size: 0.75019rem; } }
+    font-size: 0.83333rem; } }
 
 .c-api-doc h5, .c-api-doc--intro h5, .c-api-doc h6, .c-api-doc--intro h6 {
   text-transform: uppercase; }
@@ -1337,10 +1336,10 @@ table {
           font-size: 0.83333rem; } }
       @media (min-width: 780px) {
         .c-api-doc--intro .c-details {
-          font-size: 0.75019rem; } }
+          font-size: 0.83333rem; } }
       @media (min-width: 1920px) {
         .c-api-doc--intro .c-details {
-          font-size: 0.75019rem; } }
+          font-size: 0.83333rem; } }
       .c-api-doc--intro .c-details dt {
         float: left; }
       .c-api-doc--intro .c-details dd {
@@ -1413,10 +1412,10 @@ table {
           font-size: 0.83333rem; } }
       @media (min-width: 780px) {
         .c-main-nav .c-menu__subtitle {
-          font-size: 0.75019rem; } }
+          font-size: 0.83333rem; } }
       @media (min-width: 1920px) {
         .c-main-nav .c-menu__subtitle {
-          font-size: 0.75019rem; } }
+          font-size: 0.83333rem; } }
     .c-main-nav .c-menu__members {
       display: none; }
       .c-main-nav .c-menu__members a {
@@ -1434,10 +1433,10 @@ table {
             font-size: 0.69444rem; } }
         @media (min-width: 780px) {
           .c-main-nav .c-menu__members a {
-            font-size: 0.56278rem; } }
+            font-size: 0.69444rem; } }
         @media (min-width: 1920px) {
           .c-main-nav .c-menu__members a {
-            font-size: 0.56278rem; } }
+            font-size: 0.69444rem; } }
   .c-main-nav .c-menu__item--active {
     background-image: -webkit-linear-gradient(_fix-direction(to left), #246aa3, #174469);
     background-image: linear-gradient(to left, #246aa3, #174469); }
@@ -1490,10 +1489,10 @@ table {
           font-size: 1.2rem; } }
       @media (min-width: 780px) {
         .l-header h1 a {
-          font-size: 1.333rem; } }
+          font-size: 1.2rem; } }
       @media (min-width: 1920px) {
         .l-header h1 a {
-          font-size: 1.333rem; } }
+          font-size: 1.2rem; } }
     @media (min-width: 0px) {
       .l-header h1 span {
         font-size: 1rem; } }

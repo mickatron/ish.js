@@ -1,3 +1,4 @@
+// NPM MODULES
 var gulp = require('gulp');
 var del = require('del');
 var sourcemaps = require('gulp-sourcemaps');
@@ -8,26 +9,28 @@ var karma = require('karma').Server;
 var fileinclude = require('gulp-file-include');
 var shell = require('gulp-shell');
 var rename = require("gulp-rename");
-
-var jsGlobs = ['**/*.js', '!node_modules/**/*.js', '!build/**/*.js', '!dist/**/*.js', '!docs/**/*.js', '!doc-template/**/*.js'];
-var cleanFiles = ['dist/*', 'build/*', 'docs/*'];
+// Variables and Settings
+var _srcGlobs = ['**/*.js', '!node_modules/**/*.js', '!dist/**/*.js', '!docs/**/*.js', '!doc-template/**/*.js'];
+var _cleanGlobs = ['dist/*', 'docs/*'];
 var _karmaConf = __dirname + '/karma.conf.js';
-var _src = ["ish.js","ish.lite.js"];
+var _srcBuildFiles = ["ish.js","ish.lite.js"];
 var _srcDest = 'dist';
-var _minifyGlobs = _src.map( function(x){ return _srcDest+'/'+x; } );
+var _minifyGlobs = _srcBuildFiles.map( function(x){ return _srcDest+'/'+x; } );
+var _srcBuildFileGlobs = _srcBuildFiles.map(function(x){ return './src/'+x;}) 
 
+// TASKS
 gulp.task('cleanjs', function() {
-  return del(cleanFiles);
+  return del(_cleanGlobs);
 });
 
 gulp.task('lint', function() {
-  return  gulp.src(jsGlobs)
+  return  gulp.src(_srcGlobs)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task("bundlejs", ['cleanjs'], function() {
-  return gulp.src( _src.map(function(x){ return './src/'+x;}) )
+  return gulp.src( _srcBuildFileGlobs )
     .pipe(sourcemaps.init())  // TODO: having issues with source maps
     .pipe(include())
     .pipe(sourcemaps.write('.')) // TODO: having issues with source maps
@@ -54,12 +57,12 @@ gulp.task('minifyjs', ['bundlejs'], function() {
 
 
 gulp.task('docjs', ['bundlejs'], shell.task([
-  'jsdoc -c conf.json ./src/ish.js'
+  'jsdoc -c conf.json'
 ]));
 
 gulp.task('default', ['buildjs']);
 gulp.task('buildjs', ['lint', 'docjs', 'test', 'minifyjs']);
 gulp.task('builddev', ['lint', 'test', 'minifyjs']);
 
-gulp.task('watch', function() { gulp.watch(jsGlobs, ['buildjs']); });
-gulp.task('watchdev', function() { gulp.watch(jsGlobs, ['builddev']); });
+gulp.task('watch', function() { gulp.watch(_srcGlobs, ['buildjs']); });
+gulp.task('watchdev', function() { gulp.watch(_srcGlobs, ['builddev']); });

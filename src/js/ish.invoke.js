@@ -20,7 +20,7 @@ ishObject.invoke = function(module, options, context) {
 	this.forEach(function($el, i) {
 		var currContext = context || {};
 		options.node = $el[0];
-		createdModules[i] = module.call(context, options, $el[0], options.selector);
+		createdModules[i] = module.call(currContext, options, $el[0], options.selector);
 	});
 	return createdModules;
 };

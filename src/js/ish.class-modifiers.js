@@ -29,8 +29,8 @@ ishObject[hasClass] = function(test) {
  * Removes a class name from each Node in the given ishObject.
  * @name ishObject.removeClass
  * @function
- * @param  {String} name [description]
- * @return {ishObject}      [description]
+ * @param  {String} name 	The class name you wish to remove from the element/s. 
+ * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 
  * @example
  * ish('selector').removeClass('className');
  */
@@ -51,8 +51,8 @@ ishObject[removeClass] = function(name) {
  * Adds a class name to each Node in the given ishObject.
  * @name ishObject.addClass
  * @function
- * @param  {string} name [description]
- * @return {ishObject}      [description]
+ * @param  {string} name 	The class name you wish to add to the element/s. 
+ * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 
  * @example
  * ish('selector').addClass('className');
  */
