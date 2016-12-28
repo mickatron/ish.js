@@ -16,7 +16,7 @@ var _karmaConf = __dirname + '/karma.conf.js';
 var _srcBuildFiles = ["ish.js","ish.lite.js"];
 var _srcDest = 'dist';
 var _minifyGlobs = _srcBuildFiles.map( function(x){ return _srcDest+'/'+x; } );
-var _srcBuildFileGlobs = _srcBuildFiles.map(function(x){ return './src/'+x;}) 
+var _srcBuildFileGlobs = _srcBuildFiles.map(function(x){ return './src/'+x;});
 
 // TASKS
 gulp.task('cleanjs', function() {
