@@ -3,6 +3,7 @@
 
 // watchableProtoModule
 // TODO: batch updates rather than individual calls
+// TODO: use Proxy and regress to current implementation if not availiable
 // TODO: Write tests
 // TODO: Document
 (function(){
@@ -16,7 +17,6 @@
             });
         }, this);
     };
-    
     // set value and call handler fn
     var setAndCallHandler = function (prop, value, oldValue){
         this.__watchShadow[prop] = value;
@@ -60,33 +60,32 @@
             }
         }
     };
-
     // EXPOSED PROTOTYPES
     $.fn.observableObject = Object.create({},watchableProps);
-    Object.defineProperty($.fn.observableObject, 'assign', {
-        value: function() {
-            var assigned = Object.assign.apply(this.__watchShadow,arguments);
-            for(var each in assigned) {
-                // is the property being watched?
-                if(!this.__watchShadow[each]){
-                    console.log('assign called watching new prop '+each);
-                    this.watch(each);
-                    // emit : new item added
-                    emit.call(this,'add',each, undefined, assigned[each]);
+    Object.defineProperties($.fn.observableObject, {
+        assign: {
+            value: function() {
+                var assigned = Object.assign.apply(this.__watchShadow,arguments);
+                for(var each in assigned) {
+                    // is the property being watched?
+                    if(!this.__watchShadow[each]){
+                        this.watch(each);
+                        // emit : new item added
+                        emit.call(this,'add',each, undefined, assigned[each]);
+                    }
                 }
             }
-
-        }
-    });
-    Object.defineProperty($.fn.observableObject, 'deleteProps', {
-        value: function() {
-            var args = [].slice.call(arguments);
-            for (var i = 0; i < args.length; i++) {
-                var value = this[args[i]];
-                this.unwatch(args[i]);
-                delete this[args[i]];
-                 // emit : item removed
-                emit.call(this,'remove', args[i], value, undefined);
+        }, 
+        deleteProps: {
+            value: function() {
+                var args = [].slice.call(arguments);
+                for (var i = 0; i < args.length; i++) {
+                    var value = this[args[i]];
+                    this.unwatch(args[i]);
+                    delete this[args[i]];
+                     // emit : item removed
+                    emit.call(this,'remove', args[i], value, undefined);
+                }
             }
         }
     });
@@ -100,13 +99,10 @@
                 var index;
                 var i;
                 // TODO: improve the below if block
-                if(method==='pop') { 
-                    // DONE
+                if(method==='pop') {
                     index = shadow.length-2;
                     emit.call(this,'remove', index, shadow[index], undefined);
-
                 } else if(method==='push') {
-                    // DONE
                     index = shadow.length-1;
                     for (i = 0; i < args.length; i++) {
                         this.watch(index);
@@ -114,12 +110,9 @@
                         index++;
                     }
                 } else if(method==='shift') {
-                    // DONE
                     index = 0;
                     emit.call(this,'remove', index, shadow[index], undefined);
-
                 } else if(method==='splice') {
-                    // DONE
                     index = args[0];
                     var fromIndex = index;
                     var deleteHowMany = args[1];
@@ -139,8 +132,7 @@
                             index++;
                        }   
                     }
-                } else if(method==='unshift') { 
-                    // DONE
+                } else if(method==='unshift') {
                     index = shadow.length - args.length;
                     for (i = 0; i < args.length; i++) {
                         this.watch(index); 
@@ -154,7 +146,6 @@
         });
     });
 })(); 
-
 // WATCHABLE: OBJECT ONLY
 $.watchable = function (obj, handler, watchMutators) {  
     var objProps = {
@@ -174,7 +165,6 @@ $.watchable = function (obj, handler, watchMutators) {
     var watchable = $.extend(Object.create($.fn.observableObject, objProps), obj);
     return watchable;
 };
-
 // OBSERVABLE: Object || Array
 $.observable = function (objectOrArray, state) {
     //var objectOrArray = state.data;
