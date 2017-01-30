@@ -107,7 +107,15 @@ var ish = function(document, window, $) {
   	obj.context = context;
   	return obj;
   };
-  $.fn = {};
+  
+  /**
+   * An object which stores prototype objects.
+   * @memberOf ish
+   * @name  ish.fn
+   */
+  $.fn = {
+  	ishObject: ishObject
+  };
   
   //Returns true if it is a DOM node
   function isNode(o) {

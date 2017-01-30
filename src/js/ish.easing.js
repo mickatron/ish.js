@@ -43,11 +43,11 @@
 </tbody>
 </table>
  * 
- * @name  ish.easing
+ * @name  ish.fn.easing
  * @namespace
  *
  */
-$.easing = {
+$.fn.easing = {
 	/**
 	 * @memberOf ish.easing
 	 */

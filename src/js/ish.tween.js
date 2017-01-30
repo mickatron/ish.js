@@ -16,7 +16,7 @@ var tweener = function() {
 			var valueChange = tween[i - 1] ? tween[i - 1].data : 0;
 
 			// if it's the last frame use the end value or else pass it through the easing functions.
-			tween[i].data = i === frameCount - 1 ? end : $.easing[easingfn](i, start, diff, frameCount);
+			tween[i].data = i === frameCount - 1 ? end : $.fn.easing[easingfn](i, start, diff, frameCount);
 			tween[i].event = null;
 		}
 		return tween;

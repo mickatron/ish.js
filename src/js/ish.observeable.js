@@ -61,7 +61,6 @@
         }
     };
 
-    return watchableProps;
     // EXPOSED PROTOTYPES
     $.fn.observableObject = Object.create({},watchableProps);
     Object.defineProperty($.fn.observableObject, 'assign', {

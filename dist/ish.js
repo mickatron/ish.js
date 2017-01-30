@@ -256,7 +256,15 @@ var ish = function(document, window, $) {
 		obj.context = context;
 		return obj;
 	};
-	$.fn = {};
+	
+	/**
+	 * An object which stores prototype objects.
+	 * @memberOf ish
+	 * @name  ish.fn
+	 */
+	$.fn = {
+		ishObject: ishObject
+	};
 	
 	//Returns true if it is a DOM node
 	function isNode(o) {
@@ -806,7 +814,7 @@ var ish = function(document, window, $) {
 				var valueChange = tween[i - 1] ? tween[i - 1].data : 0;
 	
 				// if it's the last frame use the end value or else pass it through the easing functions.
-				tween[i].data = i === frameCount - 1 ? end : $.easing[easingfn](i, start, diff, frameCount);
+				tween[i].data = i === frameCount - 1 ? end : $.fn.easing[easingfn](i, start, diff, frameCount);
 				tween[i].event = null;
 			}
 			return tween;
@@ -1039,11 +1047,11 @@ var ish = function(document, window, $) {
 	</tbody>
 	</table>
 	 * 
-	 * @name  ish.easing
+	 * @name  ish.fn.easing
 	 * @namespace
 	 *
 	 */
-	$.easing = {
+	$.fn.easing = {
 		/**
 		 * @memberOf ish.easing
 		 */
@@ -1370,152 +1378,159 @@ var ish = function(document, window, $) {
 	// 
 	// http://stackoverflow.com/questions/5100376/how-to-watch-for-array-changes
 	
-	var emit = function (type, prop, oldValue, value){
-	    this.watchHandlers[type].forEach(function(handler){
-	        handler.call(this, {
-	            type: type,
-	            prop: prop,
-	            previousValue: oldValue,
-	            value: value
-	        });
-	    }, this);
-	};
-	
-	// set value and call handler fn
-	var setAndCallHandler = function (prop, value, oldValue){
-	    this.__watchShadow[prop] = value;
-	    emit.call(this,'set', prop, oldValue, value);
-	};
-	
-	var watchableProps = {
-	    'watch': {
-	        value : function (prop) {
-	            var shadow = this.__watchShadow;
-	            if(shadow[prop]) return; // if already being watched return
-	            var oldValue = this[prop];
-	            shadow[prop] = oldValue;
-	            var mutatorCallback = function(newValue){
-	                setAndCallHandler.call(this, prop, newValue, shadow[prop]);
-	            }.bind(this); 
-	            // Lastly override the property defining new getter and setters
-	            Object.defineProperty(this, prop, {
-	                get: function () {
-	                    return shadow[prop];
-	                }, 
-	                set: function (value) {
-	                    var mutator = this.watchMutators[prop];
-	                    if(mutator){
-	                        mutator.call(this,prop, value, mutatorCallback);
-	                    } else {
-	                        setAndCallHandler.call(this, prop, value, shadow[prop]);
-	                    }
-	                }, 
-	                enumerable: true, 
-	                configurable: true
+	// watchableProtoModule
+	// TODO: batch updates rather than individual calls
+	// TODO: Write tests
+	// TODO: Document
+	(function(){
+	    var emit = function (type, prop, oldValue, value){
+	        this.watchHandlers[type].forEach(function(handler){
+	            handler.call(this, {
+	                type: type,
+	                prop: prop,
+	                previousValue: oldValue,
+	                value: value
 	            });
-	        }
-	    },
-	    'unwatch': {
-	        value : function (prop) {
-	            var value = this[prop];
-	            delete this[prop]; // remove accessors
-	            this[prop] = value; // reset the property
-	            delete this.__watchShadow[prop]; // remove facade reference
-	        }
-	    }
-	};
+	        }, this);
+	    };
+	    
+	    // set value and call handler fn
+	    var setAndCallHandler = function (prop, value, oldValue){
+	        this.__watchShadow[prop] = value;
+	        emit.call(this,'set', prop, oldValue, value);
+	    };
 	
-	var watchableObjectProto = Object.create({},watchableProps);
-	Object.defineProperty(watchableObjectProto, 'assign', {
-	    value: function() {
-	        var assigned = Object.assign.apply(this.__watchShadow,arguments);
-	        for(var each in assigned) {
-	            // is the property being watched?
-	            if(!this.__watchShadow[each]){
-	                console.log('assign called watching new prop '+each);
-	                this.watch(each);
-	                // emit : new item added
-	                emit.call(this,'add',each, undefined, assigned[each]);
+	    var watchableProps = {
+	        'watch': {
+	            value : function (prop) {
+	                var shadow = this.__watchShadow;
+	                if(shadow[prop]) return; // if already being watched return
+	                var oldValue = this[prop];
+	                shadow[prop] = oldValue;
+	                var mutatorCallback = function(newValue){
+	                    setAndCallHandler.call(this, prop, newValue, shadow[prop]);
+	                }.bind(this); 
+	                // Lastly override the property defining new getter and setters
+	                Object.defineProperty(this, prop, {
+	                    get: function () {
+	                        return shadow[prop];
+	                    }, 
+	                    set: function (value) {
+	                        var mutator = this.watchMutators[prop];
+	                        if(mutator){
+	                            mutator.call(this,prop, value, mutatorCallback);
+	                        } else {
+	                            setAndCallHandler.call(this, prop, value, shadow[prop]);
+	                        }
+	                    }, 
+	                    enumerable: true, 
+	                    configurable: true
+	                });
+	            }
+	        },
+	        'unwatch': {
+	            value : function (prop) {
+	                var value = this[prop];
+	                delete this[prop]; // remove accessors
+	                this[prop] = value; // reset the property
+	                delete this.__watchShadow[prop]; // remove facade reference
 	            }
 	        }
+	    };
 	
-	    }
-	});
-	Object.defineProperty(watchableObjectProto, 'deleteProps', {
-	    value: function() {
-	        var args = [].slice.call(arguments);
-	        for (var i = 0; i < args.length; i++) {
-	            var value = this[args[i]];
-	            this.unwatch(args[i]);
-	            delete this[args[i]];
-	             // emit : item removed
-	            emit.call(this,'remove', args[i], value, undefined);
-	        }
-	    }
-	});
-	
-	var watchableArrayProto = Object.create([],watchableProps);
-	['pop','push','shift','splice','unshift'].forEach(function(method){
-	    Object.defineProperty(watchableArrayProto, method, {
+	    // EXPOSED PROTOTYPES
+	    $.fn.observableObject = Object.create({},watchableProps);
+	    Object.defineProperty($.fn.observableObject, 'assign', {
 	        value: function() {
-	            var args = [].slice.call(arguments);
-	            var shadow = this.__watchShadow;
-	            var index;
-	            var i;
-	            if(method==='pop') { 
-	                // DONE
-	                index = shadow.length-2;
-	                emit.call(this,'remove', index, shadow[index], undefined);
-	
-	            } else if(method==='push') {
-	                // DONE
-	                index = shadow.length-1;
-	                for (i = 0; i < args.length; i++) {
-	                    this.watch(index);
-	                    emit.call(this,'add', index, args[i], undefined);
-	                    index++;
+	            var assigned = Object.assign.apply(this.__watchShadow,arguments);
+	            for(var each in assigned) {
+	                // is the property being watched?
+	                if(!this.__watchShadow[each]){
+	                    console.log('assign called watching new prop '+each);
+	                    this.watch(each);
+	                    // emit : new item added
+	                    emit.call(this,'add',each, undefined, assigned[each]);
 	                }
-	            } else if(method==='shift') {
-	                // DONE
-	                index = 0;
-	                emit.call(this,'remove', index, shadow[index], undefined);
+	            }
 	
-	            } else if(method==='splice') {
-	                // DONE
-	                index = args[0];
-	                var fromIndex = index;
-	                var deleteHowMany = args[1];
-	                var toAdd = args.slice(1, args.length-1);
-	                // removal
-	                if(deleteHowMany > 0) {
-	                   for (i = 0; i < deleteHowMany; i++) {
-	                        emit.call(this,'remove', index, shadow[i], undefined); 
-	                        index++;
-	                   }
-	                }
-	                // addition
-	                if(toAdd.length > 1) {
-	                    index = fromIndex; // reset index
-	                    for (i = 0; i < toAdd.length; i++) {
-	                        emit.call(this,'add', index, undefined, toAdd[i]); 
-	                        index++;
-	                   }   
-	                }
-	
-	            } else if(method==='unshift') { 
-	                // DONE
-	                index = shadow.length - args.length;
-	                for (i = 0; i < args.length; i++) {
-	                    this.watch(index); 
-	                    emit.call(this,'add', index, undefined, args[i]);
-	                    index++;
-	                }
-	            } 
-	
-	            return [][method].apply(this,arguments);
 	        }
 	    });
-	});
+	    Object.defineProperty($.fn.observableObject, 'deleteProps', {
+	        value: function() {
+	            var args = [].slice.call(arguments);
+	            for (var i = 0; i < args.length; i++) {
+	                var value = this[args[i]];
+	                this.unwatch(args[i]);
+	                delete this[args[i]];
+	                 // emit : item removed
+	                emit.call(this,'remove', args[i], value, undefined);
+	            }
+	        }
+	    });
+	
+	    $.fn.observableArray = Object.create([],watchableProps);
+	    ['pop','push','shift','splice','unshift'].forEach(function(method){
+	        Object.defineProperty($.fn.observableArray, method, {
+	            value: function() {
+	                var args = [].slice.call(arguments);
+	                var shadow = this.__watchShadow;
+	                var index;
+	                var i;
+	                // TODO: improve the below if block
+	                if(method==='pop') { 
+	                    // DONE
+	                    index = shadow.length-2;
+	                    emit.call(this,'remove', index, shadow[index], undefined);
+	
+	                } else if(method==='push') {
+	                    // DONE
+	                    index = shadow.length-1;
+	                    for (i = 0; i < args.length; i++) {
+	                        this.watch(index);
+	                        emit.call(this,'add', index, args[i], undefined);
+	                        index++;
+	                    }
+	                } else if(method==='shift') {
+	                    // DONE
+	                    index = 0;
+	                    emit.call(this,'remove', index, shadow[index], undefined);
+	
+	                } else if(method==='splice') {
+	                    // DONE
+	                    index = args[0];
+	                    var fromIndex = index;
+	                    var deleteHowMany = args[1];
+	                    var toAdd = args.slice(1, args.length-1);
+	                    // removal
+	                    if(deleteHowMany > 0) {
+	                       for (i = 0; i < deleteHowMany; i++) {
+	                            emit.call(this,'remove', index, shadow[i], undefined); 
+	                            index++;
+	                       }
+	                    }
+	                    // addition
+	                    if(toAdd.length > 1) {
+	                        index = fromIndex; // reset index
+	                        for (i = 0; i < toAdd.length; i++) {
+	                            emit.call(this,'add', index, undefined, toAdd[i]); 
+	                            index++;
+	                       }   
+	                    }
+	                } else if(method==='unshift') { 
+	                    // DONE
+	                    index = shadow.length - args.length;
+	                    for (i = 0; i < args.length; i++) {
+	                        this.watch(index); 
+	                        emit.call(this,'add', index, undefined, args[i]);
+	                        index++;
+	                    }
+	                } 
+	
+	                return [][method].apply(this,arguments);
+	            }
+	        });
+	    });
+	})(); 
 	
 	// WATCHABLE: OBJECT ONLY
 	$.watchable = function (obj, handler, watchMutators) {  
@@ -1533,15 +1548,15 @@ var ish = function(document, window, $) {
 	            value : {}
 	        }
 	    };
-	    var watchable = $.extend(Object.create(watchableObjectProto, objProps), obj);
+	    var watchable = $.extend(Object.create($.fn.observableObject, objProps), obj);
 	    return watchable;
 	};
 	
 	// OBSERVABLE: Object || Array
-	$.observableObject = function (objectOrArray, state) {
+	$.observable = function (objectOrArray, state) {
 	    //var objectOrArray = state.data;
 	    var isArray = Array.isArray(objectOrArray);
-	    var proto = isArray ? watchableArrayProto : watchableObjectProto;   
+	    var proto = isArray ? $.fn.observableArray : $.fn.observableObject;   
 	    var shadow = isArray ? [] : {};
 	    // we dont want these to be enumerable so it loops like a regular object.
 	    var objProps = {
@@ -1598,7 +1613,7 @@ var ish = function(document, window, $) {
 	};
 	        
 	
-	var observedObj = ish.observableObject({data:'hello', text:'heya'}, {
+	var observedObj = ish.observable({data:'hello', text:'heya'}, {
 	    handlers: {
 	        set: [observeHandler],
 	        add: [observeHandler],
@@ -1657,7 +1672,7 @@ var ish = function(document, window, $) {
 	};
 	        
 	
-	var observedArray = ish.observableObject([1, 'hello','heya', true], {
+	var observedArray = ish.observable([1, 'hello','heya', true], {
 	    handlers: {
 	        set: [observeHandler],
 	        add: [observeHandler],
