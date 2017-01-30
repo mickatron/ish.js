@@ -1,5 +1,5 @@
 /**
- * A deprecated factory helper function. This will be removed before official beta release.
+ * A deprecated factory helper function. Not included in any default dist, compile your own if you wish to use. This will be removed before official beta release.
  * @function
  * @name  ishObject.invoke
  * @param {Object} module    The module or components function body.

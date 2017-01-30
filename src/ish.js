@@ -170,11 +170,11 @@ var ish = function(document, window, $) {
 	//=require /js/ish.dimension.abstracts.js 
 	//=require /js/ish.ajax.js
 	//=require /js/ish.class-modifiers.js
-	//=require /js/ish.invoke.js 
+	//!=require /js/ish.invoke.js // Deprecated, extra optional
 
 	/* Lib Optional Components
 	---------------------------------------*/
-	//=require /js/ish.easing.js
+	//!=require /js/ish.easing.js // just if you really need them
 	//=require /js/ish.responsive.js
 	//=require /js/ish.observeable.js
 
