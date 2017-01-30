@@ -1,4 +1,205 @@
-//=require ish.core.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | Source: js/ish.observeable.js</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extend"><a href="ish.html#extend">extend</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ishObject">
+        
+        <a href="ishObject.html">ishObject</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ishObject.context"><a href="ishObject.html#.context">context</a></li>
+            
+            <li data-name="ishObject.length"><a href="ishObject.html#.length">length</a></li>
+            
+            <li data-name="ishObject.selector"><a href="ishObject.html#.selector">selector</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ishObject.addClass"><a href="ishObject.html#.addClass">addClass</a></li>
+            
+            <li data-name="ishObject.attr"><a href="ishObject.html#.attr">attr</a></li>
+            
+            <li data-name="ishObject.css"><a href="ishObject.html#.css">css</a></li>
+            
+            <li data-name="ishObject.dimension"><a href="ishObject.html#.dimension">dimension</a></li>
+            
+            <li data-name="ishObject.forEach"><a href="ishObject.html#.forEach">forEach</a></li>
+            
+            <li data-name="ishObject.hasClass"><a href="ishObject.html#.hasClass">hasClass</a></li>
+            
+            <li data-name="ishObject.height"><a href="ishObject.html#.height">height</a></li>
+            
+            <li data-name="ishObject.indexOf"><a href="ishObject.html#.indexOf">indexOf</a></li>
+            
+            <li data-name="ishObject.invoke"><a href="ishObject.html#.invoke">invoke</a></li>
+            
+            <li data-name="ishObject.nth"><a href="ishObject.html#.nth">nth</a></li>
+            
+            <li data-name="ishObject.off"><a href="ishObject.html#.off">off</a></li>
+            
+            <li data-name="ishObject.offset"><a href="ishObject.html#.offset">offset</a></li>
+            
+            <li data-name="ishObject.on"><a href="ishObject.html#.on">on</a></li>
+            
+            <li data-name="ishObject.removeClass"><a href="ishObject.html#.removeClass">removeClass</a></li>
+            
+            <li data-name="ishObject.trigger"><a href="ishObject.html#.trigger">trigger</a></li>
+            
+            <li data-name="ishObject.width"><a href="ishObject.html#.width">width</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.fn.easing">
+        
+        <a href="ish.fn.easing.html">ish.fn.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+    </li>
+
+    <li data-name="ish.observable">
+        
+        <a href="ish.observable.html">ish.observable</a>
+        
+        
+        
+        
+        
+        
+    </li>
+
+    <li data-name="ish.watchable">
+        
+        <a href="ish.watchable.html">ish.watchable</a>
+        
+        
+        
+        
+        
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                
+
+
+
+	
+    <section class="c-source-content">
+        <article>
+            <pre class="prettyprint source linenums"><code>//=require ish.core.js
 //
 // Code Inspired by:
 // https://github.com/remy/bind.js/blob/master/README.md
@@ -83,7 +284,7 @@
         deleteProps: {
             value: function() {
                 var args = [].slice.call(arguments);
-                for (var i = 0; i < args.length; i++) {
+                for (var i = 0; i &lt; args.length; i++) {
                     var value = this[args[i]];
                     this.unwatch(args[i]);
                     delete this[args[i]];
@@ -109,7 +310,7 @@
                     emit.call(this,'remove', index, shadow[index], undefined);
                 } else if(method==='push') {
                     index = shadow.length-1;
-                    for (i = 0; i < args.length; i++) {
+                    for (i = 0; i &lt; args.length; i++) {
                         this.watch(index);
                         emit.call(this,'add', index, args[i], undefined);
                         index++;
@@ -124,7 +325,7 @@
                     var toAdd = args.slice(1, args.length-1);
                     // removal
                     if(deleteHowMany > 0) {
-                       for (i = 0; i < deleteHowMany; i++) {
+                       for (i = 0; i &lt; deleteHowMany; i++) {
                             emit.call(this,'remove', index, shadow[i], undefined); 
                             index++;
                        }
@@ -132,14 +333,14 @@
                     // addition
                     if(toAdd.length > 1) {
                         index = fromIndex; // reset index
-                        for (i = 0; i < toAdd.length; i++) {
+                        for (i = 0; i &lt; toAdd.length; i++) {
                             emit.call(this,'add', index, undefined, toAdd[i]); 
                             index++;
                        }   
                     }
                 } else if(method==='unshift') {
                     index = shadow.length - args.length;
-                    for (i = 0; i < args.length; i++) {
+                    for (i = 0; i &lt; args.length; i++) {
                         this.watch(index); 
                         emit.call(this,'add', index, undefined, args[i]);
                         index++;
@@ -402,3 +603,22 @@ watchableObject.text = 'test changed';
 watchableObject.data = 'changedd';
 
 */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 21:42:29 GMT+1100 (AUS Eastern Daylight Time)
+    </footer> -->
+<script src="../../js/dist/ish.min.js"> </script>
+<script src="main.js"> </script>
+
+</body>
+</html>

@@ -1115,12 +1115,111 @@ var ish = function(document, window, $) {
 	        };
 	    };
 	    // EXPOSED METHODS
-	    // WATCHABLE: OBJECT ONLY
+	    
+	/**
+	 * Creates a watchable Object.
+	 * @name  ish.watchable
+	 * @constructor
+	 * @param {object} options
+	 * @param {state} options.breakpoints An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.
+	  * @param {state.mutators} An object of mutator functions. Objects keys represent the value to be mutated.
+	 * @param {state.handlers} An object containing arrays of callback functions.
+	 * @param {state.handlers.set} Item set callbacks
+	 * @param {state.handlers.add} Item add callbacks
+	 * @param {state.handlers.remove}  Item remove callbacks
+	 * @return {ish.watchable} The watchable instances public API.
+	 * @example
+	// WATCHABLE: Object only usage examples
+	var dataWatchCallback = function(){
+	        console.log('data has changed ',arguments);
+	};
+	
+	var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
+	handlers: {
+	        set: [dataWatchCallback],
+	        add: [dataWatchCallback],
+	        remove: [dataWatchCallback]
+	    },
+	    mutators:{
+	        data : function(prop,value, callback){
+	            //mutator fn
+	            return callback('mutated value: ' + value);
+	        }
+	    }
+	
+	});
+	
+	console.log('inital : ',watchableObject.data);
+	
+	watchableObject.watch('data');
+	watchableObject.data = 'changed';
+	watchableObject.text = 'test changed';
+	watchableObject.data = 'changedd';
+	 });
+	 */
+	
 	    $.watchable = function (obj, state) {  
 	        var props = createProps(state.handlers, state.mutators, {});
 	        var watchable = $.extend(Object.create($.fn.observableObject, props), obj);
 	        return watchable;
 	    };
+	
+	/**
+	 * Creates an observable Object or Array.
+	 * @name  ish.observable
+	 * @constructor
+	 * @param {object} options
+	 * @param {state} options.breakpoints An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.
+	  * @param {state.mutators} An object of mutator functions. Objects keys represent the value to be mutated.
+	 * @param {state.handlers} An object containing arrays of callback functions.
+	 * @param {state.handlers.set} Item set callbacks
+	 * @param {state.handlers.add} Item add callbacks
+	 * @param {state.handlers.remove}  Item remove callbacks
+	 * @return {ish.observable} The watchable instances public API.
+	 * @example
+	// Observable : Object
+	var observeObjectHandler = function(){
+	    console.log('observed!!! ', this, arguments)
+	};
+	
+	var observedObj = ish.observable({data:'hello', text:'heya'}, {
+	    handlers: {
+	        set: [observeObjectHandler],
+	        add: [observeObjectHandler],
+	        remove: [observeObjectHandler]
+	        },
+	    mutators: {
+	        data: function(prop,value,callback){callback('mutated data value: '+value);},
+	        text: function(prop,value,callback){callback('mutated text value: '+value);}
+	    }
+	});
+	
+	console.log('inital : ',observedObj);
+	
+	observedObj._watchMutators.data = function(prop,value,callback){
+	    callback('updated mutated text value: '+value);
+	};
+	
+	observedObj.data = 'changed'; // works
+	observedObj.text = 'hello'; // works
+	observedObj.new  = 'new'; // doesnt work will be watched.
+	observedObj.watch('new'); // if setting an Object value with dot or bracket syntax you must call watch manually.
+	observedObj.new  = 'new new';
+	ish.extend(observedObj, {data: 'ish.extend value', text: 'ish.extend text value'}); //works, but new values are not watched
+	observedObj.assign(observedObj, {data: 'Object.assign value', text: 'Object.assign text value', assignedNew: 'assignedNewValue'}); // works
+	
+	
+	console.log('delete');
+	//delete observedObj.data; // cannot hook to delte so it should be avoided.
+	observedObj.deleteProps('data');
+	
+	Object.defineProperty(observedObj, 'text' , {
+	    value: 'definedPropValue'
+	}); // as expected defineProperty will remove the getter/setter from the property
+	
+	 });
+	 */
+	
 	    // OBSERVABLE: Object || Array
 	    $.observable = function (objectOrArray, state) {
 	        //var objectOrArray = state.data;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ish.js | Source: js/ish.ajax.js</title>
+    <title>ish.js | watchable factory</title>
     <link type="text/css" rel="stylesheet" href="main.css">
 </head>
 
@@ -196,81 +196,423 @@
 
 
 
+
+<section>
+
+<header class="c-page-header">
+	<div class="l-constrained c-content-block">
+		 
+		<h1 class="c-page-header__title">The watchable factory</h1>
+	</div>
+</header>
+
+<article class="l-constrained">
+
+
 	
-    <section class="c-source-content">
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Make an XHR request. The implementation is currently very basic, the response is not parsed as JSON or converted to a String, you will have to do that to the response manually when it's returned. 
- * @name  ajax
- * @function
- * @memberof ish
- * @param  {Object} options
- * @param  {String} options.type Acceptable values are; 'GET','POST','PUT','DELETE'.
- * @param  {String} options.url  The url of the request.
- * @param  {Function} options.success A callback function triggered when the ajax call is successful. The responseText is passed as the first parameter of the function, other values are availiable from the XMLHttpRequest Object returned from this component.
- * @param  {Function} options.error  A callback function triggered if the ajax call is unsuccessful.
- * @param  {Object} options.data A custom data object to pass with the request.
- * @param  {Object} options.headers An Object with String key values representing the header and its values. You can add custom header values here. 
- * @param  {String} options.headers.Accept By default the Accept header is ommited although it is a common one to set so it gains a mention here. Common values are: `"text/plain"`, `"text/html"`, `"application/xml, text/xml"`, `"application/json, text/javascript"`
- * @param  {String} options.headers.Content-Type Default value is `'application/x-www-form-urlencoded'` other values often used are: `'text/plain'`, `'multipart/form-data'`, `'application/json'` or `'text/xml'`.
- * @param  {String} options.headers.X-Requested-With Default value is 'XMLHttpRequest'.
- * @return {ish}     Returns the XMLHttpRequest Object.
- * @example
- * var reqSuccess = function(data){
- * 	//success
- * 	console.log('success', data, req);
- * };
- * var reqError = function(statusText, status){
- * 	//error
- * 	console.log('There was an error. '+status+' : '+statusText, req);
- * };
- * 
- * var req = ish.ajax({
- * 	type:'JSON',
- * 	url: 'http://domain.com/ajaxhandler',
- * 	success: reqSuccess,
- * 	error: reqError,
- * 	data: {"JSON":"data"}
- * });
- */
-$.ajax = function(options) {
+		<div class="c-api-doc--intro c-content-block">
+			
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id="watchable">ish.watchable(options, An, An, Item, Item, Item)</h4>
+        
+        
 
-	var settings = $.extend({
-		type: 'GET', // PUT OR JSON, GET, POST
-		url: '',
-		success: null,
-		error: null,
-		data: '',
-		headers: {
-			"X-Requested-With": 'XMLHttpRequest',
-			'Content-Type': 'application/x-www-form-urlencoded'
-		}
-	}, options);
 
-	var xhr = new XMLHttpRequest();
-	xhr.open(settings.type, encodeURI(settings.url));
+<dl class="c-details">
 
-	var _successFn = settings.success;
-	var _errorFn = settings.error;
-	// SET REQUEST HEADERS
-	var _headers = settings.headers;
-	for ( var prop in _headers ) {
-		xhr.setRequestHeader(prop, _headers[prop]);
-	}
-	// Listen to ONLOAD EVENT
-	xhr.onload = function() {
-		if (xhr.status === 200) {
-			if(_successFn) _successFn( xhr.responseText );
-		} else {
-			if(_errorFn) _errorFn( xhr.statusText, xhr.status );
-		}
-	};
+    
 
-	xhr.send(settings.data);
-	return xhr; // Theres no publics so just return the xhr obj.
-};</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="js_ish.observeable.js.html">js/ish.observeable.js</a>, <a href="js_ish.observeable.js.html#line172">line 172</a>
+        
+
+      <a href="js_ish.observeable.js.html#line172" class="button outline">js/ish.observeable.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Creates a watchable Object.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ish.watchable.html">ish.watchable</a></code>
+
+
+	
+
+	
+	    <p>The watchable instances public API.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">options</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">breakpoints</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>state</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">An</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>state.mutators</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>object of mutator functions. Objects keys represent the value to be mutated.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">An</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>state.handlers</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>object containing arrays of callback functions.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">Item</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>state.handlers.set</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>set callbacks</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">Item</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>state.handlers.add</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>add callbacks</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">Item</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>state.handlers.remove</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>remove callbacks</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>// WATCHABLE: Object only usage examples
+var dataWatchCallback = function(){
+        console.log('data has changed ',arguments);
+};
+
+var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
+handlers: {
+        set: [dataWatchCallback],
+        add: [dataWatchCallback],
+        remove: [dataWatchCallback]
+    },
+    mutators:{
+        data : function(prop,value, callback){
+            //mutator fn
+            return callback('mutated value: ' + value);
+        }
+    }
+
+});
+
+console.log('inital : ',watchableObject.data);
+
+watchableObject.watch('data');
+watchableObject.data = 'changed';
+watchableObject.text = 'test changed';
+watchableObject.data = 'changedd';
+ });</code></pre>
+
+    
+</div>
+		</div>
+	
+
+	
+
+	
+
+<!--
+	
+
+	 
+
+	
+
+-->
+   
+
+
+
+	
+
+	
+
+	
+
+ 
+</article>
+
+</section>
 
 
 
@@ -280,7 +622,7 @@ $.ajax = function(options) {
 </div>
 
     <!-- <footer>
-        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 21:42:29 GMT+1100 (AUS Eastern Daylight Time)
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 21:42:30 GMT+1100 (AUS Eastern Daylight Time)
     </footer> -->
 <script src="../../js/dist/ish.min.js"> </script>
 <script src="main.js"> </script>
