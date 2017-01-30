@@ -28,6 +28,8 @@ var ishObject = {},
 	_doc = document,
 	dummy = document.createElement('i');
 
+
+
 // Node and ishObject selector context supported. 
 
 /**
@@ -46,7 +48,7 @@ var ishObject = {},
  * ish('selector', Node);
  * ish('selector', NodeList);
  */
-$ = function(selector, context, forceSelector) {
+var $ = function(selector, context, forceSelector) {
 	context = context || document;
 
 	var found;
@@ -101,6 +103,14 @@ $ = function(selector, context, forceSelector) {
 	return obj;
 };
 
+/**
+ * An object which stores prototype objects.
+ * @memberOf ish
+ * @name  ish.fn
+ */
+$.fn = {
+	ishObject: ishObject
+};
 
 //Returns true if it is a DOM node
 function isNode(o) {
@@ -199,14 +209,12 @@ ishObject.attr = function(name, value) {
 	return returnVal;
 };
 
-
 /**
- * Accepts two `Object`s, merges the second parameter into the first recursively and returns a new `Object`. 
- * containing the results of the merge.
+ * Accepts two objects, merges the second parameter into the first recursively and returns the results of the merge.
  * @name  ish#extends
  * @function
  * @param  {Object} object1 An `Object` that will have values of object2 recursively merged.
- * @param  {Object} obectj2 An `Object` to merge into object1.
+ * @param  {Object} [,obectj2] A series of `Objects` to merge into object1.
  * @return {Object}         A merged `Object`.
  * @example
  * var obj1 = {a:'a',b:{ba:'ba',bb:'bb',bc:{bca:'bca'}},c:[1,2,3]};
@@ -215,25 +223,24 @@ ishObject.attr = function(name, value) {
  */
 $[extend] = function() {
 	var args = arguments;
-	var newObj = arguments[0];
-	var length = arguments.length;
+	var newObj = args[0];
+	var length = args.length;
 
 	for (var i = 1; i < length; i++) {
-		for (var p in args[i]) {
+		for (var prop in args[i]) {
+			var objProp = args[i][prop];
 			// Property in destination object set; update its value.
-			if (args[i][p] === null || args[i][p] === undefined) {
+			if (objProp === null || objProp === undefined) {
 				continue;
-			} else if (args[i][p].constructor === Object) {
-				newObj[p] = $[extend](newObj[p] || {}, args[i][p]);
+			} else if (objProp.constructor === Object) {
+				newObj[prop] = $[extend](newObj[prop] || {}, objProp);
 			} else {
-				newObj[p] = args[i][p];
+				newObj[prop] = objProp;
 			}
 		}
 	}
 	return newObj;
 };
-
-
 
 /**
  * Returns the left and top offset in pixels for the first element in the `ishObject`. 
@@ -258,7 +265,6 @@ ishObject.offset = function() {
 	};
 };
 
-
 /**
  * Gets the width or height the first element in the supplied `ishObject`.
  * @name  ishObject.dimension
@@ -270,7 +276,6 @@ ishObject.offset = function() {
  * @example
  * ish('selector').width();
  */
-
 ishObject.dimension = function(type, margins, clientHeight) {
 	var disp;
 	if (this.selector !== (window || document)) {
@@ -299,7 +304,6 @@ ishObject.dimension = function(type, margins, clientHeight) {
 		if (disp === 'none') this[0].style.display = 'none';
 	return height;
 };
-
 
 /**
  * Gets the CSS value of the first element in the supplied `ishObject`. Or sets the CSS value on all items in an `ishObject`.
