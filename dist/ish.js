@@ -6,7 +6,8 @@
  *
  * @fileoverview 
 
-Ish.js is a super tiny Javascript library with a jQuery'ish syntax. 
+
+Ish.js is a super tiny Javascript library with a jQuery'ish syntax. [Visit the full documentation][docs].
 
 ## Distributed files
 
@@ -17,7 +18,7 @@ There's two compiled files available in the dist folder.
 
 ### Compiling a custom version
 
-See the, [Compiling a custom Ish.js package tutorial][tut2].
+See the 'Compiling a Custom Package Tutorial'.
 
 ## Browser Support
 
@@ -33,60 +34,59 @@ TBA
 
 Install with Git, Bower or NPM. 
 
-	// Git
-	$ git clone https://github.com/mickatron/ish.js.git
-	// Bower
-	//Coming Soon
-	// NPM
-	//Coming Soon
+    // Git
+    $ git clone https://github.com/mickatron/ish.js.git
+    // Bower
+    //Coming Soon
+    // NPM
+    //Coming Soon
 
 Then include the 'dist/ish.min.js' file on your html page and you're ready to go.
 
-	<script type="text/javascript" src="/path/to/ish.min.js">
+    <script type="text/javascript" src="/path/to/ish.min.js">
 
 ## Core Methods
 
-	// querySelectorAll based Selector Engine.
-	ish('selector','context');
-	
-	// Selector Engine Utilities.
-	ish('selector').nth();
-	ish('selector').indexOf();
-	ish('selector').forEach();
-	
-	// Basic Utils.
-	ish('selector').attr();
-	ish('selector').css();  
-	ish('selector').offset();  
-	ish('selector').dimension();
-	
-	// Event Methods.
-	ish('selector').on();
-	ish('selector').off();
-	ish('selector').trigger();
-	
-	// Library Utils.
-	ish.extends();
+    // querySelectorAll based Selector Engine.
+    ish('selector','context');
+    
+    // Selector Engine Utilities.
+    ish('selector').nth();
+    ish('selector').indexOf();
+    ish('selector').forEach();
+    
+    // Basic Utils.
+    ish('selector').attr();
+    ish('selector').css();  
+    ish('selector').offset();  
+    ish('selector').dimension();
+    
+    // Event Methods.
+    ish('selector').on();
+    ish('selector').off();
+    ish('selector').trigger();
+    
+    // Library Utils.
+    ish.extends();
 
 ## Optional Methods
 
-	// AJAX
-	ish.ajax();
-	
-	// ish().dimension Abstracts
-	ish('selector').width();
-	ish('selector').height();
-	
-	// Classname Utils.
-	ish('selector').hasClass();
-	ish('selector').addClass();
-	ish('selector').removeClass();
-	
-	//  Responsive Breakpoint Component.
-	$.responsive(options);
-	
-	// Tweening & Easing Components.
-	$.tween(options);
+    // AJAX
+    ish.ajax();
+    
+    // ish().dimension Abstracts
+    ish('selector').width();
+    ish('selector').height();
+    
+    // Classname Utils.
+    ish('selector').hasClass();
+    ish('selector').addClass();
+    ish('selector').removeClass();
+    
+    // Watchable Object
+    $.watchable(Object);
+    // observable Object and Array
+    $.observable();
 
 ## Tutorials
  - [Getting Started][tut1]
@@ -94,14 +94,24 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
  - (Coming soon) Using the Responsive Utility
  - (Coming soon) Using the Tween Utility
 
+## Documentation
+[Visit the full documentation][docs].
+
 ## Immediate To-dos;
- -  Error reporting. There is none at the moment.
- - 	Increase unit tests coverage
- -	Improved Documentation Theme
+
+ -  Error reporting.
+ -  Improved Documentation and Theme   
+ -  Improved testing
+ -  A few todo's listed in the responsive component
+
  
- [docs]: http://isj.digitalfeast.com.au/js/docs
+ [docs]: http://ish.digitalfeast.com.au/js/docs
  [tut1]: http://ish.digitalfeast.com.au/js/docs/tutorial-Getting_Started.html
  [tut2]: http://ish.digitalfeast.com.au/js/docs/tutorial-Compiling_a_Custom_Package.html
+
+
+
+
 
  */
 
@@ -1465,4 +1475,3 @@ var ish = function(document, window, $) {
 	return $;
 
 }(document, this); 
-//# sourceMappingURL=ish.js.map

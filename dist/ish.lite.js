@@ -457,4 +457,3 @@ var ish = function(document, window, $) {
   return $;
 
 }(document, this);
-//# sourceMappingURL=ish.lite.js.map

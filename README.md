@@ -75,11 +75,10 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
     ish('selector').addClass();
     ish('selector').removeClass();
     
-    //  Responsive Breakpoint Component.
-    $.responsive(options);
-    
-    // Tweening & Easing Components.
-    $.tween(options);
+    // Watchable Object
+    $.watchable(Object);
+    // observable Object and Array
+    $.observable();
 
 ## Tutorials
  - [Getting Started][tut1]
@@ -92,12 +91,10 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
 
 ## Immediate To-dos;
 
- -  Tween class is very verbose to use, I like its flexibility but I'm really missing the simplicity and ease of jQuery's animate().
- -  Tweens are not super smooth at certain settings, particulary longer time frames.
- -  Error reporting. There is none at the moment.
+ -  Error reporting.
  -  Improved Documentation and Theme   
  -  Improved testing
- -  Improved Aajx functionality 
+ -  A few todo's listed in the responsive component
 
  
  [docs]: http://ish.digitalfeast.com.au/js/docs
