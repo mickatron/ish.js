@@ -375,7 +375,7 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Accepts a series objects, merging the second parameter into the first recursively, if more than two objects are supplied the other objects are merged into the first in the order given.
-	 * @name  ish#extends
+	 * @name  ish#extend
 	 * @function
 	 * @param  {Object} object1 An `Object` that will have values of object2 recursively merged.
 	 * @param  {Object} [,obectj2] A series of `Objects` to merge into object1.
