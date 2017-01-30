@@ -1,14 +1,18 @@
-// 
+//=require ish.core.js
+//
+// Code Inspired by:
+// https://github.com/remy/bind.js/blob/master/README.md
+// https://gist.github.com/384583
 // http://stackoverflow.com/questions/5100376/how-to-watch-for-array-changes
 
 // watchableProtoModule
+// TODO: Write tests before any further updates, then
 // TODO: batch updates rather than individual calls
 // TODO: use Proxy and regress to current implementation if not availiable
-// TODO: Write tests
 // TODO: Document
 (function(){
     var emit = function (type, prop, oldValue, value){
-        this.watchHandlers[type].forEach(function(handler){
+        this._watchHandlers[type].forEach(function(handler){
             handler.call(this, {
                 type: type,
                 prop: prop,
@@ -39,7 +43,7 @@
                         return shadow[prop];
                     }, 
                     set: function (value) {
-                        var mutator = this.watchMutators[prop];
+                        var mutator = this._watchMutators[prop];
                         if(mutator){
                             mutator.call(this,prop, value, mutatorCallback);
                         } else {
@@ -98,6 +102,7 @@
                 var shadow = this.__watchShadow;
                 var index;
                 var i;
+                var returnValue = [][method].apply(this,arguments);
                 // TODO: improve the below if block
                 if(method==='pop') {
                     index = shadow.length-2;
@@ -140,97 +145,62 @@
                         index++;
                     }
                 } 
-
-                return [][method].apply(this,arguments);
+                
+                return returnValue;
             }
         });
     });
-})(); 
-// WATCHABLE: OBJECT ONLY
-$.watchable = function (obj, handler, watchMutators) {  
-    var objProps = {
-        'watchHandlers': { // should have an underscore at the start
-            writable:true,
-            value: [handler] // object property
+
+    Object.defineProperty($.fn.observableArray, 'length', {   
+        get: function(){
+            return this.__watchShadow.length;
         },
-        'watchMutators': {
-            writable:true, 
-            value: watchMutators || {}
-        },    
-        '__watchShadow': {
-            writable: true,
-            value : {}
-        }
-    };
-    var watchable = $.extend(Object.create($.fn.observableObject, objProps), obj);
-    return watchable;
-};
-// OBSERVABLE: Object || Array
-$.observable = function (objectOrArray, state) {
-    //var objectOrArray = state.data;
-    var isArray = Array.isArray(objectOrArray);
-    var proto = isArray ? $.fn.observableArray : $.fn.observableObject;   
-    var shadow = isArray ? [] : {};
-    // we dont want these to be enumerable so it loops like a regular object.
-    var objProps = {
-        'watchHandlers': {
-            writable:true,
-            value: state.handlers // object property
-        },
-        'watchMutators': {
-            writable:true, 
-            value: state.mutators || {}
-        },    
-        '__watchShadow': {
-            writable: true,
-            value : shadow
-        }
-    };
-    // if it's an array add a length property
-    if(isArray) $.extend (objProps,{ 
-        'length' : {
-            get: function(){
-                return this.__watchShadow.length;
-            },
-            set : function(newLen){
-                this.__watchShadow.length = newLen;
-            }
+        set : function(newLen){
+            this.__watchShadow.length = newLen;
         }
     });
 
-    var observedObject = $.extend(Object.create(proto,objProps), objectOrArray);
-    for(var each in observedObject) {
-        //watch every property in the object, adding the composed handler and a mutator functions.
-        observedObject.watch(each);
-    }
-    return observedObject;
-};
-
-
-
-
-
-
-
-
-
-
-
+    var createProps = function(handlers, mutators, shadow){
+        return {
+            _watchHandlers: { writable:true, value:handlers },
+            _watchMutators: { writable:true, value:mutators },    
+            __watchShadow: { writable:true, value: shadow }
+        };
+    };
+    // EXPOSED METHODS
+    // WATCHABLE: OBJECT ONLY
+    $.watchable = function (obj, state) {  
+        var props = createProps(state.handlers, state.mutators, {});
+        var watchable = $.extend(Object.create($.fn.observableObject, props), obj);
+        return watchable;
+    };
+    // OBSERVABLE: Object || Array
+    $.observable = function (objectOrArray, state) {
+        //var objectOrArray = state.data;
+        var isArray = Array.isArray(objectOrArray);
+        var proto = isArray ? $.fn.observableArray : $.fn.observableObject;   
+        var shadow = isArray ? [] : {};
+        var props = createProps(state.handlers, state.mutators, shadow);
+        var observedObject = $.extend(Object.create(proto,props), objectOrArray);
+        for(var each in observedObject) {
+            //watch every property in the object, adding the composed handler and a mutator functions.
+            observedObject.watch(each);
+        }
+        return observedObject;
+    };
+})(); 
 
 /*
-
-
-var observeHandler = function(){
+// Observable : Object
+var observeObjectHandler = function(){
     console.log('observed!!! ', this, arguments)
-
 };
-        
 
 var observedObj = ish.observable({data:'hello', text:'heya'}, {
     handlers: {
-        set: [observeHandler],
-        add: [observeHandler],
-        remove: [observeHandler]
+        set: [observeObjectHandler],
+        add: [observeObjectHandler],
+        remove: [observeObjectHandler]
         },
     mutators: {
         data: function(prop,value,callback){callback('mutated data value: '+value);},
@@ -240,7 +210,7 @@ var observedObj = ish.observable({data:'hello', text:'heya'}, {
 
 console.log('inital : ',observedObj);
 
-observedObj.watchMutators.data = function(prop,value,callback){
+observedObj._watchMutators.data = function(prop,value,callback){
     callback('updated mutated text value: '+value);
 };
 
@@ -266,30 +236,19 @@ Object.defineProperty(observedObj, 'text' , {
 for(var each in observedObj) {
     console.log('each  ',each,observedObj[each]);
 }
-
-
-
-
-
-
-
-
-
-
-
-// ARRAY 
-
-var observeHandler = function(){
+////////////////////////////////////////////////////////
+// Observable : ARRAY 
+///////////////////////////////////////////////////////
+var observeArrayHandler = function(){
     console.log('change observed: ', arguments)
 
 };
-        
 
 var observedArray = ish.observable([1, 'hello','heya', true], {
     handlers: {
-        set: [observeHandler],
-        add: [observeHandler],
-        remove: [observeHandler]
+        set: [observeArrayHandler],
+        add: [observeArrayHandler],
+        remove: [observeArrayHandler]
     },
     mutators: {
         0: function(prop,value,callback){callback('mutated data value: '+value);},
@@ -297,16 +256,12 @@ var observedArray = ish.observable([1, 'hello','heya', true], {
     }
 });
 
-
-observedArray.watchMutators.data = function(prop,value,callback){
+observedArray._watchMutators.data = function(prop,value,callback){
     callback('updated mutated text value: '+value);
 };
 
 observedArray.reverse();
 console.log('inital : ',observedArray);
-
-
-
 observedArray[0] = 'changed 0';
 observedArray[1] = 'changed 1';
 observedArray.push('pushed value');
@@ -315,102 +270,36 @@ observedArray.pop('pushed value');
 observedArray[0] = 'changed 0 again';
 observedArray[1] = 'changed 1 again';
 
-console.log('inital : ',observedArray);
+console.log('inital : ',observedArray, observedArray.length);
 
 */
 
-
-
-
-
-
-
-
-// WATCHABLE IS NOT REALLY workable for arrays.
 /*
-
-////// ARRAYusage examples
-var observedObj = ish.watchable([1,true,'hey']);
-   console.log('inital : ',observedObj);
-
+// WATCHABLE: Object only usage examples
 var dataWatchCallback = function(){
         console.log('data has changed ',arguments);
 };
 
-observedObj.watch(0,{
-    handler:dataWatchCallback,
-    mutator: function(prop,value, callback){
-        //mutator fn
-        return callback('mutated value: ' + value);
+var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
+handlers: {
+        set: [dataWatchCallback],
+        add: [dataWatchCallback],
+        remove: [dataWatchCallback]
+    },
+    mutators:{
+        data : function(prop,value, callback){
+            //mutator fn
+            return callback('mutated value: ' + value);
+        }
     }
-});
-observedObj[0] = 'changed';
-observedObj.push('pushed value');
-console.log(observedObj[0], observedObj.map);
 
-
-
-
-
-////// usage examples
-
-var dataWatchCallback = function(){
-        console.log('data has changed ',arguments);
-};
-
-var observedObj = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
-    'data' : function(prop,value, callback){
-        //mutator fn
-        return callback('mutated value: ' + value);
-    }
 });
 
-   console.log('inital : ',observedObj.data);
+console.log('inital : ',watchableObject.data);
 
-observedObj.watch('data');
-observedObj.data = 'changed';
-observedObj.text = 'test changed';
-observedObj.data = 'changedd';
-
-
-
-
-
-
-
-observedObj.watch('data',{
-    handler:dataWatchCallback,
-    mutator: function(prop,value, callback){
-        //mutator fn
-        return callback('mutated value: ' + value);
-    }
-});
-
-observedObj.watch('text',{
-    handler: function(){
-        console.log('text has changed ',arguments);
-    }
-});
-
-// if the property doesnt exisit watch adds the property
-observedObj.watch('newprop', {
-    handler: function(){
-        console.log('text has changed ',arguments);
-    }
-});
-
-
-observedObj.data = 'changed';
-observedObj.text = 'test changed';
-observedObj.data = 'changedd';
-observedObj.data = 'changedddd';
-console.log('end : ',observedObj,observedObj.data,observedObj.text);
-
-var props = Object.getOwnPropertyNames(observedObj);
-for(var each in observedObj) {
-    console.log('each  ',each,observedObj[each]);
-}
-
-
+watchableObject.watch('data');
+watchableObject.data = 'changed';
+watchableObject.text = 'test changed';
+watchableObject.data = 'changedd';
 
 */

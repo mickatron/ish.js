@@ -768,7 +768,7 @@ var ish = function(document, window, $) {
 		return this;
 	};
 	/**
-	 * A factory helper function. Creates a module which will do work on the DOM. For example, carousels, dialogs, modals... Using this method is useful when you want to instantiate multiple instances on a collection of DOM Nodes, if you just want to create a single instance you can use the Function.call() syntax or similar.
+	 * A deprecated factory helper function. This will be removed before official beta release.
 	 * @function
 	 * @name  ishObject.invoke
 	 * @param {Object} module    The module or components function body.
@@ -796,209 +796,6 @@ var ish = function(document, window, $) {
 
 	/* Lib Optional Components
 	---------------------------------------*/
-	// PROTOTYPE
-	(function() {
-		var intervalRate = 0.06; // 60FPS.
-	
-		var animate = function() {
-			var active = 0;
-			for (var i = 0, j = this.queue.length; i < j; i++) {
-				if (this.queue[i].active) {
-					//console.log(this.queue[i]);
-					this.queue[i].nextFrame();
-					active++;
-				}
-			}
-			if (active === 0 && this.timer) {
-				// all animations finished
-				this.clear();
-			}
-		}.bind(this);
-	
-		// EXPOSED PROTOTYPE
-		$.fn.tween = {
-			queue : [],
-			active : false,
-			timer : null,
-			createTween : function(start, end, frameCount, easingfn) {
-				// return array of tween coordinate data (start->end)
-				var tween = [start];
-				var diff = end - start;
-				for (var i = 0; i < frameCount; i++) {
-					tween[i] = {};
-					var valueChange = tween[i - 1] ? tween[i - 1].data : 0;
-	
-					// if it's the last frame use the end value or else pass it through the easing functions.
-					tween[i].data = i === frameCount - 1 ? end : $.fn.easing[easingfn](i, start, diff, frameCount);
-					tween[i].event = null;
-				}
-				return tween;
-			},
-			enqueue : function(o, fMethod, fOnComplete) {
-				// add object and associated methods to animation queue
-				this.queue.push(o);
-				o.active = true;
-			},
-			start : function() {
-				if (this.timer || this.active) return false; // animator.start(): already active
-				// animator.start() : only if started
-				this.active = true;
-				this.timer = setInterval(animate, 1 / intervalRate);
-			},
-			clear : function() {
-				// reset some things, clear for next batch of animations
-				clearInterval(this.timer);
-				this.timer = null;
-				this.active = false;
-				this.queue = [];
-			}
-		};
-	
-	})();
-	
-	/**
-	 * Tweens values between two points to be used in Javascript animation. Animation works a little differently to jQuery's animat() method, this simply provides callback functions that fires on a timer and provides parameters for that tweens frames animation values. You can then write your own CSS manipulation routine within the callbacks. 
-	 * @name  ish.tween
-	 * @constructor
-	 * @param {Object} options
-	 * @param {Number} options.from The start value of the tween.
-	 * @param {Number} options.to The end value of the tween.
-	 * @param {String} options.easing Specify an easing equation for the tween.
-	 * @param {Function} options.onBeforeTween A callback function fired before each tween begins. 
-	 * @param {Function} options.onTween A callback function fired each tween frame.
-	 * @param {Function} options.onComplete A callback function fired when the tween is complete.
-	 * @return {ish.tween} Chainable, returns the module instance.
-	 * @example
-	 * var animateOpacity = $.tween({
-	 *   from: 1,
-	 *   to: 0,
-	 *   duration: 1000,
-	 *   easing: 'linear',
-	 *   onBeforeTween: function (){
-	 *   	//onBeforeTween operations
-	 *   },
-	 *   ontween: function (value){
-	 *   	ish('.selector').css('opacity', value)
-	 *   },
-	 *   oncomplete: function (){ 
-	 *   	//onComplete operations
-	 *   }
-	 * }).start();
-	 */
-	var tween = function(animationParams) {
-		var tween = Object.create($.fn.tween);
-		/*
-		animationParams = {
-		from: 200,
-		to: 300,
-		easing: 'default',
-		ontween: function(value) { ... }, // method called each time
-		oncomplete: function() { ... } // when finished
-		}
-		*/
-		if (typeof animationParams.easing == 'undefined') {
-			animationParams.easing = 'default';
-		}
-		var onBeforeTween = (animationParams.onBeforeTween || null);
-		var ontween = (animationParams.ontween || null);
-		var oncomplete = (animationParams.oncomplete || null);
-	
-		var time = (animationParams.duration || 500);
-		var fps = (1 / animationParams.fps || 1 / 0.06);
-		/**
-		 * The number of frames.
-		 * @memberOf ish.tween
-		 */
-		var frameCount = Math.ceil(time / fps);
-		//var delta = (animationParams.to - animationParams.from) / time / 0.06;
-		//var delta = 100 / frameCount;
-		var easingfn = (animationParams.easing || 'linear');
-		var tween = tweener.createTween(animationParams.from, animationParams.to, frameCount, easingfn);
-	
-		/**
-		 * The current frame number.
-		 * @memberOf ish.tween
-		 */
-		this.frame = 0;
-		/**
-		 * If the tween is animating.
-		 * @memberOf ish.tween
-		 */
-		this.active = false;
-	
-		/**
-		 * Moves the tween to the next frame or the specified interval.
-		 * @memberOf ish.tween
-		 * @param {Int} frameNumber The frame number you wish to skip to.
-		 * @return {ish.tween}     Chainable, returns the module instance. 
-		 * @example
-		 * animateOpacity.start();
-		 * animateOpacity.stop();
-		 * 
-		 * // move to the next frame
-		 * animateOpacity.nextFrame();
-		 * // skip to a specific tween frame
-		 * animateOpacity.nextFrame(500);
-		 *    
-		 */
-		this.nextFrame = function(frameNumber) {
-			// generic animation method
-			if (this.active) {
-				if (ontween && tween[this.frame]) ontween(tween[this.frame].data);
-	
-				if (this.frame++ >= frameCount - 1) {
-					this.active = false;
-					this.frame = 0;
-					if (oncomplete) oncomplete();
-				}
-			}
-			return this;
-		};
-	
-		/**
-		 * Starts the tween.
-		 * @memberOf ish.tween
-		 * @return {ish.tween}     Chainable, returns the module instance.
-		 * @example
-		 * animateOpacity.start();
-		 */
-		this.start = function() {
-			//console.log('Animation  this.start');
-			if (onBeforeTween) onBeforeTween();
-			// add this to the main animation queue
-			tweener.enqueue(this, this.nextFrame, oncomplete);
-			if (!tweener.active) tweener.start();
-			return this;
-		};
-	
-		/**
-		 * Stops the tween.
-		 * @memberOf ish.tween
-		 * @param {Boolean} skipToEnd Set to true to end the tween.  
-		 * @return {ish.tween} Chainable, returns the module instance.
-		 * @example
-		 * // stop the animation at the current frame.
-		 * animateOpacity.stop();
-		 * // stop the animation and skip to the end of the tween.
-		 * animateOpacity.stop(true);
-		 * 
-		 */
-		this.stop = function(skipToEnd) {
-			if (skipToEnd) {
-				this.frame = frameCount - 1;
-				this.nextFrame();
-			} else {
-				this.active = false;
-			}
-			return this;
-		};
-	
-		// return publics
-		return tweener;
-	};
-	$.tween = function(animationParams) {
-		return tween.call({}, animationParams);
-	};
 	// Refactored from; http://www.schillmania.com/content/projects/javascript-animation-3/
 	
 	/**
@@ -1358,17 +1155,21 @@ var ish = function(document, window, $) {
 		
 		return responsiveObj;
 	};
-	// 
+	//=require ish.core.js
+	//
+	// Code Inspired by:
+	// https://github.com/remy/bind.js/blob/master/README.md
+	// https://gist.github.com/384583
 	// http://stackoverflow.com/questions/5100376/how-to-watch-for-array-changes
 	
 	// watchableProtoModule
+	// TODO: Write tests before any further updates, then
 	// TODO: batch updates rather than individual calls
 	// TODO: use Proxy and regress to current implementation if not availiable
-	// TODO: Write tests
 	// TODO: Document
 	(function(){
 	    var emit = function (type, prop, oldValue, value){
-	        this.watchHandlers[type].forEach(function(handler){
+	        this._watchHandlers[type].forEach(function(handler){
 	            handler.call(this, {
 	                type: type,
 	                prop: prop,
@@ -1399,7 +1200,7 @@ var ish = function(document, window, $) {
 	                        return shadow[prop];
 	                    }, 
 	                    set: function (value) {
-	                        var mutator = this.watchMutators[prop];
+	                        var mutator = this._watchMutators[prop];
 	                        if(mutator){
 	                            mutator.call(this,prop, value, mutatorCallback);
 	                        } else {
@@ -1458,6 +1259,7 @@ var ish = function(document, window, $) {
 	                var shadow = this.__watchShadow;
 	                var index;
 	                var i;
+	                var returnValue = [][method].apply(this,arguments);
 	                // TODO: improve the below if block
 	                if(method==='pop') {
 	                    index = shadow.length-2;
@@ -1500,97 +1302,62 @@ var ish = function(document, window, $) {
 	                        index++;
 	                    }
 	                } 
-	
-	                return [][method].apply(this,arguments);
+	                
+	                return returnValue;
 	            }
 	        });
 	    });
-	})(); 
-	// WATCHABLE: OBJECT ONLY
-	$.watchable = function (obj, handler, watchMutators) {  
-	    var objProps = {
-	        'watchHandlers': { // should have an underscore at the start
-	            writable:true,
-	            value: [handler] // object property
+	
+	    Object.defineProperty($.fn.observableArray, 'length', {   
+	        get: function(){
+	            return this.__watchShadow.length;
 	        },
-	        'watchMutators': {
-	            writable:true, 
-	            value: watchMutators || {}
-	        },    
-	        '__watchShadow': {
-	            writable: true,
-	            value : {}
-	        }
-	    };
-	    var watchable = $.extend(Object.create($.fn.observableObject, objProps), obj);
-	    return watchable;
-	};
-	// OBSERVABLE: Object || Array
-	$.observable = function (objectOrArray, state) {
-	    //var objectOrArray = state.data;
-	    var isArray = Array.isArray(objectOrArray);
-	    var proto = isArray ? $.fn.observableArray : $.fn.observableObject;   
-	    var shadow = isArray ? [] : {};
-	    // we dont want these to be enumerable so it loops like a regular object.
-	    var objProps = {
-	        'watchHandlers': {
-	            writable:true,
-	            value: state.handlers // object property
-	        },
-	        'watchMutators': {
-	            writable:true, 
-	            value: state.mutators || {}
-	        },    
-	        '__watchShadow': {
-	            writable: true,
-	            value : shadow
-	        }
-	    };
-	    // if it's an array add a length property
-	    if(isArray) $.extend (objProps,{ 
-	        'length' : {
-	            get: function(){
-	                return this.__watchShadow.length;
-	            },
-	            set : function(newLen){
-	                this.__watchShadow.length = newLen;
-	            }
+	        set : function(newLen){
+	            this.__watchShadow.length = newLen;
 	        }
 	    });
 	
-	    var observedObject = $.extend(Object.create(proto,objProps), objectOrArray);
-	    for(var each in observedObject) {
-	        //watch every property in the object, adding the composed handler and a mutator functions.
-	        observedObject.watch(each);
-	    }
-	    return observedObject;
-	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	    var createProps = function(handlers, mutators, shadow){
+	        return {
+	            _watchHandlers: { writable:true, value:handlers },
+	            _watchMutators: { writable:true, value:mutators },    
+	            __watchShadow: { writable:true, value: shadow }
+	        };
+	    };
+	    // EXPOSED METHODS
+	    // WATCHABLE: OBJECT ONLY
+	    $.watchable = function (obj, state) {  
+	        var props = createProps(state.handlers, state.mutators, {});
+	        var watchable = $.extend(Object.create($.fn.observableObject, props), obj);
+	        return watchable;
+	    };
+	    // OBSERVABLE: Object || Array
+	    $.observable = function (objectOrArray, state) {
+	        //var objectOrArray = state.data;
+	        var isArray = Array.isArray(objectOrArray);
+	        var proto = isArray ? $.fn.observableArray : $.fn.observableObject;   
+	        var shadow = isArray ? [] : {};
+	        var props = createProps(state.handlers, state.mutators, shadow);
+	        var observedObject = $.extend(Object.create(proto,props), objectOrArray);
+	        for(var each in observedObject) {
+	            //watch every property in the object, adding the composed handler and a mutator functions.
+	            observedObject.watch(each);
+	        }
+	        return observedObject;
+	    };
+	})(); 
 	
 	/*
-	
-	
-	var observeHandler = function(){
+	// Observable : Object
+	var observeObjectHandler = function(){
 	    console.log('observed!!! ', this, arguments)
-	
 	};
-	        
 	
 	var observedObj = ish.observable({data:'hello', text:'heya'}, {
 	    handlers: {
-	        set: [observeHandler],
-	        add: [observeHandler],
-	        remove: [observeHandler]
+	        set: [observeObjectHandler],
+	        add: [observeObjectHandler],
+	        remove: [observeObjectHandler]
 	        },
 	    mutators: {
 	        data: function(prop,value,callback){callback('mutated data value: '+value);},
@@ -1600,7 +1367,7 @@ var ish = function(document, window, $) {
 	
 	console.log('inital : ',observedObj);
 	
-	observedObj.watchMutators.data = function(prop,value,callback){
+	observedObj._watchMutators.data = function(prop,value,callback){
 	    callback('updated mutated text value: '+value);
 	};
 	
@@ -1626,30 +1393,19 @@ var ish = function(document, window, $) {
 	for(var each in observedObj) {
 	    console.log('each  ',each,observedObj[each]);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// ARRAY 
-	
-	var observeHandler = function(){
+	////////////////////////////////////////////////////////
+	// Observable : ARRAY 
+	///////////////////////////////////////////////////////
+	var observeArrayHandler = function(){
 	    console.log('change observed: ', arguments)
 	
 	};
-	        
 	
 	var observedArray = ish.observable([1, 'hello','heya', true], {
 	    handlers: {
-	        set: [observeHandler],
-	        add: [observeHandler],
-	        remove: [observeHandler]
+	        set: [observeArrayHandler],
+	        add: [observeArrayHandler],
+	        remove: [observeArrayHandler]
 	    },
 	    mutators: {
 	        0: function(prop,value,callback){callback('mutated data value: '+value);},
@@ -1657,16 +1413,12 @@ var ish = function(document, window, $) {
 	    }
 	});
 	
-	
-	observedArray.watchMutators.data = function(prop,value,callback){
+	observedArray._watchMutators.data = function(prop,value,callback){
 	    callback('updated mutated text value: '+value);
 	};
 	
 	observedArray.reverse();
 	console.log('inital : ',observedArray);
-	
-	
-	
 	observedArray[0] = 'changed 0';
 	observedArray[1] = 'changed 1';
 	observedArray.push('pushed value');
@@ -1675,108 +1427,40 @@ var ish = function(document, window, $) {
 	observedArray[0] = 'changed 0 again';
 	observedArray[1] = 'changed 1 again';
 	
-	console.log('inital : ',observedArray);
+	console.log('inital : ',observedArray, observedArray.length);
 	
 	*/
 	
-	
-	
-	
-	
-	
-	
-	
-	// WATCHABLE IS NOT REALLY workable for arrays.
 	/*
-	
-	////// ARRAYusage examples
-	var observedObj = ish.watchable([1,true,'hey']);
-	   console.log('inital : ',observedObj);
-	
+	// WATCHABLE: Object only usage examples
 	var dataWatchCallback = function(){
 	        console.log('data has changed ',arguments);
 	};
 	
-	observedObj.watch(0,{
-	    handler:dataWatchCallback,
-	    mutator: function(prop,value, callback){
-	        //mutator fn
-	        return callback('mutated value: ' + value);
+	var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
+	handlers: {
+	        set: [dataWatchCallback],
+	        add: [dataWatchCallback],
+	        remove: [dataWatchCallback]
+	    },
+	    mutators:{
+	        data : function(prop,value, callback){
+	            //mutator fn
+	            return callback('mutated value: ' + value);
+	        }
 	    }
-	});
-	observedObj[0] = 'changed';
-	observedObj.push('pushed value');
-	console.log(observedObj[0], observedObj.map);
 	
-	
-	
-	
-	
-	////// usage examples
-	
-	var dataWatchCallback = function(){
-	        console.log('data has changed ',arguments);
-	};
-	
-	var observedObj = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
-	    'data' : function(prop,value, callback){
-	        //mutator fn
-	        return callback('mutated value: ' + value);
-	    }
 	});
 	
-	   console.log('inital : ',observedObj.data);
+	console.log('inital : ',watchableObject.data);
 	
-	observedObj.watch('data');
-	observedObj.data = 'changed';
-	observedObj.text = 'test changed';
-	observedObj.data = 'changedd';
-	
-	
-	
-	
-	
-	
-	
-	observedObj.watch('data',{
-	    handler:dataWatchCallback,
-	    mutator: function(prop,value, callback){
-	        //mutator fn
-	        return callback('mutated value: ' + value);
-	    }
-	});
-	
-	observedObj.watch('text',{
-	    handler: function(){
-	        console.log('text has changed ',arguments);
-	    }
-	});
-	
-	// if the property doesnt exisit watch adds the property
-	observedObj.watch('newprop', {
-	    handler: function(){
-	        console.log('text has changed ',arguments);
-	    }
-	});
-	
-	
-	observedObj.data = 'changed';
-	observedObj.text = 'test changed';
-	observedObj.data = 'changedd';
-	observedObj.data = 'changedddd';
-	console.log('end : ',observedObj,observedObj.data,observedObj.text);
-	
-	var props = Object.getOwnPropertyNames(observedObj);
-	for(var each in observedObj) {
-	    console.log('each  ',each,observedObj[each]);
-	}
-	
-	
+	watchableObject.watch('data');
+	watchableObject.data = 'changed';
+	watchableObject.text = 'test changed';
+	watchableObject.data = 'changedd';
 	
 	*/
 	
-
-
 
 	return $;
 
