@@ -1,33 +1,10 @@
 //=require ish.core.js
-// SINGELTON
-var responsiveFn = function() {
-
+(function() {
 	var _settings = [];
 	var _state = [];
 	var _windowWidth;
 	var _windowHeight;
 
-
-	// PUBLICS
-	/*
-	NOT IN USE
-	this.destroy = function() {
-		$(window).off('resize', onResizeFn);
-		return null;
-	};
- 	*/
-	this.add = function(settings) {
-		_settings.push(settings);
-		setState();
-		return this;
-	};
-
-	this.remove = function(settings) {
-		_settings.forEach(function(el, i) {
-			if (el === settings) _settings.splice(i, 1);
-		});
-		return this;
-	};
 	// PRIVATES
 	var onResizeFn = function(evt) {
 		//_windowWidth
@@ -76,18 +53,28 @@ var responsiveFn = function() {
 			}
 		});
 	};
-
-	var init = function() {
-		setState();
-		$(window).on('resize', onResizeFn);
-	}.call(this);
-
-	return this;
-}.call({});
+	// EXPOSED PROTOTYPE
+	$.fn.responsive = {
+		add : function(settings) {
+			_settings.push(settings);
+			setState();
+			return this;
+		},
+		remove : function(settings) {
+			_settings.forEach(function(el, i) {
+				if (el === settings) _settings.splice(i, 1);
+			});
+			return this;
+		}
+	};
+	// set initial state and event handler
+	setState();
+	$(window).on('resize', onResizeFn);
+})();
 
 
 /**
- * Calls an event when breakpoints are reached.
+ * Calls an event when breakpoints are reached. Needs a prototypal review.
  * @name  ish.responsive
  * @constructor
  * @fires ish.responsive.onBreakpoint
@@ -109,9 +96,15 @@ var mediaBreaks = ish.responsive({
 	}],
 	eventPrefix: 'ish.responsive'
  });
+ ish(window).on('ish.responsive.onBreakpoint', function(evt){
+	console.log('breakpoint event: ',evt.data.name,evt);
+ });
  */
 
-var responsive = function(options) {
+$.responsive = function(options) {
+
+	var responsiveObj = Object.create($.fn.responsive);
+
 	var _settings = $.extend({
 			breakpoints: [{
 				name: 'mobile',
@@ -135,18 +128,12 @@ var responsive = function(options) {
 	 * mediaBreaks.destroy();
 	 * 
 	 */
-	this.destroy = function() {
+	responsiveObj.destroy = function() {
 		responsiveFn.remove(_settings);
 		return null;
 	};
 
-	var init = function() {
-		responsiveFn.add(_settings);
-	}.call(this);
-
-	return this;
-};
-
-$.responsive = function(options) {
-	return responsive.call({}, options);
+	responsiveObj.add(_settings);
+	
+	return responsiveObj;
 };
