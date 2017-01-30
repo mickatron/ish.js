@@ -170,7 +170,7 @@ var ish = function(document, window, $) {
 	//=require /js/ish.dimension.abstracts.js 
 	//=require /js/ish.ajax.js
 	//=require /js/ish.class-modifiers.js
-	//!=require /js/ish.invoke.js // Deprecated, extra optional
+	//=require /js/ish.invoke.js // Deprecated, extra optional. needs removal before beta
 
 	/* Lib Optional Components
 	---------------------------------------*/
