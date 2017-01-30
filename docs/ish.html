@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | ish namespace</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extends"><a href="ish.html#extends">extends</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ishObject">
+        
+        <a href="ishObject.html">ishObject</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ishObject.context"><a href="ishObject.html#.context">context</a></li>
+            
+            <li data-name="ishObject.length"><a href="ishObject.html#.length">length</a></li>
+            
+            <li data-name="ishObject.selector"><a href="ishObject.html#.selector">selector</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ishObject.addClass"><a href="ishObject.html#.addClass">addClass</a></li>
+            
+            <li data-name="ishObject.attr"><a href="ishObject.html#.attr">attr</a></li>
+            
+            <li data-name="ishObject.css"><a href="ishObject.html#.css">css</a></li>
+            
+            <li data-name="ishObject.dimension"><a href="ishObject.html#.dimension">dimension</a></li>
+            
+            <li data-name="ishObject.forEach"><a href="ishObject.html#.forEach">forEach</a></li>
+            
+            <li data-name="ishObject.hasClass"><a href="ishObject.html#.hasClass">hasClass</a></li>
+            
+            <li data-name="ishObject.height"><a href="ishObject.html#.height">height</a></li>
+            
+            <li data-name="ishObject.indexOf"><a href="ishObject.html#.indexOf">indexOf</a></li>
+            
+            <li data-name="ishObject.invoke"><a href="ishObject.html#.invoke">invoke</a></li>
+            
+            <li data-name="ishObject.nth"><a href="ishObject.html#.nth">nth</a></li>
+            
+            <li data-name="ishObject.off"><a href="ishObject.html#.off">off</a></li>
+            
+            <li data-name="ishObject.offset"><a href="ishObject.html#.offset">offset</a></li>
+            
+            <li data-name="ishObject.on"><a href="ishObject.html#.on">on</a></li>
+            
+            <li data-name="ishObject.removeClass"><a href="ishObject.html#.removeClass">removeClass</a></li>
+            
+            <li data-name="ishObject.trigger"><a href="ishObject.html#.trigger">trigger</a></li>
+            
+            <li data-name="ishObject.width"><a href="ishObject.html#.width">width</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.fn.easing">
+        
+        <a href="ish.fn.easing.html">ish.fn.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                
+
+
+
+
+<section>
+
+<header class="c-page-header">
+	<div class="l-constrained c-content-block">
+		 
+		<h1 class="c-page-header__title">The ish namespace</h1>
+	</div>
+</header>
+
+<article class="l-constrained">
+
+
+	
+		<div class="c-api-doc--intro c-content-block">
+			<div class="c-content-block__inner">
+				
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="ish.js.html">ish.js</a>, <a href="ish.js.html#line145">line 145</a>
+        
+
+      <a href="ish.js.html#line145" class="button outline">ish.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+				
+					<p>A jQuery'ish set of utility methods. There is very few methods available under this namespace, the ish('selector') will by far be the most commonly used method. You'll also find an extends method and an optional AJAX utility.</p>
+				
+				
+					<h5>Example</h5>
+					
+    <pre class="prettyprint"><code>(function($){
+	// now you can use the $ sign in place of ish just as you would using jQuery.
+	// Let's start by grabbing a reference to a DOM node with the selector engine
+	var $element = $('selector');
+	// now we'll add the attribute 'data-ish' with a property of 'true'
+	$element.attr('data-ish','true');
+
+	var obj1 = {a:'a'};
+	var obj2 = {a:'new a', b:'b'};
+	$.extend(obj1,obj2);
+})(ish);</code></pre>
+
+				  
+			</div>
+		</div> 
+	
+
+	
+
+	
+
+<!--
+	
+		<h3 class="c-api-doc__title">Classes</h3>
+
+		<dl>
+			<dt><a href="ish.responsive.html">responsive</a></dt>
+			<dd></dd>
+		</dl>
+	
+
+	 
+
+	
+
+-->
+   
+
+
+
+	
+		<h3 class="c-api-doc__title">Properties</h3>
+
+		<div class="c-api-doc c-content-block--faux-border">
+			
+				
+<div class="c-content-block__inner">
+	<h4 class="c-api-doc__name" id=".fn">fn<span class="type-signature"></span></h4>
+
+	<a href="js_ish.core.js.html#line106" class="c-api-doc__goto-source c-button--outline">line 106</a>
+
+	
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="js_ish.core.js.html">js/ish.core.js</a>, <a href="js_ish.core.js.html#line106">line 106</a>
+        
+
+      <a href="js_ish.core.js.html#line106" class="button outline">js/ish.core.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+	
+
+	
+	<div class="description">
+		<p>An object which stores prototype objects.</p>
+	</div>
+	
+
+	
+
+	
+
+	
+</div>
+
+			
+		</div>
+	
+
+	
+		<h3 class="c-api-doc__title">Methods</h3>
+		<div class="c-api-doc c-content-block--faux-border">
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".ajax">ajax(options)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="js_ish.ajax.js.html#line1" class="c-api-doc__goto-source c-button--outline">line 1</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Make an XHR request. The implementation is currently very basic, the response is not parsed as JSON or converted to a String, you will have to do that to the response manually when it's returned.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ish.html">ish</a></code>
+
+
+	
+
+	
+	    <p>Returns the XMLHttpRequest Object.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">options</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">type</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Acceptable values are; 'GET','POST','PUT','DELETE'.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">url</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The url of the request.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">success</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>function</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A callback function triggered when the ajax call is successful. The responseText is passed as the first parameter of the function, other values are availiable from the XMLHttpRequest Object returned from this component.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">error</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>function</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A callback function triggered if the ajax call is unsuccessful.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">data</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A custom data object to pass with the request.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">headers</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An Object with String key values representing the header and its values. You can add custom header values here.</p>
+                <h6>Properties</h6>
+                
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">Accept</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>By default the Accept header is ommited although it is a common one to set so it gains a mention here. Common values are: <code>&quot;text/plain&quot;</code>, <code>&quot;text/html&quot;</code>, <code>&quot;application/xml, text/xml&quot;</code>, <code>&quot;application/json, text/javascript&quot;</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">Content-Type</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Default value is <code>'application/x-www-form-urlencoded'</code> other values often used are: <code>'text/plain'</code>, <code>'multipart/form-data'</code>, <code>'application/json'</code> or <code>'text/xml'</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">X-Requested-With</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Default value is 'XMLHttpRequest'.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>var reqSuccess = function(data){	//success	console.log('success', data, req);};var reqError = function(statusText, status){	//error	console.log('There was an error. '+status+' : '+statusText, req);};var req = ish.ajax({	type:'JSON',	url: 'http://domain.com/ajaxhandler',	success: reqSuccess,	error: reqError,	data: {"JSON":"data"}});</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".ish">ish(selector, context, forceSelector)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="js_ish.core.js.html#line35" class="c-api-doc__goto-source c-button--outline">line 35</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Simple selector engine based on <code>querySelectorAll</code>. The usage and result is similar to <code>jQuery(selector)</code>.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ishObject.html">ishObject</a></code>
+
+
+	
+
+	
+	    <p>A list of nodes with inherited library methods.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">selector</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+|
+
+<code>Node</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A CSS Selector compatible with document.querySelectorAll or a single <code>Node</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">context</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code><a href="ishObject.html">ishObject</a></code>
+|
+
+<code>Array</code>
+|
+
+<code>NodeList</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Used to give a selector a search context.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">forceSelector</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>String</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Set the ish('selector').selector paramter forcibly.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>ish('selector');//filter the collection with some context of type Node || NodeListish('selector', Node);ish('selector', NodeList);</code></pre>
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id="extends">extends(object1, ,obectj2<span class="signature-attributes">opt</span>)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="js_ish.core.js.html#line212" class="c-api-doc__goto-source c-button--outline">line 212</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Accepts two objects, merges the second parameter into the first recursively and returns the results of the merge.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code>Object</code>
+
+
+	
+
+	
+	    <p>A merged <code>Object</code>.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">object1</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>An <code>Object</code> that will have values of object2 recursively merged.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name">,obectj2</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Object</code>
+
+
+                </code>
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A series of <code>Objects</code> to merge into object1.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>var obj1 = {a:'a',b:{ba:'ba',bb:'bb',bc:{bca:'bca'}},c:[1,2,3]};var obj2 = {d:'d',b:{ba:'ba-change',bc:{bcb:'added'}},c:[4,5,6]};ish.extend(obj1,obj2);</code></pre>
+
+    
+</div>
+			       
+		</div>
+	
+
+	
+
+ 
+</article>
+
+</section>
+
+
+
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 20:55:55 GMT+1100 (AUS Eastern Daylight Time)
+    </footer> -->
+<script src="../../js/dist/ish.min.js"> </script>
+<script src="main.js"> </script>
+
+</body>
+</html>

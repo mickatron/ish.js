@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | Source: js/ish.ajax.js</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extends"><a href="ish.html#extends">extends</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ishObject">
+        
+        <a href="ishObject.html">ishObject</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ishObject.context"><a href="ishObject.html#.context">context</a></li>
+            
+            <li data-name="ishObject.length"><a href="ishObject.html#.length">length</a></li>
+            
+            <li data-name="ishObject.selector"><a href="ishObject.html#.selector">selector</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ishObject.addClass"><a href="ishObject.html#.addClass">addClass</a></li>
+            
+            <li data-name="ishObject.attr"><a href="ishObject.html#.attr">attr</a></li>
+            
+            <li data-name="ishObject.css"><a href="ishObject.html#.css">css</a></li>
+            
+            <li data-name="ishObject.dimension"><a href="ishObject.html#.dimension">dimension</a></li>
+            
+            <li data-name="ishObject.forEach"><a href="ishObject.html#.forEach">forEach</a></li>
+            
+            <li data-name="ishObject.hasClass"><a href="ishObject.html#.hasClass">hasClass</a></li>
+            
+            <li data-name="ishObject.height"><a href="ishObject.html#.height">height</a></li>
+            
+            <li data-name="ishObject.indexOf"><a href="ishObject.html#.indexOf">indexOf</a></li>
+            
+            <li data-name="ishObject.invoke"><a href="ishObject.html#.invoke">invoke</a></li>
+            
+            <li data-name="ishObject.nth"><a href="ishObject.html#.nth">nth</a></li>
+            
+            <li data-name="ishObject.off"><a href="ishObject.html#.off">off</a></li>
+            
+            <li data-name="ishObject.offset"><a href="ishObject.html#.offset">offset</a></li>
+            
+            <li data-name="ishObject.on"><a href="ishObject.html#.on">on</a></li>
+            
+            <li data-name="ishObject.removeClass"><a href="ishObject.html#.removeClass">removeClass</a></li>
+            
+            <li data-name="ishObject.trigger"><a href="ishObject.html#.trigger">trigger</a></li>
+            
+            <li data-name="ishObject.width"><a href="ishObject.html#.width">width</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.fn.easing">
+        
+        <a href="ish.fn.easing.html">ish.fn.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                
+
+
+
+	
+    <section class="c-source-content">
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Make an XHR request. The implementation is currently very basic, the response is not parsed as JSON or converted to a String, you will have to do that to the response manually when it's returned. 
+ * @name  ajax
+ * @function
+ * @memberof ish
+ * @param  {Object} options
+ * @param  {String} options.type Acceptable values are; 'GET','POST','PUT','DELETE'.
+ * @param  {String} options.url  The url of the request.
+ * @param  {Function} options.success A callback function triggered when the ajax call is successful. The responseText is passed as the first parameter of the function, other values are availiable from the XMLHttpRequest Object returned from this component.
+ * @param  {Function} options.error  A callback function triggered if the ajax call is unsuccessful.
+ * @param  {Object} options.data A custom data object to pass with the request.
+ * @param  {Object} options.headers An Object with String key values representing the header and its values. You can add custom header values here. 
+ * @param  {String} options.headers.Accept By default the Accept header is ommited although it is a common one to set so it gains a mention here. Common values are: `"text/plain"`, `"text/html"`, `"application/xml, text/xml"`, `"application/json, text/javascript"`
+ * @param  {String} options.headers.Content-Type Default value is `'application/x-www-form-urlencoded'` other values often used are: `'text/plain'`, `'multipart/form-data'`, `'application/json'` or `'text/xml'`.
+ * @param  {String} options.headers.X-Requested-With Default value is 'XMLHttpRequest'.
+ * @return {ish}     Returns the XMLHttpRequest Object.
+ * @example
+ * var reqSuccess = function(data){
+ * 	//success
+ * 	console.log('success', data, req);
+ * };
+ * var reqError = function(statusText, status){
+ * 	//error
+ * 	console.log('There was an error. '+status+' : '+statusText, req);
+ * };
+ * 
+ * var req = ish.ajax({
+ * 	type:'JSON',
+ * 	url: 'http://domain.com/ajaxhandler',
+ * 	success: reqSuccess,
+ * 	error: reqError,
+ * 	data: {"JSON":"data"}
+ * });
+ */
+$.ajax = function(options) {
+
+	var settings = $.extend({
+		type: 'GET', // PUT OR JSON, GET, POST
+		url: '',
+		success: null,
+		error: null,
+		data: '',
+		headers: {
+			"X-Requested-With": 'XMLHttpRequest',
+			'Content-Type': 'application/x-www-form-urlencoded'
+		}
+	}, options);
+
+	var xhr = new XMLHttpRequest();
+	xhr.open(settings.type, encodeURI(settings.url));
+
+	var _successFn = settings.success;
+	var _errorFn = settings.error;
+	// SET REQUEST HEADERS
+	var _headers = settings.headers;
+	for ( var prop in _headers ) {
+		xhr.setRequestHeader(prop, _headers[prop]);
+	}
+	// Listen to ONLOAD EVENT
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			if(_successFn) _successFn( xhr.responseText );
+		} else {
+			if(_errorFn) _errorFn( xhr.statusText, xhr.status );
+		}
+	};
+
+	xhr.send(settings.data);
+	return xhr; // Theres no publics so just return the xhr obj.
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 20:55:55 GMT+1100 (AUS Eastern Daylight Time)
+    </footer> -->
+<script src="../../js/dist/ish.min.js"> </script>
+<script src="main.js"> </script>
+
+</body>
+</html>

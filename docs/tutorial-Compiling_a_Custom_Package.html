@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | Tutorial: Compiling_a_Custom_Package</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extends"><a href="ish.html#extends">extends</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ishObject">
+        
+        <a href="ishObject.html">ishObject</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ishObject.context"><a href="ishObject.html#.context">context</a></li>
+            
+            <li data-name="ishObject.length"><a href="ishObject.html#.length">length</a></li>
+            
+            <li data-name="ishObject.selector"><a href="ishObject.html#.selector">selector</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ishObject.addClass"><a href="ishObject.html#.addClass">addClass</a></li>
+            
+            <li data-name="ishObject.attr"><a href="ishObject.html#.attr">attr</a></li>
+            
+            <li data-name="ishObject.css"><a href="ishObject.html#.css">css</a></li>
+            
+            <li data-name="ishObject.dimension"><a href="ishObject.html#.dimension">dimension</a></li>
+            
+            <li data-name="ishObject.forEach"><a href="ishObject.html#.forEach">forEach</a></li>
+            
+            <li data-name="ishObject.hasClass"><a href="ishObject.html#.hasClass">hasClass</a></li>
+            
+            <li data-name="ishObject.height"><a href="ishObject.html#.height">height</a></li>
+            
+            <li data-name="ishObject.indexOf"><a href="ishObject.html#.indexOf">indexOf</a></li>
+            
+            <li data-name="ishObject.invoke"><a href="ishObject.html#.invoke">invoke</a></li>
+            
+            <li data-name="ishObject.nth"><a href="ishObject.html#.nth">nth</a></li>
+            
+            <li data-name="ishObject.off"><a href="ishObject.html#.off">off</a></li>
+            
+            <li data-name="ishObject.offset"><a href="ishObject.html#.offset">offset</a></li>
+            
+            <li data-name="ishObject.on"><a href="ishObject.html#.on">on</a></li>
+            
+            <li data-name="ishObject.removeClass"><a href="ishObject.html#.removeClass">removeClass</a></li>
+            
+            <li data-name="ishObject.trigger"><a href="ishObject.html#.trigger">trigger</a></li>
+            
+            <li data-name="ishObject.width"><a href="ishObject.html#.width">width</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.fn.easing">
+        
+        <a href="ish.fn.easing.html">ish.fn.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                <section>
+
+<header class="c-page-header">
+	<div class="l-constrained c-content-block">
+    
+
+    <h1 class="c-page-header__title">Compiling a Custom Package</h1>
+    </div>
+</header>
+
+<article class="l-constrained">
+<div class="c-api-doc--intro c-content-block">
+<div class="c-content-block__inner">
+    <h2>Compiling your own version with Gulp-Include</h2><p>You many not need to use every component available. If you would like to compile your own version and you are using Gulp ish.js makes that pretty easy for you.</p>
+<p>Firstly you will need to install Gulp-Include. </p>
+<pre class="prettyprint source"><code>$ npm install gulp-include --save-dev</code></pre><p>Then add an include task to your Gulp file</p>
+<pre class="prettyprint source"><code>var gulp    = require(&quot;gulp&quot;),
+    include = require(&quot;gulp-include&quot;);
+
+gulp.task(&quot;scripts&quot;, function() {
+    console.log(&quot;-- gulp is running task 'scripts'&quot;);
+    gulp.src(&quot;ish.custom.js&quot;)
+        .pipe(include())
+            .on('error', console.log)
+        .pipe(gulp.dest(&quot;dist/js&quot;));
+});
+
+gulp.task(&quot;default&quot;, [&quot;scripts&quot;]</code></pre><p>Next copy the /ish.custom.js file into your project and update the gulp.src parameter to reflect the new location. You can also change the destination folder include sourcemaps and more. Checkout the Gulp-Inluce npm page for more detail.</p>
+<p>File references in your new ish.custom.js file will need to be updated to point to the location of the ish.js library files within your project.</p>
+<h3>Adding/Removing Packages</h3><p>Gulp-Include uses //=require and //=include directives. All of the files are referenced in the ish.custom.js file you just copied although some are commented out. Note that since Gulp-Include uses single line comments to start their directives double single quotes will prevent that directive from being executed. You can learn more over at the Gulp-Include NPM page.</p>
+<pre class="prettyprint source"><code>// This directive will be executed.
+//require path/to/file.js
+
+// This directive will not be executed.
+////require path/to/file.js</code></pre><p>Once you are happy with the files being bundled run gulp and your newly compiled file should be ready to go.</p>
+    </div></div>
+</article>
+
+</section>
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 20:55:56 GMT+1100 (AUS Eastern Daylight Time)
+    </footer> -->
+<script src="../../js/dist/ish.min.js"> </script>
+<script src="main.js"> </script>
+
+</body>
+</html>

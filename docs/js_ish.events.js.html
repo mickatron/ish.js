@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | Source: js/ish.events.js</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extends"><a href="ish.html#extends">extends</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ishObject">
+        
+        <a href="ishObject.html">ishObject</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ishObject.context"><a href="ishObject.html#.context">context</a></li>
+            
+            <li data-name="ishObject.length"><a href="ishObject.html#.length">length</a></li>
+            
+            <li data-name="ishObject.selector"><a href="ishObject.html#.selector">selector</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ishObject.addClass"><a href="ishObject.html#.addClass">addClass</a></li>
+            
+            <li data-name="ishObject.attr"><a href="ishObject.html#.attr">attr</a></li>
+            
+            <li data-name="ishObject.css"><a href="ishObject.html#.css">css</a></li>
+            
+            <li data-name="ishObject.dimension"><a href="ishObject.html#.dimension">dimension</a></li>
+            
+            <li data-name="ishObject.forEach"><a href="ishObject.html#.forEach">forEach</a></li>
+            
+            <li data-name="ishObject.hasClass"><a href="ishObject.html#.hasClass">hasClass</a></li>
+            
+            <li data-name="ishObject.height"><a href="ishObject.html#.height">height</a></li>
+            
+            <li data-name="ishObject.indexOf"><a href="ishObject.html#.indexOf">indexOf</a></li>
+            
+            <li data-name="ishObject.invoke"><a href="ishObject.html#.invoke">invoke</a></li>
+            
+            <li data-name="ishObject.nth"><a href="ishObject.html#.nth">nth</a></li>
+            
+            <li data-name="ishObject.off"><a href="ishObject.html#.off">off</a></li>
+            
+            <li data-name="ishObject.offset"><a href="ishObject.html#.offset">offset</a></li>
+            
+            <li data-name="ishObject.on"><a href="ishObject.html#.on">on</a></li>
+            
+            <li data-name="ishObject.removeClass"><a href="ishObject.html#.removeClass">removeClass</a></li>
+            
+            <li data-name="ishObject.trigger"><a href="ishObject.html#.trigger">trigger</a></li>
+            
+            <li data-name="ishObject.width"><a href="ishObject.html#.width">width</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.fn.easing">
+        
+        <a href="ish.fn.easing.html">ish.fn.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                
+
+
+
+	
+    <section class="c-source-content">
+        <article>
+            <pre class="prettyprint source linenums"><code>//=require ish.core.js
+/**
+ * Attach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'addeventListener' so any valid Javascript event can be used. 
+ * It's inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.
+ * @param  {String}   event     The type of event you're adding to the Node/s
+ * @param  {Function} fn        A callback to be fired when the event is triggered.
+ * @param  {String}   delegate  A valid CSS selector to delegate the event to.
+ * @return {ishObject}            Method is chainable, returns the ish Object which called the method. 
+ * @example
+ * var fn = function(event) {
+ *     //mousedown event
+ * };
+ * ish('selector').on('mousedown', fn);
+ */
+
+ishObject.on = function(event, fn, delegate) {
+
+	if (delegate) {
+		this[forEach](function(el) {
+			var node = el[0];
+			var matches = node.mozMatchesSelector || node.webkitMatchesSelector || node.oMatchesSelector || node.matchesSelector || (function(delegate) {
+
+				var target = node,
+					elements = $(delegate),
+					match = false;
+				elements[forEach](function($el) {
+					if ($el[0] === target) match = true;
+				});
+				return match;
+			});
+			//store an array on the node with the delgate function data.
+			// we'll call on this data in the undelgate methods
+			node.delegates = node.delegates || [];
+			var temp = {
+				f: fn,
+				e: function(event) {
+					if (matches.call(event.target, delegate)) {
+						fn(event);
+					}
+				}
+			};
+			node.delegates.push(temp);
+			node.addEventListener(event, temp.e);
+		});
+	} else {
+		this[forEach](function(el) {
+			el[0].addEventListener(event, fn, false);
+		}, this);
+	}
+	return this;
+};
+
+
+/**
+ * Dettach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'removeEventListener' so any valid Javascript event can be used. 
+ * Its inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.
+ * @param  {string} event The type of event you're adding to the Node/s
+ * @param  {function} fn The Node to find in the ish Object.
+ * @return {ishObject}         Method is chainable, returns the ish Object which called the method. 
+ * @example
+ * var fn = function(event) {
+ *     //mousedown event
+ * };
+ * ish('selector').on('mousedown', mousedownHandler); //on
+ * ish('selector').off('mousedown', fn); //off
+ */
+ishObject.off = function(event, fn) {
+
+	this[forEach](function(el) {
+		// remove listeners from the element
+		el[0].removeEventListener(event, fn, false);
+		// remove any delegate listeners
+		var delegates = el[0].delegates;
+		// if there's delegates loop each of them
+		if (delegates)
+			delegates[forEach](function(evtfn, i) {
+				// check for matches
+				if (evtfn.f === fn) {
+					el.off(event, evtfn.e);
+					el[0].delegates.splice(i - 1, i);
+				}
+			}, this);
+	});
+
+	return this;
+};
+
+
+/**
+ * Triggers an event.
+ * @param  {string} type The type of event to trigger.
+ * @param  {object} data Any 
+ * @return {ishObject}         Method is chainable, returns the ish Object which called the method. 
+ * @example
+ * var fn = function(event) {
+ *     //mousedown event
+ * };
+ * ish('selector').on('mousedown', fn); //on
+ * ish('selector').trigger('mousedown'); //fires mousedown
+ */
+ishObject.trigger = function(type, data) {
+	this[forEach](function(el) {
+		// construct an HTML event. This could have
+		// been a real custom event
+		var event = document.createEvent('HTMLEvents');
+		event.initEvent(type, true, true);
+		event.data = data || {};
+		event.eventName = type;
+		//event.target = el;
+		el[0].dispatchEvent(event);
+
+
+		//el[trigger](event);
+	});
+	return this;
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 20:55:55 GMT+1100 (AUS Eastern Daylight Time)
+    </footer> -->
+<script src="../../js/dist/ish.min.js"> </script>
+<script src="main.js"> </script>
+
+</body>
+</html>

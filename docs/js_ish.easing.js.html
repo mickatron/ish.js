@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | Source: js/ish.easing.js</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extends"><a href="ish.html#extends">extends</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ishObject">
+        
+        <a href="ishObject.html">ishObject</a>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ishObject.context"><a href="ishObject.html#.context">context</a></li>
+            
+            <li data-name="ishObject.length"><a href="ishObject.html#.length">length</a></li>
+            
+            <li data-name="ishObject.selector"><a href="ishObject.html#.selector">selector</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ishObject.addClass"><a href="ishObject.html#.addClass">addClass</a></li>
+            
+            <li data-name="ishObject.attr"><a href="ishObject.html#.attr">attr</a></li>
+            
+            <li data-name="ishObject.css"><a href="ishObject.html#.css">css</a></li>
+            
+            <li data-name="ishObject.dimension"><a href="ishObject.html#.dimension">dimension</a></li>
+            
+            <li data-name="ishObject.forEach"><a href="ishObject.html#.forEach">forEach</a></li>
+            
+            <li data-name="ishObject.hasClass"><a href="ishObject.html#.hasClass">hasClass</a></li>
+            
+            <li data-name="ishObject.height"><a href="ishObject.html#.height">height</a></li>
+            
+            <li data-name="ishObject.indexOf"><a href="ishObject.html#.indexOf">indexOf</a></li>
+            
+            <li data-name="ishObject.invoke"><a href="ishObject.html#.invoke">invoke</a></li>
+            
+            <li data-name="ishObject.nth"><a href="ishObject.html#.nth">nth</a></li>
+            
+            <li data-name="ishObject.off"><a href="ishObject.html#.off">off</a></li>
+            
+            <li data-name="ishObject.offset"><a href="ishObject.html#.offset">offset</a></li>
+            
+            <li data-name="ishObject.on"><a href="ishObject.html#.on">on</a></li>
+            
+            <li data-name="ishObject.removeClass"><a href="ishObject.html#.removeClass">removeClass</a></li>
+            
+            <li data-name="ishObject.trigger"><a href="ishObject.html#.trigger">trigger</a></li>
+            
+            <li data-name="ishObject.width"><a href="ishObject.html#.width">width</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.fn.easing">
+        
+        <a href="ish.fn.easing.html">ish.fn.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                
+
+
+
+	
+    <section class="c-source-content">
+        <article>
+            <pre class="prettyprint source linenums"><code>// Refactored from; http://www.schillmania.com/content/projects/javascript-animation-3/
+
+/**
+ * Not included in any default dist, compile your own if you wish to use. Easing equations mainly used in animation to calculate tween frame values. Each method shares the same parameters and return value as below.
+ * &lt;div class="c-returns">&lt;h5 class="c-returns__header">Returns&lt;/h5>&lt;code>Number&lt;/code>&lt;p>The tween value for the currentFrame.&lt;/p>&lt;/div>&lt;h5>Parameters:&lt;/h5>
+&lt;table class="c-params">
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Type&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td class="name">currentFrame&lt;/td>
+&lt;td class="type">
+&lt;code>Number&lt;/code>
+&lt;/td>
+&lt;td class="description last">&lt;p>The current frame&lt;/p>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="name">startValue&lt;/td>
+&lt;td class="type">
+&lt;code>Number&lt;/code>
+&lt;/td>
+&lt;td class="description last">&lt;p>The start value of the number to be tweened&lt;/p>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="name">valueChange&lt;/td>
+&lt;td class="type">
+&lt;code>Number&lt;/code>
+&lt;/td>
+&lt;td class="description last">&lt;p>The total ammount of change the tweened value will expierience over the length of its animation. For example if you're tween from 100 to 200 the &lt;code>valueChange&lt;/code> would be 100.&lt;/p>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="name">totalFrames&lt;/td>
+&lt;td class="type">
+&lt;code>Number&lt;/code>
+&lt;/td>
+&lt;td class="description last">&lt;p>The total number of tween frames.&lt;/p>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+ * 
+ * @name  ish.fn.easing
+ * @namespace
+ *
+ */
+$.fn.easing = {
+	/**
+	 * @memberOf ish.easing
+	 */
+	linear: function(currentFrame, startValue, valueChange, totalFrames) {
+		return valueChange * currentFrame / totalFrames + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInQuad: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		return valueChange * currentFrame * currentFrame + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeOutQuad: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		return -valueChange * currentFrame * (currentFrame - 2) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInOutQuad: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames / 2;
+		if (currentFrame &lt; 1) return valueChange / 2 * currentFrame * currentFrame + startValue;
+		currentFrame--;
+		return -valueChange / 2 * (currentFrame * (currentFrame - 2) - 1) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 * 
+	 */
+	easeInCubic: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		return valueChange * currentFrame * currentFrame * currentFrame + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeOutCubic: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		currentFrame--;
+		return valueChange * (currentFrame * currentFrame * currentFrame + 1) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInOutCubic: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames / 2;
+		if (currentFrame &lt; 1) return valueChange / 2 * currentFrame * currentFrame * currentFrame + startValue;
+		currentFrame -= 2;
+		return valueChange / 2 * (currentFrame * currentFrame * currentFrame + 2) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInQuart: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		return valueChange * currentFrame * currentFrame * currentFrame * currentFrame + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeOutQuart: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		currentFrame--;
+		return -valueChange * (currentFrame * currentFrame * currentFrame * currentFrame - 1) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInOutQuart: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames / 2;
+		if (currentFrame &lt; 1) return valueChange / 2 * currentFrame * currentFrame * currentFrame * currentFrame + startValue;
+		currentFrame -= 2;
+		return -valueChange / 2 * (currentFrame * currentFrame * currentFrame * currentFrame - 2) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInQuint: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		return valueChange * currentFrame * currentFrame * currentFrame * currentFrame * currentFrame + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeOutQuint: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		currentFrame--;
+		return valueChange * (currentFrame * currentFrame * currentFrame * currentFrame * currentFrame + 1) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInOutQuint: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames / 2;
+		if (currentFrame &lt; 1) return valueChange / 2 * currentFrame * currentFrame * currentFrame * currentFrame * currentFrame + startValue;
+		currentFrame -= 2;
+		return valueChange / 2 * (currentFrame * currentFrame * currentFrame * currentFrame * currentFrame + 2) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInSine: function(currentFrame, startValue, valueChange, totalFrames) {
+		return -valueChange * Math.cos(currentFrame / totalFrames * (Math.PI / 2)) + valueChange + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeOutSine: function(currentFrame, startValue, valueChange, totalFrames) {
+		return valueChange * Math.sin(currentFrame / totalFrames * (Math.PI / 2)) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInOutSine: function(currentFrame, startValue, valueChange, totalFrames) {
+		return -valueChange / 2 * (Math.cos(Math.PI * currentFrame / totalFrames) - 1) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInExpo: function(currentFrame, startValue, valueChange, totalFrames) {
+		return valueChange *
+			Math.pow(2, 10 * (currentFrame / totalFrames - 1)) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeOutExpo: function(currentFrame, startValue, valueChange, totalFrames) {
+		return valueChange * (-
+			Math.pow(2, -10 * currentFrame / totalFrames) + 1) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInOutExpo: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames / 2;
+		if (currentFrame &lt; 1) return valueChange / 2 *
+			Math.pow(2, 10 * (currentFrame - 1)) + startValue;
+		currentFrame--;
+		return valueChange / 2 * (-
+			Math.pow(2, -10 * currentFrame) + 2) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInCirc: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		return -valueChange * (Math.sqrt(1 - currentFrame * currentFrame) - 1) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeOutCirc: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames;
+		currentFrame--;
+		return valueChange *
+			Math.sqrt(1 - currentFrame * currentFrame) + startValue;
+	},
+	/**
+	 * @memberOf ish.easing
+	 */
+	easeInOutCirc: function(currentFrame, startValue, valueChange, totalFrames) {
+		currentFrame /= totalFrames / 2;
+		if (currentFrame &lt; 1) return -valueChange / 2 * (Math.sqrt(1 - currentFrame * currentFrame) - 1) + startValue;
+		currentFrame -= 2;
+		return valueChange / 2 * (Math.sqrt(1 - currentFrame * currentFrame) + 1) + startValue;
+	}
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 30 2017 20:55:55 GMT+1100 (AUS Eastern Daylight Time)
+    </footer> -->
+<script src="../../js/dist/ish.min.js"> </script>
+<script src="main.js"> </script>
+
+</body>
+</html>
