@@ -1,5 +1,5 @@
 /**
- * A factory helper function. Creates a module which will do work on the DOM. For example, carousels, dialogs, modals... Using this method is useful when you want to instantiate multiple instances on a collection of DOM Nodes, if you just want to create a single instance you can use the Function.call() syntax or similar.
+ * A deprecated factory helper function. This will be removed before official beta release.
  * @function
  * @name  ishObject.invoke
  * @param {Object} module    The module or components function body.
