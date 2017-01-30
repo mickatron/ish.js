@@ -31,9 +31,9 @@ gulp.task('lint', function() {
 
 gulp.task("bundlejs", ['cleanjs'], function() {
   return gulp.src( _srcBuildFileGlobs )
-    .pipe(sourcemaps.init())  // TODO: having issues with source maps
+    //.pipe(sourcemaps.init())  // TODO: having issues with source maps
     .pipe(include())
-    .pipe(sourcemaps.write('.')) // TODO: having issues with source maps
+    //.pipe(sourcemaps.write('.')) // TODO: having issues with source maps
     .pipe(gulp.dest(_srcDest));
 });
 
