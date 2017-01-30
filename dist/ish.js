@@ -374,7 +374,7 @@ var ish = function(document, window, $) {
 	};
 	
 	/**
-	 * Accepts two objects, merges the second parameter into the first recursively and returns the results of the merge.
+	 * Accepts a series objects, merging the second parameter into the first recursively, if more than two objects are supplied the other objects are merged into the first in the order given.
 	 * @name  ish#extends
 	 * @function
 	 * @param  {Object} object1 An `Object` that will have values of object2 recursively merged.
