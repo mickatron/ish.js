@@ -1,47 +1,6 @@
-// SINGELTON
-var tweener = function() {
+// PROTOTYPE
+(function() {
 	var intervalRate = 0.06; // 60FPS.
-
-	this.queue = [];
-	this.queueHash = [];
-	this.active = false;
-	this.timer = null;
-
-	this.createTween = function(start, end, frameCount, easingfn) {
-		// return array of tween coordinate data (start->end)
-		var tween = [start];
-		var diff = end - start;
-		for (var i = 0; i < frameCount; i++) {
-			tween[i] = {};
-			var valueChange = tween[i - 1] ? tween[i - 1].data : 0;
-
-			// if it's the last frame use the end value or else pass it through the easing functions.
-			tween[i].data = i === frameCount - 1 ? end : $.fn.easing[easingfn](i, start, diff, frameCount);
-			tween[i].event = null;
-		}
-		return tween;
-	};
-
-	this.enqueue = function(o, fMethod, fOnComplete) {
-		// add object and associated methods to animation queue
-		this.queue.push(o);
-		o.active = true;
-	};
-
-	this.start = function() {
-		if (this.timer || this.active) return false; // animator.start(): already active
-		// animator.start() : only if started
-		this.active = true;
-		this.timer = setInterval(animate, 1 / intervalRate);
-	};
-
-	this.clear = function() {
-		// reset some things, clear for next batch of animations
-		clearInterval(this.timer);
-		this.timer = null;
-		this.active = false;
-		this.queue = [];
-	};
 
 	var animate = function() {
 		var active = 0;
@@ -58,8 +17,46 @@ var tweener = function() {
 		}
 	}.bind(this);
 
-	return this;
-}.call({});
+	// EXPOSED PROTOTYPE
+	$.fn.tween = {
+		queue : [],
+		active : false,
+		timer : null,
+		createTween : function(start, end, frameCount, easingfn) {
+			// return array of tween coordinate data (start->end)
+			var tween = [start];
+			var diff = end - start;
+			for (var i = 0; i < frameCount; i++) {
+				tween[i] = {};
+				var valueChange = tween[i - 1] ? tween[i - 1].data : 0;
+
+				// if it's the last frame use the end value or else pass it through the easing functions.
+				tween[i].data = i === frameCount - 1 ? end : $.fn.easing[easingfn](i, start, diff, frameCount);
+				tween[i].event = null;
+			}
+			return tween;
+		},
+		enqueue : function(o, fMethod, fOnComplete) {
+			// add object and associated methods to animation queue
+			this.queue.push(o);
+			o.active = true;
+		},
+		start : function() {
+			if (this.timer || this.active) return false; // animator.start(): already active
+			// animator.start() : only if started
+			this.active = true;
+			this.timer = setInterval(animate, 1 / intervalRate);
+		},
+		clear : function() {
+			// reset some things, clear for next batch of animations
+			clearInterval(this.timer);
+			this.timer = null;
+			this.active = false;
+			this.queue = [];
+		}
+	};
+
+})();
 
 /**
  * Tweens values between two points to be used in Javascript animation. Animation works a little differently to jQuery's animat() method, this simply provides callback functions that fires on a timer and provides parameters for that tweens frames animation values. You can then write your own CSS manipulation routine within the callbacks. 
@@ -91,7 +88,7 @@ var tweener = function() {
  * }).start();
  */
 var tween = function(animationParams) {
-
+	var tween = Object.create($.fn.tween);
 	/*
 	animationParams = {
 	from: 200,
@@ -199,7 +196,7 @@ var tween = function(animationParams) {
 	};
 
 	// return publics
-	return this;
+	return tweener;
 };
 $.tween = function(animationParams) {
 	return tween.call({}, animationParams);

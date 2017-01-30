@@ -796,50 +796,9 @@ var ish = function(document, window, $) {
 
 	/* Lib Optional Components
 	---------------------------------------*/
-	// SINGELTON
-	var tweener = function() {
+	// PROTOTYPE
+	(function() {
 		var intervalRate = 0.06; // 60FPS.
-	
-		this.queue = [];
-		this.queueHash = [];
-		this.active = false;
-		this.timer = null;
-	
-		this.createTween = function(start, end, frameCount, easingfn) {
-			// return array of tween coordinate data (start->end)
-			var tween = [start];
-			var diff = end - start;
-			for (var i = 0; i < frameCount; i++) {
-				tween[i] = {};
-				var valueChange = tween[i - 1] ? tween[i - 1].data : 0;
-	
-				// if it's the last frame use the end value or else pass it through the easing functions.
-				tween[i].data = i === frameCount - 1 ? end : $.fn.easing[easingfn](i, start, diff, frameCount);
-				tween[i].event = null;
-			}
-			return tween;
-		};
-	
-		this.enqueue = function(o, fMethod, fOnComplete) {
-			// add object and associated methods to animation queue
-			this.queue.push(o);
-			o.active = true;
-		};
-	
-		this.start = function() {
-			if (this.timer || this.active) return false; // animator.start(): already active
-			// animator.start() : only if started
-			this.active = true;
-			this.timer = setInterval(animate, 1 / intervalRate);
-		};
-	
-		this.clear = function() {
-			// reset some things, clear for next batch of animations
-			clearInterval(this.timer);
-			this.timer = null;
-			this.active = false;
-			this.queue = [];
-		};
 	
 		var animate = function() {
 			var active = 0;
@@ -856,8 +815,46 @@ var ish = function(document, window, $) {
 			}
 		}.bind(this);
 	
-		return this;
-	}.call({});
+		// EXPOSED PROTOTYPE
+		$.fn.tween = {
+			queue : [],
+			active : false,
+			timer : null,
+			createTween : function(start, end, frameCount, easingfn) {
+				// return array of tween coordinate data (start->end)
+				var tween = [start];
+				var diff = end - start;
+				for (var i = 0; i < frameCount; i++) {
+					tween[i] = {};
+					var valueChange = tween[i - 1] ? tween[i - 1].data : 0;
+	
+					// if it's the last frame use the end value or else pass it through the easing functions.
+					tween[i].data = i === frameCount - 1 ? end : $.fn.easing[easingfn](i, start, diff, frameCount);
+					tween[i].event = null;
+				}
+				return tween;
+			},
+			enqueue : function(o, fMethod, fOnComplete) {
+				// add object and associated methods to animation queue
+				this.queue.push(o);
+				o.active = true;
+			},
+			start : function() {
+				if (this.timer || this.active) return false; // animator.start(): already active
+				// animator.start() : only if started
+				this.active = true;
+				this.timer = setInterval(animate, 1 / intervalRate);
+			},
+			clear : function() {
+				// reset some things, clear for next batch of animations
+				clearInterval(this.timer);
+				this.timer = null;
+				this.active = false;
+				this.queue = [];
+			}
+		};
+	
+	})();
 	
 	/**
 	 * Tweens values between two points to be used in Javascript animation. Animation works a little differently to jQuery's animat() method, this simply provides callback functions that fires on a timer and provides parameters for that tweens frames animation values. You can then write your own CSS manipulation routine within the callbacks. 
@@ -889,7 +886,7 @@ var ish = function(document, window, $) {
 	 * }).start();
 	 */
 	var tween = function(animationParams) {
-	
+		var tween = Object.create($.fn.tween);
 		/*
 		animationParams = {
 		from: 200,
@@ -997,7 +994,7 @@ var ish = function(document, window, $) {
 		};
 	
 		// return publics
-		return this;
+		return tweener;
 	};
 	$.tween = function(animationParams) {
 		return tween.call({}, animationParams);
@@ -1245,12 +1242,11 @@ var ish = function(document, window, $) {
 				var tempValueType; //width = 0 || height = 1
 				el.breakpoints.forEach(function(obj, i) {
 					var name = obj.name;
-					var _widthValue = obj.width || null;
-					var _heightValue = obj.height || null;
+					var _widthValue = obj.width;
+					var _heightValue = obj.height;
 					el.state = el.state || [];
-	
-					var widthTest = _widthValue && _windowWidth > _widthValue;
-					var heightTest = _heightValue && _windowHeight > _heightValue;
+					var widthTest = !isNaN(_widthValue) && _windowWidth > _widthValue;
+					var heightTest = !isNaN(_heightValue) && _windowHeight > _heightValue;
 	
 					if (widthTest) {
 						tempState = name;
@@ -1260,7 +1256,7 @@ var ish = function(document, window, $) {
 						tempValueType = 1;
 					}				
 				});
-	
+					
 				if (tempState && 
 					tempValueType !== null && 
 					el.state[tempValueType] !== tempState || 

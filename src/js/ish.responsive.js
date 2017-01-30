@@ -20,12 +20,11 @@
 			var tempValueType; //width = 0 || height = 1
 			el.breakpoints.forEach(function(obj, i) {
 				var name = obj.name;
-				var _widthValue = obj.width || null;
-				var _heightValue = obj.height || null;
+				var _widthValue = obj.width;
+				var _heightValue = obj.height;
 				el.state = el.state || [];
-
-				var widthTest = _widthValue && _windowWidth > _widthValue;
-				var heightTest = _heightValue && _windowHeight > _heightValue;
+				var widthTest = !isNaN(_widthValue) && _windowWidth > _widthValue;
+				var heightTest = !isNaN(_heightValue) && _windowHeight > _heightValue;
 
 				if (widthTest) {
 					tempState = name;
@@ -35,7 +34,7 @@
 					tempValueType = 1;
 				}				
 			});
-
+				
 			if (tempState && 
 				tempValueType !== null && 
 				el.state[tempValueType] !== tempState || 
