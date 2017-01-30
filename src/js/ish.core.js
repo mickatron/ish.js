@@ -1,7 +1,7 @@
 /**
- * @mixin ishObject
+ * @mixin ish.fn.ishObject
  * @description
- * When you invoke the `ish('selector')` method `ishObject` members are inherited through Prototype Delegation to the returned collection.
+ * When you invoke the `ish('selector')` method `ish.fn.ishObject` members are inherited through Prototype Delegation to the returned collection.
  * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
  * 
  * @example
