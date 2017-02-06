@@ -389,18 +389,20 @@ var ish = function(document, window, $) {
 		var args = arguments;
 		var newObj = args[0];
 		var length = args.length;
-	
+		// loop each of the Objects we are going to merge into the first.
 		for (var i = 1; i < length; i++) {
-			for (var prop in args[i]) {
+			var ownPropNames = Object.getOwnPropertyNames(args[i]);
+			for (var e = 0; e < ownPropNames.length; e++) {
+				var prop = ownPropNames[e];
 				var objProp = args[i][prop];
-				// Property in destination object set; update its value.
-				if (objProp === null || objProp === undefined) {
+				if (!objProp) {
 					continue;
 				} else if (objProp.constructor === Object) {
-					newObj[prop] = $[extend](newObj[prop] || {}, objProp);
+					newObj[prop] = $[extend](newObj[prop] || {}, objProp); // recursive
 				} else {
-					newObj[prop] = objProp;
+					newObj[prop] = objProp; // Property in destination object set; update its value. 
 				}
+	
 			}
 		}
 		return newObj;
@@ -1016,7 +1018,9 @@ var ish = function(document, window, $) {
 	    Object.defineProperties($.fn.observableObject, {
 	        assign: {
 	            value: function() {
-	                var assigned = Object.assign.apply(this.__watchShadow,arguments);
+	                var args = [].slice.call(arguments);
+	                args.unshift(this);
+	                var assigned = Object.assign.apply(null,args);
 	                for(var each in assigned) {
 	                    // is the property being watched?
 	                    if(!this.__watchShadow[each]){
@@ -1041,15 +1045,34 @@ var ish = function(document, window, $) {
 	        }
 	    });
 	
-	    $.fn.observableArray = Object.create([],watchableProps);
+	    $.fn.observableArray = Object.create(null,watchableProps);
+	    var _arrayProto = Array.prototype;
+	    var arrayMethodNames = Object.getOwnPropertyNames(_arrayProto);
+	    var augmentedNames = ['pop','push','shift','splice','unshift','length', 'constructor'];
+	
+	    for( var item in augmentedNames ) {
+	        var index = arrayMethodNames.indexOf(augmentedNames[item]);
+	        arrayMethodNames.splice(index, 1);
+	    }
+	
+	    arrayMethodNames.forEach(function(method){
+	        Object.defineProperty($.fn.observableArray, method, {
+	            value: function(){
+	                var shadow = this.__watchShadow;
+	                return  shadow[method].apply(shadow,arguments);
+	            }
+	        });
+	
+	    });
+	
 	    ['pop','push','shift','splice','unshift'].forEach(function(method){
 	        Object.defineProperty($.fn.observableArray, method, {
 	            value: function() {
-	                var args = [].slice.call(arguments);
+	                var args = _arrayProto.slice.call(arguments);
 	                var shadow = this.__watchShadow;
 	                var index;
 	                var i;
-	                var returnValue = [][method].apply(this,arguments);
+	                var returnValue = _arrayProto[method].apply(this,arguments);
 	                // TODO: improve the below if block
 	                if(method==='pop') {
 	                    index = shadow.length-2;
@@ -1077,7 +1100,7 @@ var ish = function(document, window, $) {
 	                       }
 	                    }
 	                    // addition
-	                    if(toAdd.length > 1) {
+	                    if(toAdd.length >= 1) {
 	                        index = fromIndex; // reset index
 	                        for (i = 0; i < toAdd.length; i++) {
 	                            emit.call(this,'add', index, undefined, toAdd[i]); 
@@ -1122,7 +1145,7 @@ var ish = function(document, window, $) {
 	 * @constructor
 	 * @param {object} options
 	 * @param {state} options.breakpoints An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.
-	  * @param {state.mutators} An object of mutator functions. Objects keys represent the value to be mutated.
+	 * @param {state.mutators} An object of mutator functions. Objects keys represent the value to be mutated.
 	 * @param {state.handlers} An object containing arrays of callback functions.
 	 * @param {state.handlers.set} Item set callbacks
 	 * @param {state.handlers.add} Item add callbacks
@@ -1166,7 +1189,7 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Creates an observable Object or Array.
-	 * @name  ish.observable
+	 * @name  ish.observe
 	 * @constructor
 	 * @param {object} options
 	 * @param {state} options.breakpoints An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.
@@ -1175,14 +1198,14 @@ var ish = function(document, window, $) {
 	 * @param {state.handlers.set} Item set callbacks
 	 * @param {state.handlers.add} Item add callbacks
 	 * @param {state.handlers.remove}  Item remove callbacks
-	 * @return {ish.observable} The watchable instances public API.
+	 * @return {ish.observe} The watchable instances public API.
 	 * @example
 	// Observable : Object
 	var observeObjectHandler = function(){
 	    console.log('observed!!! ', this, arguments)
 	};
 	
-	var observedObj = ish.observable({data:'hello', text:'heya'}, {
+	var observedObj = ish.observe({data:'hello', text:'heya'}, {
 	    handlers: {
 	        set: [observeObjectHandler],
 	        add: [observeObjectHandler],
@@ -1221,7 +1244,7 @@ var ish = function(document, window, $) {
 	 */
 	
 	    // OBSERVABLE: Object || Array
-	    $.observable = function (objectOrArray, state) {
+	    $.observe = function (objectOrArray, state) {
 	        //var objectOrArray = state.data;
 	        var isArray = Array.isArray(objectOrArray);
 	        var proto = isArray ? $.fn.observableArray : $.fn.observableObject;   
@@ -1242,7 +1265,7 @@ var ish = function(document, window, $) {
 	    console.log('observed!!! ', this, arguments)
 	};
 	
-	var observedObj = ish.observable({data:'hello', text:'heya'}, {
+	var observedObj = ish.observe({data:'hello', text:'heya'}, {
 	    handlers: {
 	        set: [observeObjectHandler],
 	        add: [observeObjectHandler],
@@ -1290,7 +1313,7 @@ var ish = function(document, window, $) {
 	
 	};
 	
-	var observedArray = ish.observable([1, 'hello','heya', true], {
+	var observedArray = ish.observe([1, 'hello','heya', true], {
 	    handlers: {
 	        set: [observeArrayHandler],
 	        add: [observeArrayHandler],
