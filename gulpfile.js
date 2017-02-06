@@ -47,6 +47,7 @@ gulp.task('test', ['bundlejs'], function(done) {
 });
 
 gulp.task('minifyjs', ['bundlejs'], function() {
+  console.log('minify');
   return gulp.src(_minifyGlobs)
     .pipe(uglify())
     .pipe(rename({

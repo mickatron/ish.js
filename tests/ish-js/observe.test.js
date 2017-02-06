@@ -136,10 +136,6 @@ describe('ish.observe', function() {
     		expect(test).toEqual(observedArray.length); // returns the correct value
 		});*/
 
-
-
-
-
 	});
 
 

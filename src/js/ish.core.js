@@ -225,18 +225,20 @@ $[extend] = function() {
 	var args = arguments;
 	var newObj = args[0];
 	var length = args.length;
-
+	// loop each of the Objects we are going to merge into the first.
 	for (var i = 1; i < length; i++) {
-		for (var prop in args[i]) {
+		var ownPropNames = Object.getOwnPropertyNames(args[i]);
+		for (var e = 0; e < ownPropNames.length; e++) {
+			var prop = ownPropNames[e];
 			var objProp = args[i][prop];
-			// Property in destination object set; update its value.
-			if (objProp === null || objProp === undefined) {
+			if (!objProp) {
 				continue;
 			} else if (objProp.constructor === Object) {
-				newObj[prop] = $[extend](newObj[prop] || {}, objProp);
+				newObj[prop] = $[extend](newObj[prop] || {}, objProp); // recursive
 			} else {
-				newObj[prop] = objProp;
+				newObj[prop] = objProp; // Property in destination object set; update its value. 
 			}
+
 		}
 	}
 	return newObj;

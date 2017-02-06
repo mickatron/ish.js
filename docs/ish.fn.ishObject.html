@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ish.js | ishObject prototype</title>
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="l-header" data-scrollpop="header">
+    <header data-scrollpop-bar>
+        <div class="l-header__content" data-scrollpop-content>
+            <h1><a href="/js/docs/">ish.js API Doc <span>(alpha)</span></a></h1>
+
+            <button data-ui-main-nav--toggle class="c-main-nav__toggle icon--menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
+            <nav data-ui-main-nav class="c-main-nav">
+                <div class="c-main-nav__inner">
+                    
+<!--<h3 class="applicationName"><a href="index.html"></a></h3> -->
+
+<ul class="c-menu c-menu--alpha">
+
+    <li data-name="ish">
+        
+        <a href="ish.html">ish</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.ajax"><a href="ish.html#.ajax">ajax</a></li>
+            
+            <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
+            
+            <li data-name="ish#extend"><a href="ish.html#extend">extend</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.responsive">
+        
+        <a href="ish.responsive.html">ish.responsive</a>
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Events</span></li>
+            
+                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+            
+            
+        </ul>
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.fn.ishObject">
+        
+        <a href="ish.fn.ishObject.html">ish.fn.ishObject</a>
+        
+        
+        
+        
+        
+        
+    </li>
+
+    <li data-name="ish.fn.easing">
+        
+        <a href="ish.fn.easing.html">ish.fn.easing</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+    </li>
+
+    <li data-name="ish.observe">
+        
+        <a href="ish.observe.html">ish.observe</a>
+        
+        
+        
+        
+        
+        
+    </li>
+
+    <li data-name="ish.watchable">
+        
+        <a href="ish.watchable.html">ish.watchable</a>
+        
+        
+        
+        
+        
+        
+    </li>
+
+</ul>
+
+                </div>
+                <button data-ui-main-nav--toggle class="c-main-nav__close">Close Menu</button>
+            </nav>
+         </div>
+    </header> 
+</div> 
+<div class="l-doc" role="document">
+    <main class="l-main">
+            <div class="l-main__content">
+                
+
+
+
+
+<section>
+
+<header class="c-page-header">
+	<div class="l-constrained c-content-block">
+		 
+		<h1 class="c-page-header__title">The ishObject prototype</h1>
+	</div>
+</header>
+
+<article class="l-constrained">
+
+
+	
+		
+		<div class="c-api-doc--intro c-content-blockr">
+			<div class="c-content-block__inner">
+				
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="js_ish.core.js.html">js/ish.core.js</a>, <a href="js_ish.core.js.html#line1">line 1</a>
+        
+
+      <a href="js_ish.core.js.html#line1" class="button outline">js/ish.core.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+				
+					<p>When you invoke the <code>ish('selector')</code> method <code>ish.fn.ishObject</code> members are inherited through Prototype Delegation to the returned collection.
+The result is just like a jQuery Object, there is utility methods, a length, context and selector property.</p>
+				
+				
+					<h5>Example</h5>
+					
+    <pre class="prettyprint"><code>// Cache an ishObject collectionvar collection = ish('selector');// Call an ishObject methodish('selector').attr('attributeName');// There is a length propertyish('selector').length; // and also a selector property which refers to the first parameter passed into ish();ish('selector').selector;// You can call native methods on collection items just like you would in jQueryish('selector')[0].style.display = 'block';</code></pre>
+
+				  
+			</div>
+		</div> 
+  
+	
+
+	
+
+	
+
+<!--
+	
+
+	 
+
+	
+
+-->
+   
+
+
+
+	
+
+	
+
+	
+
+ 
+</article>
+
+</section>
+
+
+
+
+            </div>
+    </main>
+</div>
+
+    <!-- <footer>
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Feb 06 2017 14:41:51 GMT+1100 (AUS Eastern Daylight Time)
+    </footer> -->
+<script src="../../js/dist/ish.min.js"> </script>
+<script src="main.js"> </script>
+
+</body>
+</html>
