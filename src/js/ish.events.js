@@ -2,6 +2,8 @@
 /**
  * Attach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'addeventListener' so any valid Javascript event can be used. 
  * It's inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.
+ * @name  ish.fn.ishObject.on
+ * @function
  * @param  {String}   event     The type of event you're adding to the Node/s
  * @param  {Function} fn        A callback to be fired when the event is triggered.
  * @param  {String}   delegate  A valid CSS selector to delegate the event to.
@@ -35,7 +37,8 @@ ishObject.on = function(event, fn, delegate) {
 				f: fn,
 				e: function(event) {
 					if (matches.call(event.target, delegate)) {
-						fn(event);
+						event.delegateTarget = this;
+						fn.call(this,event);
 					}
 				}
 			};
@@ -54,6 +57,8 @@ ishObject.on = function(event, fn, delegate) {
 /**
  * Dettach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'removeEventListener' so any valid Javascript event can be used. 
  * Its inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.
+ * @name  ish.fn.ishObject.off
+ * @function
  * @param  {string} event The type of event you're adding to the Node/s
  * @param  {function} fn The Node to find in the ish Object.
  * @return {ishObject}         Method is chainable, returns the ish Object which called the method. 
@@ -88,6 +93,8 @@ ishObject.off = function(event, fn) {
 
 /**
  * Triggers an event.
+ * @name  ish.fn.ishObject.trigger
+ * @function
  * @param  {string} type The type of event to trigger.
  * @param  {object} data Any 
  * @return {ishObject}         Method is chainable, returns the ish Object which called the method. 

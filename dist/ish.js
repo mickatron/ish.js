@@ -286,7 +286,7 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Returns the item at the specified index in the `ishObject`.
-	 * @name  ishObject.nth
+	 * @name  ish.fn.ishObject.nth
 	 * @function
 	 * @param  {Number} int    The index of the item in the `ishObject`.
 	 * @example
@@ -302,7 +302,7 @@ var ish = function(document, window, $) {
 	/**
 	 * Iterates an `ishObject` returning each `Node` in an individual `ishObject`, along with its index 
 	 * in the original collection. This method will iterate every item in the collection and cannot be broken.
-	 * @name  ishObject.forEach
+	 * @name  ish.fn.ishObject.forEach
 	 * @function
 	 * @param  {Function} fn    The callback function which will be called with each iteration
 	 * @param  {Object}   scope The scope in which the callback function will be called. 
@@ -325,7 +325,7 @@ var ish = function(document, window, $) {
 	};
 	/**
 	 * Gets the index of a specific `Node` in an `ishObject`
-	 * @name  ishObject.indexOf
+	 * @name  ish.fn.ishObject.indexOf
 	 * @function
 	 * @param  {Node} needle    The `Node` to find in the `ishObject`.
 	 * @return {Number}         Index of the `Node` in the `ishObject`. Returns -1 if not found.
@@ -348,8 +348,8 @@ var ish = function(document, window, $) {
 	};
 	/**
 	 * Gets an attributes value for the first element in the `ishObject`. If the second argument is supplied the 
-	 * method sets an attribute and its value on all `Node`'s in the given `ishObject`.
-	 * @name  ishObject.attr
+	 * method sets an attribute and its value on all `Node`'s in the given `ishObject`. Prototyped method and properties are shadowed in the new object.
+	 * @name  ish.fn.ishObject.attr
 	 * @function
 	 * @param  {String} name        A valid CSS attribute selector.
 	 * @param  {String} value       The attirbute value to be set.
@@ -387,30 +387,51 @@ var ish = function(document, window, $) {
 	 */
 	$[extend] = function() {
 		var args = arguments;
-		var newObj = args[0];
-		var length = args.length;
-		// loop each of the Objects we are going to merge into the first.
-		for (var i = 1; i < length; i++) {
-			var ownPropNames = Object.getOwnPropertyNames(args[i]);
-			for (var e = 0; e < ownPropNames.length; e++) {
-				var prop = ownPropNames[e];
-				var objProp = args[i][prop];
-				if (!objProp) {
-					continue;
-				} else if (objProp.constructor === Object) {
-					newObj[prop] = $[extend](newObj[prop] || {}, objProp); // recursive
-				} else {
-					newObj[prop] = objProp; // Property in destination object set; update its value. 
-				}
+		var targetObject = args[0];
+		// TODO: non enumerable properties???
+		// TODO: I dont think this will copy constructor prototype implementations...
+		// TOOD: currently definately wont copy Class prototype method as they're non-enumerable.
+		// TODO: should I consider shallow copies?
 	
+		for (var i = 1; i < args.length; i++) {
+	
+			var toMerge = args[i];
+			if(Array.isArray(targetObject)){
+				var newArray = [];
+				for (var e = 0; e < toMerge.length; e++) {
+					if (toMerge[e] === null || toMerge[e] === undefined) {
+						continue; // skip null and undefined values
+					} else if (toMerge[e].constructor === Object) {
+						targetObject[e]  = $[extend](newArray[e] || {}, toMerge[e]);
+					} else if ( Array.isArray( toMerge[e] ) ) {
+						targetObject[e]  = $[extend](newArray[e] || [], toMerge[e]);
+					} else {
+						targetObject[e]  = toMerge[e];
+					}
+				}
+			} else if(targetObject.constructor === Object){
+				for (var prop in toMerge) {
+					var propValue = toMerge[prop];
+					if (propValue === null || propValue === undefined) {
+						continue; // skip null and undefined values
+					} else if (propValue.constructor === Object) { // recurse objects that already exisit on the target
+						targetObject[prop] = $[extend](targetObject[prop] || {}, propValue);
+					} else if (propValue.constructor === Array) {
+						targetObject[prop] = $[extend](targetObject[prop] || [], propValue);
+					}else { // Property in destination object set; update its value.
+						targetObject[prop] = propValue; 
+					}
+					
+				}
 			}
 		}
-		return newObj;
+		return targetObject;
 	};
+	
 	
 	/**
 	 * Returns the left and top offset in pixels for the first element in the `ishObject`. 
-	 * @name  ishObject.offset
+	 * @name  ish.fn.ishObject.offset
 	 * @function
 	 * @return {Object}         An `Object` with values for left and top offsets in pixel values.
 	 * @example
@@ -433,7 +454,7 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Gets the width or height the first element in the supplied `ishObject`.
-	 * @name  ishObject.dimension
+	 * @name  ish.fn.ishObject.dimension
 	 * @function
 	 * @param  {String} type          'width' or 'height'.
 	 * @param  {Boolean} margins      Include margins in the return result.
@@ -473,7 +494,7 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Gets the CSS value of the first element in the supplied `ishObject`. Or sets the CSS value on all items in an `ishObject`.
-	 * @name  ishObject.css
+	 * @name  ish.fn.ishObject.css
 	 * @function
 	 * @param  {String} prop   The name of the CSS property in camelCase. eg. 'margin-left' would be passed as 'marginLeft'.  
 	 * @param  {String} value   Exclude the horizontal scrollbars height from the result.
@@ -502,6 +523,8 @@ var ish = function(document, window, $) {
 	/**
 	 * Attach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'addeventListener' so any valid Javascript event can be used. 
 	 * It's inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.
+	 * @name  ish.fn.ishObject.on
+	 * @function
 	 * @param  {String}   event     The type of event you're adding to the Node/s
 	 * @param  {Function} fn        A callback to be fired when the event is triggered.
 	 * @param  {String}   delegate  A valid CSS selector to delegate the event to.
@@ -535,7 +558,8 @@ var ish = function(document, window, $) {
 					f: fn,
 					e: function(event) {
 						if (matches.call(event.target, delegate)) {
-							fn(event);
+							event.delegateTarget = this;
+							fn.call(this,event);
 						}
 					}
 				};
@@ -554,6 +578,8 @@ var ish = function(document, window, $) {
 	/**
 	 * Dettach handlers to the Node/s in the given ishObject. This method is just a wrapper for 'removeEventListener' so any valid Javascript event can be used. 
 	 * Its inclusion in the library is intended to save you writing loops to cover multiple event targets when hooking events.
+	 * @name  ish.fn.ishObject.off
+	 * @function
 	 * @param  {string} event The type of event you're adding to the Node/s
 	 * @param  {function} fn The Node to find in the ish Object.
 	 * @return {ishObject}         Method is chainable, returns the ish Object which called the method. 
@@ -588,6 +614,8 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Triggers an event.
+	 * @name  ish.fn.ishObject.trigger
+	 * @function
 	 * @param  {string} type The type of event to trigger.
 	 * @param  {object} data Any 
 	 * @return {ishObject}         Method is chainable, returns the ish Object which called the method. 
@@ -619,7 +647,7 @@ var ish = function(document, window, $) {
 	---------------------------------------*/
 	/**
 	 * Gets the height of the first element in the supplied `ishObject`. This method is an abstraction of `ishObject.dimension`.
-	 * @name  ishObject.height
+	 * @name  ish.fn.ishObject.height
 	 * @function
 	 * @param  {Boolean} margins      Include margins in the return result.
 	 * @param  {Boolean} clientHeight Exclude the horizontal scrollbars height from the result.
@@ -631,8 +659,8 @@ var ish = function(document, window, $) {
 		return this.dimension('height', margins, clientHeight);
 	};
 	/**
-	 * Gets the width of the first element in the supplied `ishObject`. This method is an abstraction of `ishObject.dimension`.
-	 * @name  ishObject.width
+	 * Gets the width of the first element in the supplied `ishObject`. This method is an abstraction of `ish.fn.ishObject.dimension`.
+	 * @name  ish.fn.ishObject.width
 	 * @function
 	 * @param  {Boolean} margins      Include margins in the return result.
 	 * @param  {Boolean} clientHeight Exclude the horizontal scrollbars height from the result.
@@ -723,7 +751,7 @@ var ish = function(document, window, $) {
 	 * Tests if a particular class name is found on a Node within the given ishObject. 
 	 * This method will check the whole collection, if you want to check a specific 
 	 * selector you will be required to filter the collection before making the check.
-	 * @name ishObject.hasClass
+	 * @name ish.fn.ishObject.hasClass
 	 * @function
 	 * @param  {String} test 	The class name to test against the collection.
 	 * @return {boolean}      	If the class name was found on the collection.
@@ -742,7 +770,7 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Removes a class name from each Node in the given ishObject.
-	 * @name ishObject.removeClass
+	 * @name ish.fn.ishObject.removeClass
 	 * @function
 	 * @param  {String} name 	The class name you wish to remove from the element/s. 
 	 * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 
@@ -764,7 +792,7 @@ var ish = function(document, window, $) {
 	
 	/**
 	 * Adds a class name to each Node in the given ishObject.
-	 * @name ishObject.addClass
+	 * @name ish.fn.ishObject.addClass
 	 * @function
 	 * @param  {string} name 	The class name you wish to add to the element/s. 
 	 * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 
@@ -796,7 +824,7 @@ var ish = function(document, window, $) {
 	 */
 	ishObject.invoke = function(module, options, context) {
 		options = options || {};
-		var createdModules = {}; // could/should this be an array?
+		var createdModules = []; // {}; // could/should this be an array?
 		options.selector = this.selector;
 		this.forEach(function($el, i) {
 			var currContext = context || {};
@@ -808,7 +836,41 @@ var ish = function(document, window, $) {
 
 	/* Lib Optional Components
 	---------------------------------------*/
-	//!=require /js/ish.easing.js // just if you really need them
+	//!=include /js/ish.easing.js // just if you really need them
+	$.fn.emitter = {
+		init: function (){
+	 		this.listeners = {};
+	
+	 		return this;
+		},
+		emit: function(type, argsObject){
+			var listeners = this.listeners[type];
+			if(!listeners) return this;
+			for (var handler in listeners) {
+				listeners[handler].call(this, argsObject);
+			}
+			return this;
+		},
+		subscribe: function(type, fn){
+			this.listeners[type] = this.listeners[type] || [];
+			this.listeners[type].push(fn);
+			return this;
+		},
+		unsubscribe: function(type, fn){
+			var listeners = this.listeners[type];
+			var index = listeners.indexOf(fn);
+			listeners.splice(index, 1);
+			return this;
+		}
+	};
+	
+	$.emitter = function(){
+		//var factory = Object.create($.fn.emitter).init();
+		//console.log('emitter ', factory);
+		//factory.listeners = {};
+		return Object.create($.fn.emitter).init();
+	};
+	
 	//=require ish.core.js
 	(function() {
 		var _settings = [];
@@ -947,431 +1009,386 @@ var ish = function(document, window, $) {
 		
 		return responsiveObj;
 	};
-	//=require ish.core.js
-	//
-	// Code Inspired by:
-	// https://github.com/remy/bind.js/blob/master/README.md
-	// https://gist.github.com/384583
-	// http://stackoverflow.com/questions/5100376/how-to-watch-for-array-changes
+	/**
+	 * Resolves an Object path given in String format within the given Object.
+	 * @name  ish.resolveObjectPath
+	 * @function
+	 * @param  {Object} object      The object which contains the value you're attempting to resolve.
+	 * @param  {String} pathString  The path of the value which you are attempting to resolve.  
+	 * @return {Object}             The resolved value.
+	 * @example
+	 *
+	 * var object = {
+	 *     nested: {
+	 *         value : 'a nested value',
+	 *         array: [1,2,'third',4,5]
+	 *     }
+	 * };
+	 * 
+	 * var value = ish.resolveObjectPath(object, 'nested.value'); // 'a nested value'
+	 * var arrayValue = ish.resolveObjectPath(object, 'nested.array[3]'); // 'third' 
+	 * 
+	 */
+	$.resolveObjectPath = function(o, s) {
+	    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+	    s = s.replace(/^\./, '');           // strip a leading dot
+	    var a = s.split('.');
+	    for (var i = 0, n = a.length; i < n; ++i) {
+	        var k = a[i];
+	        if (k in o) {
+	            o = o[k];
+	        } else {
+	            return;
+	        }
+	    }
+	    return o;
+	};
 	
-	// watchableProtoModule
-	// TODO: Write tests before any further updates, then
-	// TODO: batch updates rather than individual calls
-	// TODO: use Proxy and regress to current implementation if not availiable
-	// TODO: Document
+	/**
+	 * Sets an the value of an Object path given in String format within the given Object.
+	 * @name  ish.setPathByString
+	 * @function
+	 * @param  {Object} object      The object which contains the value you're attempting to set.
+	 * @param  {String} pathString  The path of the value which you are attempting to set.
+	 * @param  {value} value        The value you're attempting to set.
+	 * @return {Object}             The resolved value.
+	 * @example
+	 *
+	 * var object = { 
+	 *     nested: { 
+	 *         value : 'a nested value',
+	 *         array: [1,2,'third',4,5]
+	 *     }
+	 * };
+	 * 
+	 * var value = ish.resolveObjectPath(object, 'nested.value'); // 'a nested value'
+	 * var arrayValue = ish.resolveObjectPath(object, 'nested.array[3]'); // 'third' 
+	 * 
+	 */
+	$.setPathByString = function(object, propertyString, value){
+	    //propertyString = propertyString.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+	    //propertyString = propertyString.replace(/^\./, '');           // strip a leading dot
+	    var props = propertyString.split('.');
+	    var obj = object;
+	    for (var i = 0; i < props.length; i++) {
+	        if( i === props.length -1) {
+	            obj[props[i]] = value;
+	            return obj[props[i]];
+	        }
+	        if(!obj[props[i]]) {
+	            obj[props[i]] = {};
+	        } 
+	        obj = obj[props[i]];
+	    }
+	};
+	
+	
+	
+	$.store = {
+		data: {},
+		states: {},
+		flush: function(){
+			this.states = {};
+			this.data = {};
+			return this;
+		},
+		createDataState: function(name, fn){
+			var ref = this.data[name] = $.emitter();
+			ref.actions = {};
+			ref.store = null;
+			ref.model = null; 
+			fn.call(ref);
+			return ref;
+		},
+		createComState: function(name, fn){
+			if(typeof name === 'string' ){
+				if(!this.states[name]) {
+					this.states[name] = [];
+				}
+				var ref = $.emitter();
+				ref.actions = {};
+				fn.call(ref);
+				this.states[name].push(ref);
+				return ref;
+			} else {
+				fn.call(name);
+				return name;
+			}
+		}
+	};
+	
+	/**
+	 * Return an object with a 
+	 * @name  ish.deepProto
+	 * @function
+	 * @param  {Object} object      The object which contains the value you're attempting to resolve.
+	 * @return {Object}             The resolved value.
+	 * @example
+	 *
+	 * var deepProtoObject = { 
+	 *     nested: { 
+	 *         value : 'a nested value',
+	 *         array: [1,2,'third',4,5]
+	 *     }
+	 * };
+	 * 
+	 * var value = ish.resolveObjectPath(object, 'nested.value'); // 'a nested value'
+	 * var arrayValue = ish.resolveObjectPath(object, 'nested.array[3]'); // 'third' 
+	 * 
+	 */
+	
+	$.deepProto = function (object) {
+	    // todo: consider Array more closely
+	    // when es6 is more common subclassing an array is not so difficult - worry about it then.
+	    var newObject = Object.create(object);
+	    for(var each in object) {
+	        var value = object[each];
+	        if(value){
+	            if(typeof value === 'object') {
+	                newObject[each] = $.deepProto(value);
+	            } else if(Array.isArray(object[each])) {
+	                for (var i = 0; i < object[each].length; i++) {
+	                    var val = object[each][i];
+	                    if(typeof val === 'object') {
+	                        val = $.deepProto(val);
+	                    }
+	                }
+	            }
+	        }
+	    }
+	    return newObject;
+	};
+	
+	var bindAttrName = $.bindAttrName = "ish-bind";
+	var noop = document.createElement('div');
+	
+	/**
+	 * Render a template string with corresponding object data.
+	 * @name  ish.renderTemplate
+	 * @function
+	 * @param  {String}   templateString 	A valid HTML template string.
+	 * @param  {Object}   dataObject 		An object whose values will be bound to the rendered HTML.
+	 * @return {Node}         The rendered HTML template `Node` which can be inserted into the DOM.
+	 * @example
+	 *
+	 * var template = '<div><p ish-bind="textContent:text"></p></div>'
+	 * 
+	 * ish.renderTemplate(template, {text: 'Text has been rendered.'});
+	 */
+	$.renderTemplate = function (templateString, dataObject){
+		noop.insertAdjacentHTML('afterbegin', templateString);
+		var nodesToBind = $('['+bindAttrName+']',noop);
+		nodesToBind.forEach(function(node){
+			$.renderBind(node, dataObject);
+		});
+		var rendered = noop.removeChild(noop.firstChild);
+		return rendered;
+	};
+	
+	/**
+	 * Update a template Node with a corresponding object data.
+	 * @name  ish.updateTemplate
+	 * @function
+	 * @param  {Node}     updateNode 	The node to update, all child Node's will be updated.
+	 * @param  {Object}   updateObject 	An object whose values will be updated in the provided HTML.
+	 * @return {ish}       
+	 * @example
+	 *
+	 * var template = '<div><p ish-bind="textContent:text"></p></div>';
+	 * var renderedTemplate = ish.renderTemplate();
+	 * ish.updateTemplate(renderedTemplate, {});
+	 */
+	$.updateTemplate = function (updateNode, updates){
+		// TODO refactor, should sit outside of this fn
+		var updateTemplateEachFn = function(node){ $.renderBind(node, updates); };
+		for(var each in updates) {
+			$('['+bindAttrName+'*='+each+']', updateNode).forEach(updateTemplateEachFn);
+		}
+		return $;
+	};
+	
+	/**
+	 * Render the values given in the dataObject to a single node.
+	 * @name  ish.renderBind
+	 * @function
+	 * @param  {String}   domNode 		An exisiting DOM Node.
+	 * @param  {Object}   dataObject 	An object whose values will be bound to the rendered HTML.
+	 * @return {Node}     The rendered HTML template `Node` which can be inserted into the DOM.
+	 * @example
+	 *
+	 * var template = '<p ish-bind="textContent:text"></p>'
+	 * var node = ish.renderTemplate(template, {text:'text has been rendered'});
+	 * // you would usualy use ish.updateTemplate, this is just for exmaple
+	 * ish.renderBind(node, {text: 'text has been updated text'});
+	 */
+	$.renderBind = function (domNode, obj) {    
+	    var binds = domNode.attr(bindAttrName).split(" ");
+	    for (var i = 0; i < binds.length; i++) {
+			var bind = binds[i].split(":");
+		    var domAttribute = bind[0].trim(); // the attribute on the DOM element
+		    var propertyAttribute = bind[1].trim(); // the attribute the object
+		    var targetValue = domNode[0][domAttribute];
+		    var resolvedPathValue = $.resolveObjectPath(obj, propertyAttribute);
+		    if(resolvedPathValue && targetValue !== resolvedPathValue) domNode[0][domAttribute] =  resolvedPathValue;
+	    }
+	};
+	
+	/**
+	 * Whilst the ish.renderBind method renders values to the DOM, ish.bindToObject sets the values of the binds DOM attributes in the target object.
+	 * @name  ish.bindToObject
+	 * @function
+	 * @param  {String}   domNode 		An exisiting DOM Node.
+	 * @param  {Object}   dataObject 	An object whose values will be bound to the rendered HTML.
+	 * @return {ish}      Chainable with other ish methods.
+	 * @example
+	 *
+	 * var template = '<p ish-bind="textContent:text"></p>'
+	 * var node = ish.renderTemplate(template, {text:'text has been rendered'});
+	 * // you would usualy use ish.updateTemplate, this is just for exmaple
+	 * ish.renderBind(node, {text: 'text has been updated text'});
+	 */
+	$.bindToObject = function (domNode, obj){
+	    var binds = domNode.attr(bindAttrName).split(" ");
+		for (var i = 0; i < binds.length; i++) {
+			var bind = binds[i].split(":");
+		    var domAttribute = bind[0].trim(); // the attribute on the DOM element
+		    var propertyAttribute = bind[1].trim(); // the attribute the object
+		    var targetValue = domNode[0][domAttribute];
+		    if(targetValue) $.setPathByString(obj, propertyAttribute, targetValue);
+		}
+		return this;
+	};
 	(function(){
-	    var emit = function (type, prop, oldValue, value){
-	        this._watchHandlers[type].forEach(function(handler){
-	            handler.call(this, {
-	                type: type,
-	                prop: prop,
-	                previousValue: oldValue,
-	                value: value
-	            });
-	        }, this);
-	    };
-	    // set value and call handler fn
-	    var setAndCallHandler = function (prop, value, oldValue){
-	        this.__watchShadow[prop] = value;
-	        emit.call(this,'set', prop, oldValue, value);
-	    };
+		var _historyAPI = window.history;
 	
-	    var watchableProps = {
-	        'watch': {
-	            value : function (prop) {
-	                var shadow = this.__watchShadow;
-	                if(shadow[prop]) return; // if already being watched return
-	                var oldValue = this[prop];
-	                shadow[prop] = oldValue;
-	                var mutatorCallback = function(newValue){
-	                    setAndCallHandler.call(this, prop, newValue, shadow[prop]);
-	                }.bind(this); 
-	                // Lastly override the property defining new getter and setters
-	                Object.defineProperty(this, prop, {
-	                    get: function () {
-	                        return shadow[prop];
-	                    }, 
-	                    set: function (value) {
-	                        var mutator = this._watchMutators[prop];
-	                        if(mutator){
-	                            mutator.call(this,prop, value, mutatorCallback);
-	                        } else {
-	                            setAndCallHandler.call(this, prop, value, shadow[prop]);
-	                        }
-	                    }, 
-	                    enumerable: true, 
-	                    configurable: true
-	                });
-	            }
-	        },
-	        'unwatch': {
-	            value : function (prop) {
-	                var value = this[prop];
-	                delete this[prop]; // remove accessors
-	                this[prop] = value; // reset the property
-	                delete this.__watchShadow[prop]; // remove facade reference
-	            }
-	        }
-	    };
-	    // EXPOSED PROTOTYPES
-	    $.fn.observableObject = Object.create({},watchableProps);
-	    Object.defineProperties($.fn.observableObject, {
-	        assign: {
-	            value: function() {
-	                var args = [].slice.call(arguments);
-	                args.unshift(this);
-	                var assigned = Object.assign.apply(null,args);
-	                for(var each in assigned) {
-	                    // is the property being watched?
-	                    if(!this.__watchShadow[each]){
-	                        this.watch(each);
-	                        // emit : new item added
-	                        emit.call(this,'add',each, undefined, assigned[each]);
-	                    }
-	                }
-	            }
-	        }, 
-	        deleteProps: {
-	            value: function() {
-	                var args = [].slice.call(arguments);
-	                for (var i = 0; i < args.length; i++) {
-	                    var value = this[args[i]];
-	                    this.unwatch(args[i]);
-	                    delete this[args[i]];
-	                     // emit : item removed
-	                    emit.call(this,'remove', args[i], value, undefined);
-	                }
-	            }
-	        }
-	    });
+		function arrayFindString(str, strArray) {
+			var matches = {
+				values:[],
+				index:[]
+			};
+		    for (var j=0; j<strArray.length; j++) {
+		        if (strArray[j].match(str)) {
+		        	matches.index.push(j);
+		        	matches.values.push(strArray[j]);
+		        }
+		    }
+		    if(matches.index.length) return matches;
+		    return -1;
+		}
 	
-	    $.fn.observableArray = Object.create(null,watchableProps);
-	    var _arrayProto = Array.prototype;
-	    var arrayMethodNames = Object.getOwnPropertyNames(_arrayProto);
-	    var augmentedNames = ['pop','push','shift','splice','unshift','length', 'constructor'];
+		function parseURLroute (routeString){
+			var routeKeys = Object.keys(this.routes);
+			var exact = routeKeys.indexOf(routeString);
+			if(exact >= 0) {
+				this.routes[routeKeys[exact]]();
+			} else {
+				// not exact
+				var routeArray = routeString.split('/');
+				routeArray.shift();
+				var matches = arrayFindString(routeArray[0], routeKeys);
+				var fnIndexMatches = matches.index;
+				var fnKeyMatches = matches.values;
 	
-	    for( var item in augmentedNames ) {
-	        var index = arrayMethodNames.indexOf(augmentedNames[item]);
-	        arrayMethodNames.splice(index, 1);
-	    }
+				// if theres more than one match refine by string comparison
+				if(fnIndexMatches.length > 1){
+					var refineMatch = {
+						index:[],
+						values:[]
+					}; 
+					var mostPoints = 0;
+					var mostSimilar;
+					for (var i = 0; i < fnKeyMatches.length; i++) {
+						var newArr = fnKeyMatches[i].split('/');
+						newArr.shift();
+						var points = 0;
+						if( newArr.length === routeArray.length){
+							for (var val = 0; val < newArr.length; val++) {
+								if(newArr[val] === routeArray[val]){
+									points++;
+								}
+								if(points > mostPoints) {
+									mostPoints = points;
+									mostSimilar = i;
+								}
+							}
+						}
+					}
+					if(matches.index[mostSimilar]){
+						refineMatch.index.push(matches.index[mostSimilar]);
+						refineMatch.values.push(matches.values[mostSimilar]);
+					}
+					matches = refineMatch;
+				}
+				
+				//console.log( 'routeString  ', routeString, matches);
+				// only 1  match should exisit in the matches object by now.
+				if (matches.index.length === 0) { 
+					console.warn('Route Not Found');
+					this.emit('ROUTE_NOT_FOUND', { route: routeString });
+					return; 
+				} else if (matches.index.length > 1) { 
+					console.error('More than 1 route found'); 
+				}
 	
-	    arrayMethodNames.forEach(function(method){
-	        Object.defineProperty($.fn.observableArray, method, {
-	            value: function(){
-	                var shadow = this.__watchShadow;
-	                return  shadow[method].apply(shadow,arguments);
-	            }
-	        });
+				// get any slug values 
+				var splitMatchArray = matches.values[0].split('/');
+				splitMatchArray.shift();
+				//find slugs
+				var slugObject = {};
+				for (var match = 1; match < splitMatchArray.length; match++) {
+					// is it a slug? 
+					var isSlug = splitMatchArray[match].charAt(0) + splitMatchArray[match].charAt(splitMatchArray[match].length-1);
+					if(isSlug === '{}') {
+						// it's a slug!
+						var slugName =  splitMatchArray[match].slice(1,-1);
+						var slugValue = routeArray[match];
+						slugObject[slugName] = slugValue;
+					}
+				}
+				// add to the history
+				console.log(routeString);
+				_historyAPI.pushState({}, "", routeString);
+				this.current = routeString;
+				this.slugs = slugObject;
+				this.emit('ROUTE_NAVIGATE', { route: routeString, slugs: slugObject });
+				// lastly call the method 
+				return this.routes[matches.values[0]](slugObject);
+			}
+		}
 	
-	    });
+		$.fn.router = {
+			add: function(route, fn){
+				this.routes[route] = fn;
+				return this;
+			},
+			remove: function(route){
+				delete this.routes[route];
+				return this;
+			},
+			flush: function(){
+				this.routes = {};
+				return this;
+			},
+			navigate: function(route){
+				// parse url route
+				var route = parseURLroute.call(this, route);
 	
-	    ['pop','push','shift','splice','unshift'].forEach(function(method){
-	        Object.defineProperty($.fn.observableArray, method, {
-	            value: function() {
-	                var args = _arrayProto.slice.call(arguments);
-	                var shadow = this.__watchShadow;
-	                var index;
-	                var i;
-	                var returnValue = _arrayProto[method].apply(this,arguments);
-	                // TODO: improve the below if block
-	                if(method==='pop') {
-	                    index = shadow.length-2;
-	                    emit.call(this,'remove', index, shadow[index], undefined);
-	                } else if(method==='push') {
-	                    index = shadow.length-1;
-	                    for (i = 0; i < args.length; i++) {
-	                        this.watch(index);
-	                        emit.call(this,'add', index, args[i], undefined);
-	                        index++;
-	                    }
-	                } else if(method==='shift') {
-	                    index = 0;
-	                    emit.call(this,'remove', index, shadow[index], undefined);
-	                } else if(method==='splice') {
-	                    index = args[0];
-	                    var fromIndex = index;
-	                    var deleteHowMany = args[1];
-	                    var toAdd = args.slice(1, args.length-1);
-	                    // removal
-	                    if(deleteHowMany > 0) {
-	                       for (i = 0; i < deleteHowMany; i++) {
-	                            emit.call(this,'remove', index, shadow[i], undefined); 
-	                            index++;
-	                       }
-	                    }
-	                    // addition
-	                    if(toAdd.length >= 1) {
-	                        index = fromIndex; // reset index
-	                        for (i = 0; i < toAdd.length; i++) {
-	                            emit.call(this,'add', index, undefined, toAdd[i]); 
-	                            index++;
-	                       }   
-	                    }
-	                } else if(method==='unshift') {
-	                    index = shadow.length - args.length;
-	                    for (i = 0; i < args.length; i++) {
-	                        this.watch(index); 
-	                        emit.call(this,'add', index, undefined, args[i]);
-	                        index++;
-	                    }
-	                } 
-	                
-	                return returnValue;
-	            }
-	        });
-	    });
+				return this;
+			},
+			destroy: function(){
 	
-	    Object.defineProperty($.fn.observableArray, 'length', {   
-	        get: function(){
-	            return this.__watchShadow.length;
-	        },
-	        set : function(newLen){
-	            this.__watchShadow.length = newLen;
-	        }
-	    });
+				return null;
+			}
+		};
 	
-	    var createProps = function(handlers, mutators, shadow){
-	        return {
-	            _watchHandlers: { writable:true, value:handlers },
-	            _watchMutators: { writable:true, value:mutators },    
-	            __watchShadow: { writable:true, value: shadow }
-	        };
-	    };
-	    // EXPOSED METHODS
-	    
-	/**
-	 * Creates a watchable Object.
-	 * @name  ish.watchable
-	 * @constructor
-	 * @param {object} options
-	 * @param {state} options.breakpoints An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.
-	 * @param {state.mutators} An object of mutator functions. Objects keys represent the value to be mutated.
-	 * @param {state.handlers} An object containing arrays of callback functions.
-	 * @param {state.handlers.set} Item set callbacks
-	 * @param {state.handlers.add} Item add callbacks
-	 * @param {state.handlers.remove}  Item remove callbacks
-	 * @return {ish.watchable} The watchable instances public API.
-	 * @example
-	// WATCHABLE: Object only usage examples
-	var dataWatchCallback = function(){
-	        console.log('data has changed ',arguments);
-	};
+		$.router = function(options){
+			var factory = Object.create($.fn.router);
+			ish.extend(factory, ish.emitter(), options);
 	
-	var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
-	handlers: {
-	        set: [dataWatchCallback],
-	        add: [dataWatchCallback],
-	        remove: [dataWatchCallback]
-	    },
-	    mutators:{
-	        data : function(prop,value, callback){
-	            //mutator fn
-	            return callback('mutated value: ' + value);
-	        }
-	    }
+			return factory;
+		};
 	
-	});
-	
-	console.log('inital : ',watchableObject.data);
-	
-	watchableObject.watch('data');
-	watchableObject.data = 'changed';
-	watchableObject.text = 'test changed';
-	watchableObject.data = 'changedd';
-	 });
-	 */
-	
-	    $.watchable = function (obj, state) {  
-	        var props = createProps(state.handlers, state.mutators, {});
-	        var watchable = $.extend(Object.create($.fn.observableObject, props), obj);
-	        return watchable;
-	    };
-	
-	/**
-	 * Creates an observable Object or Array.
-	 * @name  ish.observe
-	 * @constructor
-	 * @param {object} options
-	 * @param {state} options.breakpoints An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.
-	  * @param {state.mutators} An object of mutator functions. Objects keys represent the value to be mutated.
-	 * @param {state.handlers} An object containing arrays of callback functions.
-	 * @param {state.handlers.set} Item set callbacks
-	 * @param {state.handlers.add} Item add callbacks
-	 * @param {state.handlers.remove}  Item remove callbacks
-	 * @return {ish.observe} The watchable instances public API.
-	 * @example
-	// Observable : Object
-	var observeObjectHandler = function(){
-	    console.log('observed!!! ', this, arguments)
-	};
-	
-	var observedObj = ish.observe({data:'hello', text:'heya'}, {
-	    handlers: {
-	        set: [observeObjectHandler],
-	        add: [observeObjectHandler],
-	        remove: [observeObjectHandler]
-	        },
-	    mutators: {
-	        data: function(prop,value,callback){callback('mutated data value: '+value);},
-	        text: function(prop,value,callback){callback('mutated text value: '+value);}
-	    }
-	});
-	
-	console.log('inital : ',observedObj);
-	
-	observedObj._watchMutators.data = function(prop,value,callback){
-	    callback('updated mutated text value: '+value);
-	};
-	
-	observedObj.data = 'changed'; // works
-	observedObj.text = 'hello'; // works
-	observedObj.new  = 'new'; // doesnt work will be watched.
-	observedObj.watch('new'); // if setting an Object value with dot or bracket syntax you must call watch manually.
-	observedObj.new  = 'new new';
-	ish.extend(observedObj, {data: 'ish.extend value', text: 'ish.extend text value'}); //works, but new values are not watched
-	observedObj.assign(observedObj, {data: 'Object.assign value', text: 'Object.assign text value', assignedNew: 'assignedNewValue'}); // works
-	
-	
-	console.log('delete');
-	//delete observedObj.data; // cannot hook to delte so it should be avoided.
-	observedObj.deleteProps('data');
-	
-	Object.defineProperty(observedObj, 'text' , {
-	    value: 'definedPropValue'
-	}); // as expected defineProperty will remove the getter/setter from the property
-	
-	 });
-	 */
-	
-	    // OBSERVABLE: Object || Array
-	    $.observe = function (objectOrArray, state) {
-	        //var objectOrArray = state.data;
-	        var isArray = Array.isArray(objectOrArray);
-	        var proto = isArray ? $.fn.observableArray : $.fn.observableObject;   
-	        var shadow = isArray ? [] : {};
-	        var props = createProps(state.handlers, state.mutators, shadow);
-	        var observedObject = $.extend(Object.create(proto,props), objectOrArray);
-	        for(var each in observedObject) {
-	            //watch every property in the object, adding the composed handler and a mutator functions.
-	            observedObject.watch(each);
-	        }
-	        return observedObject;
-	    };
-	})(); 
-	
-	/*
-	// Observable : Object
-	var observeObjectHandler = function(){
-	    console.log('observed!!! ', this, arguments)
-	};
-	
-	var observedObj = ish.observe({data:'hello', text:'heya'}, {
-	    handlers: {
-	        set: [observeObjectHandler],
-	        add: [observeObjectHandler],
-	        remove: [observeObjectHandler]
-	        },
-	    mutators: {
-	        data: function(prop,value,callback){callback('mutated data value: '+value);},
-	        text: function(prop,value,callback){callback('mutated text value: '+value);}
-	    }
-	});
-	
-	console.log('inital : ',observedObj);
-	
-	observedObj._watchMutators.data = function(prop,value,callback){
-	    callback('updated mutated text value: '+value);
-	};
-	
-	observedObj.data = 'changed'; // works
-	observedObj.text = 'hello'; // works
-	observedObj.new  = 'new'; // doesnt work will be watched.
-	observedObj.watch('new'); // if setting an Object value with dot or bracket syntax you must call watch manually.
-	observedObj.new  = 'new new';
-	ish.extend(observedObj, {data: 'ish.extend value', text: 'ish.extend text value'}); //works, but new values are not watched
-	observedObj.assign(observedObj, {data: 'Object.assign value', text: 'Object.assign text value', assignedNew: 'assignedNewValue'}); // works
-	
-	
-	console.log('delete');
-	//delete observedObj.data; // cannot hook to delte so it should be avoided.
-	observedObj.deleteProps('data');
-	
-	Object.defineProperty(observedObj, 'text' , {
-	    value: 'definedPropValue'
-	}); // as expected defineProperty will remove the getter/setter from the property
-	
-	
-	
-	for(var each in observedObj) {
-	    console.log('each  ',each,observedObj[each]);
-	}
-	////////////////////////////////////////////////////////
-	// Observable : ARRAY 
-	///////////////////////////////////////////////////////
-	var observeArrayHandler = function(){
-	    console.log('change observed: ', arguments)
-	
-	};
-	
-	var observedArray = ish.observe([1, 'hello','heya', true], {
-	    handlers: {
-	        set: [observeArrayHandler],
-	        add: [observeArrayHandler],
-	        remove: [observeArrayHandler]
-	    },
-	    mutators: {
-	        0: function(prop,value,callback){callback('mutated data value: '+value);},
-	        1: function(prop,value,callback){callback('mutated text value: '+value);}
-	    }
-	});
-	
-	observedArray._watchMutators.data = function(prop,value,callback){
-	    callback('updated mutated text value: '+value);
-	};
-	
-	observedArray.reverse();
-	console.log('inital : ',observedArray);
-	observedArray[0] = 'changed 0';
-	observedArray[1] = 'changed 1';
-	observedArray.push('pushed value');
-	observedArray.pop('pushed value');
-	
-	observedArray[0] = 'changed 0 again';
-	observedArray[1] = 'changed 1 again';
-	
-	console.log('inital : ',observedArray, observedArray.length);
-	
-	*/
-	
-	/*
-	// WATCHABLE: Object only usage examples
-	var dataWatchCallback = function(){
-	        console.log('data has changed ',arguments);
-	};
-	
-	var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
-	handlers: {
-	        set: [dataWatchCallback],
-	        add: [dataWatchCallback],
-	        remove: [dataWatchCallback]
-	    },
-	    mutators:{
-	        data : function(prop,value, callback){
-	            //mutator fn
-	            return callback('mutated value: ' + value);
-	        }
-	    }
-	
-	});
-	
-	console.log('inital : ',watchableObject.data);
-	
-	watchableObject.watch('data');
-	watchableObject.data = 'changed';
-	watchableObject.text = 'test changed';
-	watchableObject.data = 'changedd';
-	
-	*/
+	})();
 	
 
 	return $;

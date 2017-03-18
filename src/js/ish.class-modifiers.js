@@ -8,7 +8,7 @@ var hasClass = 'hasClass',
  * Tests if a particular class name is found on a Node within the given ishObject. 
  * This method will check the whole collection, if you want to check a specific 
  * selector you will be required to filter the collection before making the check.
- * @name ishObject.hasClass
+ * @name ish.fn.ishObject.hasClass
  * @function
  * @param  {String} test 	The class name to test against the collection.
  * @return {boolean}      	If the class name was found on the collection.
@@ -27,7 +27,7 @@ ishObject[hasClass] = function(test) {
 
 /**
  * Removes a class name from each Node in the given ishObject.
- * @name ishObject.removeClass
+ * @name ish.fn.ishObject.removeClass
  * @function
  * @param  {String} name 	The class name you wish to remove from the element/s. 
  * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 
@@ -49,7 +49,7 @@ ishObject[removeClass] = function(name) {
 
 /**
  * Adds a class name to each Node in the given ishObject.
- * @name ishObject.addClass
+ * @name ish.fn.ishObject.addClass
  * @function
  * @param  {string} name 	The class name you wish to add to the element/s. 
  * @return {ishObject}      Returns the `ishObject` which called it. Method is chainable. 

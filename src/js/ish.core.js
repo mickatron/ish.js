@@ -122,7 +122,7 @@ function isNode(o) {
 
 /**
  * Returns the item at the specified index in the `ishObject`.
- * @name  ishObject.nth
+ * @name  ish.fn.ishObject.nth
  * @function
  * @param  {Number} int    The index of the item in the `ishObject`.
  * @example
@@ -138,7 +138,7 @@ ishObject.nth = function(int) {
 /**
  * Iterates an `ishObject` returning each `Node` in an individual `ishObject`, along with its index 
  * in the original collection. This method will iterate every item in the collection and cannot be broken.
- * @name  ishObject.forEach
+ * @name  ish.fn.ishObject.forEach
  * @function
  * @param  {Function} fn    The callback function which will be called with each iteration
  * @param  {Object}   scope The scope in which the callback function will be called. 
@@ -161,7 +161,7 @@ ishObject[forEach] = function(fn, scope) {
 };
 /**
  * Gets the index of a specific `Node` in an `ishObject`
- * @name  ishObject.indexOf
+ * @name  ish.fn.ishObject.indexOf
  * @function
  * @param  {Node} needle    The `Node` to find in the `ishObject`.
  * @return {Number}         Index of the `Node` in the `ishObject`. Returns -1 if not found.
@@ -184,8 +184,8 @@ ishObject.indexOf = function(needle) {
 };
 /**
  * Gets an attributes value for the first element in the `ishObject`. If the second argument is supplied the 
- * method sets an attribute and its value on all `Node`'s in the given `ishObject`.
- * @name  ishObject.attr
+ * method sets an attribute and its value on all `Node`'s in the given `ishObject`. Prototyped method and properties are shadowed in the new object.
+ * @name  ish.fn.ishObject.attr
  * @function
  * @param  {String} name        A valid CSS attribute selector.
  * @param  {String} value       The attirbute value to be set.
@@ -223,30 +223,51 @@ ishObject.attr = function(name, value) {
  */
 $[extend] = function() {
 	var args = arguments;
-	var newObj = args[0];
-	var length = args.length;
-	// loop each of the Objects we are going to merge into the first.
-	for (var i = 1; i < length; i++) {
-		var ownPropNames = Object.getOwnPropertyNames(args[i]);
-		for (var e = 0; e < ownPropNames.length; e++) {
-			var prop = ownPropNames[e];
-			var objProp = args[i][prop];
-			if (!objProp) {
-				continue;
-			} else if (objProp.constructor === Object) {
-				newObj[prop] = $[extend](newObj[prop] || {}, objProp); // recursive
-			} else {
-				newObj[prop] = objProp; // Property in destination object set; update its value. 
-			}
+	var targetObject = args[0];
+	// TODO: non enumerable properties???
+	// TODO: I dont think this will copy constructor prototype implementations...
+	// TOOD: currently definately wont copy Class prototype method as they're non-enumerable.
+	// TODO: should I consider shallow copies?
 
+	for (var i = 1; i < args.length; i++) {
+
+		var toMerge = args[i];
+		if(Array.isArray(targetObject)){
+			var newArray = [];
+			for (var e = 0; e < toMerge.length; e++) {
+				if (toMerge[e] === null || toMerge[e] === undefined) {
+					continue; // skip null and undefined values
+				} else if (toMerge[e].constructor === Object) {
+					targetObject[e]  = $[extend](newArray[e] || {}, toMerge[e]);
+				} else if ( Array.isArray( toMerge[e] ) ) {
+					targetObject[e]  = $[extend](newArray[e] || [], toMerge[e]);
+				} else {
+					targetObject[e]  = toMerge[e];
+				}
+			}
+		} else if(targetObject.constructor === Object){
+			for (var prop in toMerge) {
+				var propValue = toMerge[prop];
+				if (propValue === null || propValue === undefined) {
+					continue; // skip null and undefined values
+				} else if (propValue.constructor === Object) { // recurse objects that already exisit on the target
+					targetObject[prop] = $[extend](targetObject[prop] || {}, propValue);
+				} else if (propValue.constructor === Array) {
+					targetObject[prop] = $[extend](targetObject[prop] || [], propValue);
+				}else { // Property in destination object set; update its value.
+					targetObject[prop] = propValue; 
+				}
+				
+			}
 		}
 	}
-	return newObj;
+	return targetObject;
 };
+
 
 /**
  * Returns the left and top offset in pixels for the first element in the `ishObject`. 
- * @name  ishObject.offset
+ * @name  ish.fn.ishObject.offset
  * @function
  * @return {Object}         An `Object` with values for left and top offsets in pixel values.
  * @example
@@ -269,7 +290,7 @@ ishObject.offset = function() {
 
 /**
  * Gets the width or height the first element in the supplied `ishObject`.
- * @name  ishObject.dimension
+ * @name  ish.fn.ishObject.dimension
  * @function
  * @param  {String} type          'width' or 'height'.
  * @param  {Boolean} margins      Include margins in the return result.
@@ -309,7 +330,7 @@ ishObject.dimension = function(type, margins, clientHeight) {
 
 /**
  * Gets the CSS value of the first element in the supplied `ishObject`. Or sets the CSS value on all items in an `ishObject`.
- * @name  ishObject.css
+ * @name  ish.fn.ishObject.css
  * @function
  * @param  {String} prop   The name of the CSS property in camelCase. eg. 'margin-left' would be passed as 'marginLeft'.  
  * @param  {String} value   Exclude the horizontal scrollbars height from the result.

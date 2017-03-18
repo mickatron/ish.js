@@ -1,6 +1,6 @@
 /**
  * Gets the height of the first element in the supplied `ishObject`. This method is an abstraction of `ishObject.dimension`.
- * @name  ishObject.height
+ * @name  ish.fn.ishObject.height
  * @function
  * @param  {Boolean} margins      Include margins in the return result.
  * @param  {Boolean} clientHeight Exclude the horizontal scrollbars height from the result.
@@ -12,8 +12,8 @@ ishObject.height = function(margins, clientHeight) {
 	return this.dimension('height', margins, clientHeight);
 };
 /**
- * Gets the width of the first element in the supplied `ishObject`. This method is an abstraction of `ishObject.dimension`.
- * @name  ishObject.width
+ * Gets the width of the first element in the supplied `ishObject`. This method is an abstraction of `ish.fn.ishObject.dimension`.
+ * @name  ish.fn.ishObject.width
  * @function
  * @param  {Boolean} margins      Include margins in the return result.
  * @param  {Boolean} clientHeight Exclude the horizontal scrollbars height from the result.

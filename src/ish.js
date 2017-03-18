@@ -162,21 +162,25 @@ var ish = function(document, window, $) {
 	'use strict';
 	/* Lib Core
 	---------------------------------------*/
-	//=require /js/ish.core.js
-	//=require /js/ish.events.js
+	//=include /js/ish.core.js
+	//=include /js/ish.events.js
 
 	/* Lib Optional
 	---------------------------------------*/
-	//=require /js/ish.dimension.abstracts.js 
-	//=require /js/ish.ajax.js
-	//=require /js/ish.class-modifiers.js
-	//=require /js/ish.invoke.js // Deprecated, extra optional. needs removal before beta
+	//=include /js/ish.dimension.abstracts.js 
+	//=include /js/ish.ajax.js
+	//=include /js/ish.class-modifiers.js
+	//=include /js/ish.invoke.js // Deprecated, extra optional. needs removal before beta
 
 	/* Lib Optional Components
 	---------------------------------------*/
-	//!=require /js/ish.easing.js // just if you really need them
-	//=require /js/ish.responsive.js
-	//=require /js/ish.observeable.js
+	//!=include /js/ish.easing.js // just if you really need them
+	//=include /js/ish.emitter.js
+	//=include /js/ish.responsive.js
+	//=include /js/ish.objects.js
+	//=include /js/ish.state.js
+	//=include /js/ish.render.js
+	//=include /js/ish.router.js
 
 	return $;
 

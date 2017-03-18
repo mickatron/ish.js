@@ -15,7 +15,7 @@
  */
 ishObject.invoke = function(module, options, context) {
 	options = options || {};
-	var createdModules = {}; // could/should this be an array?
+	var createdModules = []; // {}; // could/should this be an array?
 	options.selector = this.selector;
 	this.forEach(function($el, i) {
 		var currContext = context || {};

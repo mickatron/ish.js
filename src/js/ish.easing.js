@@ -49,27 +49,27 @@
  */
 $.fn.easing = {
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	linear: function(currentFrame, startValue, valueChange, totalFrames) {
 		return valueChange * currentFrame / totalFrames + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInQuad: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
 		return valueChange * currentFrame * currentFrame + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeOutQuad: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
 		return -valueChange * currentFrame * (currentFrame - 2) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInOutQuad: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames / 2;
@@ -78,7 +78,7 @@ $.fn.easing = {
 		return -valueChange / 2 * (currentFrame * (currentFrame - 2) - 1) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 * 
 	 */
 	easeInCubic: function(currentFrame, startValue, valueChange, totalFrames) {
@@ -86,7 +86,7 @@ $.fn.easing = {
 		return valueChange * currentFrame * currentFrame * currentFrame + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeOutCubic: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
@@ -94,7 +94,7 @@ $.fn.easing = {
 		return valueChange * (currentFrame * currentFrame * currentFrame + 1) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInOutCubic: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames / 2;
@@ -103,14 +103,14 @@ $.fn.easing = {
 		return valueChange / 2 * (currentFrame * currentFrame * currentFrame + 2) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInQuart: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
 		return valueChange * currentFrame * currentFrame * currentFrame * currentFrame + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeOutQuart: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
@@ -118,7 +118,7 @@ $.fn.easing = {
 		return -valueChange * (currentFrame * currentFrame * currentFrame * currentFrame - 1) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInOutQuart: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames / 2;
@@ -127,14 +127,14 @@ $.fn.easing = {
 		return -valueChange / 2 * (currentFrame * currentFrame * currentFrame * currentFrame - 2) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInQuint: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
 		return valueChange * currentFrame * currentFrame * currentFrame * currentFrame * currentFrame + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeOutQuint: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
@@ -142,7 +142,7 @@ $.fn.easing = {
 		return valueChange * (currentFrame * currentFrame * currentFrame * currentFrame * currentFrame + 1) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInOutQuint: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames / 2;
@@ -151,39 +151,39 @@ $.fn.easing = {
 		return valueChange / 2 * (currentFrame * currentFrame * currentFrame * currentFrame * currentFrame + 2) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInSine: function(currentFrame, startValue, valueChange, totalFrames) {
 		return -valueChange * Math.cos(currentFrame / totalFrames * (Math.PI / 2)) + valueChange + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeOutSine: function(currentFrame, startValue, valueChange, totalFrames) {
 		return valueChange * Math.sin(currentFrame / totalFrames * (Math.PI / 2)) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInOutSine: function(currentFrame, startValue, valueChange, totalFrames) {
 		return -valueChange / 2 * (Math.cos(Math.PI * currentFrame / totalFrames) - 1) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInExpo: function(currentFrame, startValue, valueChange, totalFrames) {
 		return valueChange *
 			Math.pow(2, 10 * (currentFrame / totalFrames - 1)) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeOutExpo: function(currentFrame, startValue, valueChange, totalFrames) {
 		return valueChange * (-
 			Math.pow(2, -10 * currentFrame / totalFrames) + 1) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInOutExpo: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames / 2;
@@ -194,14 +194,14 @@ $.fn.easing = {
 			Math.pow(2, -10 * currentFrame) + 2) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInCirc: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
 		return -valueChange * (Math.sqrt(1 - currentFrame * currentFrame) - 1) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeOutCirc: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames;
@@ -210,7 +210,7 @@ $.fn.easing = {
 			Math.sqrt(1 - currentFrame * currentFrame) + startValue;
 	},
 	/**
-	 * @memberOf ish.easing
+	 * @memberOf ish.fn.easing
 	 */
 	easeInOutCirc: function(currentFrame, startValue, valueChange, totalFrames) {
 		currentFrame /= totalFrames / 2;

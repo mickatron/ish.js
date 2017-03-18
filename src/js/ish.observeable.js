@@ -6,8 +6,7 @@
 // http://stackoverflow.com/questions/5100376/how-to-watch-for-array-changes
 
 // watchableProtoModule
-// TODO: Write tests before any further updates, then
-// TODO: batch updates rather than individual calls
+// TODO: batch updates rather than individual calls??? 
 // TODO: use Proxy and regress to current implementation if not availiable
 // TODO: Document
 (function(){
@@ -113,7 +112,6 @@
                 return  shadow[method].apply(shadow,arguments);
             }
         });
-
     });
 
     ['pop','push','shift','splice','unshift'].forEach(function(method){
@@ -302,124 +300,19 @@ Object.defineProperty(observedObj, 'text' , {
         var shadow = isArray ? [] : {};
         var props = createProps(state.handlers, state.mutators, shadow);
         var observedObject = $.extend(Object.create(proto,props), objectOrArray);
-        for(var each in observedObject) {
-            //watch every property in the object, adding the composed handler and a mutator functions.
-            observedObject.watch(each);
-        }
+
+        var watchLoop = function(object){
+            for(var each in object) {
+                //watch every property in the object, adding the composed handler and a mutator functions.
+                observedObject.watch(each);
+
+                if(typeof object[each] === 'object') {
+                    watchLoop(object[each]); //recurse
+                }
+            }
+        };
+        watchLoop(observedObject);
+        
         return observedObject;
     };
-})(); 
-
-/*
-// Observable : Object
-var observeObjectHandler = function(){
-    console.log('observed!!! ', this, arguments)
-};
-
-var observedObj = ish.observe({data:'hello', text:'heya'}, {
-    handlers: {
-        set: [observeObjectHandler],
-        add: [observeObjectHandler],
-        remove: [observeObjectHandler]
-        },
-    mutators: {
-        data: function(prop,value,callback){callback('mutated data value: '+value);},
-        text: function(prop,value,callback){callback('mutated text value: '+value);}
-    }
-});
-
-console.log('inital : ',observedObj);
-
-observedObj._watchMutators.data = function(prop,value,callback){
-    callback('updated mutated text value: '+value);
-};
-
-observedObj.data = 'changed'; // works
-observedObj.text = 'hello'; // works
-observedObj.new  = 'new'; // doesnt work will be watched.
-observedObj.watch('new'); // if setting an Object value with dot or bracket syntax you must call watch manually.
-observedObj.new  = 'new new';
-ish.extend(observedObj, {data: 'ish.extend value', text: 'ish.extend text value'}); //works, but new values are not watched
-observedObj.assign(observedObj, {data: 'Object.assign value', text: 'Object.assign text value', assignedNew: 'assignedNewValue'}); // works
-
-
-console.log('delete');
-//delete observedObj.data; // cannot hook to delte so it should be avoided.
-observedObj.deleteProps('data');
-
-Object.defineProperty(observedObj, 'text' , {
-    value: 'definedPropValue'
-}); // as expected defineProperty will remove the getter/setter from the property
-
-
-
-for(var each in observedObj) {
-    console.log('each  ',each,observedObj[each]);
-}
-////////////////////////////////////////////////////////
-// Observable : ARRAY 
-///////////////////////////////////////////////////////
-var observeArrayHandler = function(){
-    console.log('change observed: ', arguments)
-
-};
-
-var observedArray = ish.observe([1, 'hello','heya', true], {
-    handlers: {
-        set: [observeArrayHandler],
-        add: [observeArrayHandler],
-        remove: [observeArrayHandler]
-    },
-    mutators: {
-        0: function(prop,value,callback){callback('mutated data value: '+value);},
-        1: function(prop,value,callback){callback('mutated text value: '+value);}
-    }
-});
-
-observedArray._watchMutators.data = function(prop,value,callback){
-    callback('updated mutated text value: '+value);
-};
-
-observedArray.reverse();
-console.log('inital : ',observedArray);
-observedArray[0] = 'changed 0';
-observedArray[1] = 'changed 1';
-observedArray.push('pushed value');
-observedArray.pop('pushed value');
-
-observedArray[0] = 'changed 0 again';
-observedArray[1] = 'changed 1 again';
-
-console.log('inital : ',observedArray, observedArray.length);
-
-*/
-
-/*
-// WATCHABLE: Object only usage examples
-var dataWatchCallback = function(){
-        console.log('data has changed ',arguments);
-};
-
-var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
-handlers: {
-        set: [dataWatchCallback],
-        add: [dataWatchCallback],
-        remove: [dataWatchCallback]
-    },
-    mutators:{
-        data : function(prop,value, callback){
-            //mutator fn
-            return callback('mutated value: ' + value);
-        }
-    }
-
-});
-
-console.log('inital : ',watchableObject.data);
-
-watchableObject.watch('data');
-watchableObject.data = 'changed';
-watchableObject.text = 'test changed';
-watchableObject.data = 'changedd';
-
-*/
+})();

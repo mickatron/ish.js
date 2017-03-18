@@ -1,1 +1,3 @@
 node_modules
+dist/ish.all.js
+dist/ish.all.min.js

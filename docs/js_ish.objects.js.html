@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ish.js | watchable factory</title>
+    <title>ish.js | Source: js/ish.objects.js</title>
     <link type="text/css" rel="stylesheet" href="main.css">
 </head>
 
@@ -246,423 +246,85 @@
 
 
 
-
-<section>
-
-<header class="c-page-header">
-	<div class="l-constrained c-content-block">
-		 
-		<h1 class="c-page-header__title">The watchable factory</h1>
-	</div>
-</header>
-
-<article class="l-constrained">
-
-
 	
-		<div class="c-api-doc--intro c-content-block">
-			
-<div class="c-content-block__inner">
-    
-        
-        
-            <h4 class="c-api-doc__name" id="watchable">ish.watchable(options, An, An, Item, Item, Item)</h4>
-        
-        
-
-
-<dl class="c-details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <!--<dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-
-        <a href="js_ish.observeable.js.html">js/ish.observeable.js</a>, <a href="js_ish.observeable.js.html#line191">line 191</a>
-        
-
-      <a href="js_ish.observeable.js.html#line191" class="button outline">js/ish.observeable.js</a>
-
-    </li></ul></dd>-->
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-        
-
-        
-    
-
-
-
-    
-
-    
-
-    
-
-    
-
-    <div class="c-description">
-        <h5>Description: </h5> <p>Creates a watchable Object.</p>
-    </div>
-    
-
-    
-        
-        
-                
-<div class="c-returns">
-	<h5 class="c-returns__header">Returns</h5>
-	
-<code><a href="ish.watchable.html">ish.watchable</a></code>
-
-
-	
-
-	
-	    <p>The watchable instances public API.</p>
-</div>
-
-
-
-            
-
-    
-
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="c-params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th>Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name">options</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>object</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <h6>Properties</h6>
-                
-
-<table class="c-params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th>Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name">breakpoints</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>state</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name">An</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>state.mutators</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>object of mutator functions. Objects keys represent the value to be mutated.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name">An</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>state.handlers</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>object containing arrays of callback functions.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name">Item</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>state.handlers.set</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>set callbacks</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name">Item</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>state.handlers.add</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>add callbacks</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name">Item</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>state.handlers.remove</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>remove callbacks</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-    
-        <h5>Example:</h5>
-        
-    <pre class="prettyprint"><code>// WATCHABLE: Object only usage examples
-var dataWatchCallback = function(){
-        console.log('data has changed ',arguments);
-};
-
-var watchableObject = ish.watchable({data:'hello', text:'heya'},dataWatchCallback, {
-handlers: {
-        set: [dataWatchCallback],
-        add: [dataWatchCallback],
-        remove: [dataWatchCallback]
-    },
-    mutators:{
-        data : function(prop,value, callback){
-            //mutator fn
-            return callback('mutated value: ' + value);
+    <section class="c-source-content">
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Resolves an Object path given in String format within the given Object.
+ * @name  ish.resolveObjectPath
+ * @function
+ * @param  {Object} object      The object which contains the value you're attempting to resolve.
+ * @param  {String} pathString  The path of the value which you are attempting to resolve.  
+ * @return {Object}             The resolved value.
+ * @example
+ *
+ * var object = {
+ *     nested: {
+ *         value : 'a nested value',
+ *         array: [1,2,'third',4,5]
+ *     }
+ * };
+ * 
+ * var value = ish.resolveObjectPath(object, 'nested.value'); // 'a nested value'
+ * var arrayValue = ish.resolveObjectPath(object, 'nested.array[3]'); // 'third' 
+ * 
+ */
+$.resolveObjectPath = function(o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i &lt; n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
         }
     }
+    return o;
+};
 
-});
+/**
+ * Sets an the value of an Object path given in String format within the given Object.
+ * @name  ish.setPathByString
+ * @function
+ * @param  {Object} object      The object which contains the value you're attempting to set.
+ * @param  {String} pathString  The path of the value which you are attempting to set.
+ * @param  {value} value        The value you're attempting to set.
+ * @return {Object}             The resolved value.
+ * @example
+ *
+ * var object = { 
+ *     nested: { 
+ *         value : 'a nested value',
+ *         array: [1,2,'third',4,5]
+ *     }
+ * };
+ * 
+ * var value = ish.resolveObjectPath(object, 'nested.value'); // 'a nested value'
+ * var arrayValue = ish.resolveObjectPath(object, 'nested.array[3]'); // 'third' 
+ * 
+ */
+$.setPathByString = function(object, propertyString, value){
+    //propertyString = propertyString.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    //propertyString = propertyString.replace(/^\./, '');           // strip a leading dot
+    var props = propertyString.split('.');
+    var obj = object;
+    for (var i = 0; i &lt; props.length; i++) {
+        if( i === props.length -1) {
+            obj[props[i]] = value;
+            return obj[props[i]];
+        }
+        if(!obj[props[i]]) {
+            obj[props[i]] = {};
+        } 
+        obj = obj[props[i]];
+    }
+};
 
-console.log('inital : ',watchableObject.data);
-
-watchableObject.watch('data');
-watchableObject.data = 'changed';
-watchableObject.text = 'test changed';
-watchableObject.data = 'changedd';
- });</code></pre>
-
-    
-</div>
-		</div>
-	
-
-	
-
-	
-
-<!--
-	
-
-	 
-
-	
-
--->
-   
-
-
-
-	
-
-	
-
-	
-
- 
-</article>
-
-</section>
+</code></pre>
+        </article>
+    </section>
 
 
 

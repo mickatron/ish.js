@@ -13,7 +13,7 @@ var rename = require("gulp-rename");
 var _srcGlobs = ['**/*.js', '!node_modules/**/*.js', '!dist/**/*.js', '!docs/**/*.js', '!doc-template/**/*.js'];
 var _cleanGlobs = ['dist/*', 'docs/*'];
 var _karmaConf = __dirname + '/karma.conf.js';
-var _srcBuildFiles = ["ish.js","ish.lite.js"];
+var _srcBuildFiles = ["ish.js", "ish.lite.js", "ish.all.js"];
 var _srcDest = 'dist';
 var _minifyGlobs = _srcBuildFiles.map( function(x){ return './'+_srcDest+'/'+x; } );
 var _srcBuildFileGlobs = _srcBuildFiles.map(function(x){ return './src/'+x;});
@@ -31,7 +31,7 @@ gulp.task('lint', function() {
 
 gulp.task("bundlejs", ['cleanjs'], function() {
   return gulp.src( _srcBuildFileGlobs )
-    //.pipe(sourcemaps.init())  // TODO: having issues with source maps
+    //.pipe(sourcemaps.init())  // TODO: having issues with source maps, may be caused by including code within closures
     .pipe(include())
     //.pipe(sourcemaps.write('.')) // TODO: having issues with source maps
     .pipe(gulp.dest(_srcDest));
@@ -54,7 +54,6 @@ gulp.task('minifyjs', ['bundlejs'], function() {
     }))
     .pipe(gulp.dest(_srcDest));
 });
-
 
 gulp.task('docjs', ['bundlejs'], shell.task([
   'jsdoc -c conf.json'
