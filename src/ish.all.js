@@ -22,9 +22,6 @@ var ish = function(document, window, $) {
 	//=include /js/ish.render.js
 	//=include /js/ish.router.js
 
-
-	//=include /js/ish.observeable.js // you probably dont need this
-
 	return $;
 
 }(document, this); 

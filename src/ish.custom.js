@@ -27,7 +27,6 @@ var ish = function(document, window, $) {
   ---------------------------------------*/
   //=require /js/ish.easing.js
   //=require /js/ish.responsive.js
-  //=require /js/ish.observeable.js
 
   return $;
 
