@@ -178,7 +178,7 @@ var ish = function(document, window, $) {
 	//=include /js/ish.emitter.js
 	//=include /js/ish.responsive.js
 	//=include /js/ish.objects.js
-	//=include /js/ish.state.js
+	//=include /js/ish.store.js
 	//=include /js/ish.render.js
 	//=include /js/ish.router.js
 

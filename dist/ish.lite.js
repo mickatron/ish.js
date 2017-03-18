@@ -3,29 +3,6 @@ var ish = function(document, window, $) {
   'use strict';
   /* Lib core
   ---------------------------------------*/
-  /**
-   * @mixin ish.fn.ishObject
-   * @description
-   * When you invoke the `ish('selector')` method `ish.fn.ishObject` members are inherited through Prototype Delegation to the returned collection.
-   * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
-   * 
-   * @example
-   * // Cache an ishObject collection
-   * var collection = ish('selector');
-   * 
-   * // Call an ishObject method
-   * ish('selector').attr('attributeName');
-   * 
-   * // There is a length property
-   * ish('selector').length; 
-   * 
-   * // and also a selector property which refers to the first parameter passed into ish();
-   * ish('selector').selector;
-   *
-   * // You can call native methods on collection items just like you would in jQuery
-   * ish('selector')[0].style.display = 'block';
-   * 
-   */
   var ishObject = {},
   	forEach = 'forEach',
   	extend = 'extend',
@@ -34,9 +11,6 @@ var ish = function(document, window, $) {
   	dummy = document.createElement('i');
   
   
-  
-  // Node and ishObject selector context supported. 
-  
   /**
    * Simple selector engine based on <code>querySelectorAll</code>. The usage and result is similar to <code>jQuery(selector)</code>.
    * @name  ish
@@ -44,7 +18,7 @@ var ish = function(document, window, $) {
    * @function
    * @memberof ish
    * @param   {String|Node}   selector   A CSS Selector compatible with document.querySelectorAll or a single `Node`.
-   * @param   {ishObject|Array|NodeList} context  Used to give a selector a search context.
+   * @param   {ishObject|Array|NodeList|Node} context  Used to give a selector a search context.
    * @param   {String} forceSelector    Set the ish('selector').selector paramter forcibly.
    * @return  {ishObject}                A list of nodes with inherited library methods.
    * @example
@@ -114,6 +88,29 @@ var ish = function(document, window, $) {
    * @name  ish.fn
    */
   $.fn = {
+  	/**
+  	 * @mixin ish.fn.ishObject
+  	 * @description
+  	 * When you invoke the `ish('selector')` method `ish.fn.ishObject` members are inherited through Prototype Delegation to the returned collection.
+  	 * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
+  	 * 
+  	 * @example
+  	 * // Cache an ishObject collection
+  	 * var collection = ish('selector');
+  	 * 
+  	 * // Call an ishObject method
+  	 * ish('selector').attr('attributeName');
+  	 * 
+  	 * // There is a length property
+  	 * ish('selector').length; 
+  	 * 
+  	 * // and also a selector property which refers to the first parameter passed into ish();
+  	 * ish('selector').selector;
+  	 *
+  	 * // You can call native methods on collection items just like you would in jQuery
+  	 * ish('selector')[0].style.display = 'block';
+  	 * 
+  	 */
   	ishObject: ishObject
   };
   
@@ -268,7 +265,6 @@ var ish = function(document, window, $) {
   	}
   	return targetObject;
   };
-  
   
   /**
    * Returns the left and top offset in pixels for the first element in the `ishObject`. 

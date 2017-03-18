@@ -22,7 +22,7 @@ module.exports = function(config) {
                 nocache: false
             },
             'tests/bind.polyfill.js',
-            'dist/ish.all.js',
+            'dist/ish.js',
             'tests/test.helpers.js',
             'tests/**/*.js'
         ],

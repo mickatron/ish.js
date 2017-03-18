@@ -162,29 +162,6 @@ var ish = function(document, window, $) {
 	'use strict';
 	/* Lib Core
 	---------------------------------------*/
-	/**
-	 * @mixin ish.fn.ishObject
-	 * @description
-	 * When you invoke the `ish('selector')` method `ish.fn.ishObject` members are inherited through Prototype Delegation to the returned collection.
-	 * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
-	 * 
-	 * @example
-	 * // Cache an ishObject collection
-	 * var collection = ish('selector');
-	 * 
-	 * // Call an ishObject method
-	 * ish('selector').attr('attributeName');
-	 * 
-	 * // There is a length property
-	 * ish('selector').length; 
-	 * 
-	 * // and also a selector property which refers to the first parameter passed into ish();
-	 * ish('selector').selector;
-	 *
-	 * // You can call native methods on collection items just like you would in jQuery
-	 * ish('selector')[0].style.display = 'block';
-	 * 
-	 */
 	var ishObject = {},
 		forEach = 'forEach',
 		extend = 'extend',
@@ -193,9 +170,6 @@ var ish = function(document, window, $) {
 		dummy = document.createElement('i');
 	
 	
-	
-	// Node and ishObject selector context supported. 
-	
 	/**
 	 * Simple selector engine based on <code>querySelectorAll</code>. The usage and result is similar to <code>jQuery(selector)</code>.
 	 * @name  ish
@@ -203,7 +177,7 @@ var ish = function(document, window, $) {
 	 * @function
 	 * @memberof ish
 	 * @param   {String|Node}   selector   A CSS Selector compatible with document.querySelectorAll or a single `Node`.
-	 * @param   {ishObject|Array|NodeList} context  Used to give a selector a search context.
+	 * @param   {ishObject|Array|NodeList|Node} context  Used to give a selector a search context.
 	 * @param   {String} forceSelector    Set the ish('selector').selector paramter forcibly.
 	 * @return  {ishObject}                A list of nodes with inherited library methods.
 	 * @example
@@ -273,6 +247,29 @@ var ish = function(document, window, $) {
 	 * @name  ish.fn
 	 */
 	$.fn = {
+		/**
+		 * @mixin ish.fn.ishObject
+		 * @description
+		 * When you invoke the `ish('selector')` method `ish.fn.ishObject` members are inherited through Prototype Delegation to the returned collection.
+		 * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
+		 * 
+		 * @example
+		 * // Cache an ishObject collection
+		 * var collection = ish('selector');
+		 * 
+		 * // Call an ishObject method
+		 * ish('selector').attr('attributeName');
+		 * 
+		 * // There is a length property
+		 * ish('selector').length; 
+		 * 
+		 * // and also a selector property which refers to the first parameter passed into ish();
+		 * ish('selector').selector;
+		 *
+		 * // You can call native methods on collection items just like you would in jQuery
+		 * ish('selector')[0].style.display = 'block';
+		 * 
+		 */
 		ishObject: ishObject
 	};
 	
@@ -427,7 +424,6 @@ var ish = function(document, window, $) {
 		}
 		return targetObject;
 	};
-	
 	
 	/**
 	 * Returns the left and top offset in pixels for the first element in the `ishObject`. 
@@ -1276,11 +1272,23 @@ var ish = function(document, window, $) {
 		    return -1;
 		}
 	
-		function parseURLroute (routeString){
+		function callRouteFn(routeKey, slugs, stateData) {
+				var routes = this.routes;
+				if( routes.before ) routes.before( stateData );
+				routes[routeKey](slugs, stateData);
+				if( routes.after ) routes.after( stateData );
+		}
+	
+		function parseURLroute (routeString, stateData){
+			routeString = routeString || '';
+	
 			var routeKeys = Object.keys(this.routes);
 			var exact = routeKeys.indexOf(routeString);
+			var routeKey;
+			var slugs = null;
+	
 			if(exact >= 0) {
-				this.routes[routeKeys[exact]]();
+				routeKey =  routeKeys[exact];
 			} else {
 				// not exact
 				var routeArray = routeString.split('/');
@@ -1323,7 +1331,7 @@ var ish = function(document, window, $) {
 				//console.log( 'routeString  ', routeString, matches);
 				// only 1  match should exisit in the matches object by now.
 				if (matches.index.length === 0) { 
-					console.warn('Route Not Found');
+					this.routes.notFound();
 					this.emit('ROUTE_NOT_FOUND', { route: routeString });
 					return; 
 				} else if (matches.index.length > 1) { 
@@ -1334,7 +1342,7 @@ var ish = function(document, window, $) {
 				var splitMatchArray = matches.values[0].split('/');
 				splitMatchArray.shift();
 				//find slugs
-				var slugObject = {};
+				var slugs = {};
 				for (var match = 1; match < splitMatchArray.length; match++) {
 					// is it a slug? 
 					var isSlug = splitMatchArray[match].charAt(0) + splitMatchArray[match].charAt(splitMatchArray[match].length-1);
@@ -1342,18 +1350,21 @@ var ish = function(document, window, $) {
 						// it's a slug!
 						var slugName =  splitMatchArray[match].slice(1,-1);
 						var slugValue = routeArray[match];
-						slugObject[slugName] = slugValue;
+						slugs[slugName] = slugValue;
 					}
 				}
 				// add to the history
-				console.log(routeString);
-				_historyAPI.pushState({}, "", routeString);
 				this.current = routeString;
-				this.slugs = slugObject;
-				this.emit('ROUTE_NAVIGATE', { route: routeString, slugs: slugObject });
+				this.slugs = slugs;
+				var routeData = { route: routeString, slugs: slugs };
+				
+				console.log('call route mthod ',this.routes.before);
 				// lastly call the method 
-				return this.routes[matches.values[0]](slugObject);
+				routeKey = matches.values[0];
 			}
+			callRouteFn.call(this, routeKey, slugs, stateData);
+	
+			return routeData;
 		}
 	
 		$.fn.router = {
@@ -1369,14 +1380,21 @@ var ish = function(document, window, $) {
 				this.routes = {};
 				return this;
 			},
-			navigate: function(route){
+			navigate: function(routeData){
+				console.log('navigate');
+				// store the state datat in localStorage, history.state has a 640kB limit.
+				var stateString = JSON.stringify({data:$.store.data, state: $.store.states});
+				localStorage.setItem(this.current, stateString);
+	
+				_historyAPI.replaceState(routeData, "", this.current);
 				// parse url route
 				var route = parseURLroute.call(this, route);
 	
+				this.emit('ROUTE_NAVIGATE', route);
 				return this;
 			},
 			destroy: function(){
-	
+				$(window).off('popstate', this.popHandler);
 				return null;
 			}
 		};
@@ -1385,6 +1403,27 @@ var ish = function(document, window, $) {
 			var factory = Object.create($.fn.router);
 			ish.extend(factory, ish.emitter(), options);
 	
+			var currentLocation = document.URL.replace(factory.baseURL,'');
+			//console.log('currentLocation ',currentLocation,factory.baseURL);
+			factory.popHandler = $(window).on('popstate', function(evt){
+				//get state
+				console.log('onPop');
+				var route;
+				var stateData;
+				if (history.state){
+					var historyState = JSON.parse(history.state);
+					stateData = localStorage.getItem(historyState.route);
+					route = parseURLroute.call(factory, historyState.route, stateData);
+				} else {
+					currentLocation = document.URL.replace(factory.baseURL,'');
+					route = parseURLroute.call(factory, currentLocation);
+				}
+				factory.emit('ROUTE_POP', route);
+				return stateData;
+			});
+			// get the current url
+			//parses the inital route
+			parseURLroute.call(factory, currentLocation);
 			return factory;
 		};
 	

@@ -25,8 +25,13 @@ var ish = function(document, window, $) {
 
   /* Lib Optional Components
   ---------------------------------------*/
-  //=require /js/ish.easing.js
-  //=require /js/ish.responsive.js
+  //!=include /js/ish.easing.js // just if you really need them
+  //=include /js/ish.emitter.js
+  //=include /js/ish.responsive.js
+  //=include /js/ish.objects.js
+  //=include /js/ish.store.js
+  //=include /js/ish.render.js
+  //=include /js/ish.router.js
 
   return $;
 
