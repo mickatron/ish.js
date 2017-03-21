@@ -388,7 +388,7 @@ var ish = function(document, window, $) {
 		if (propValue === null || propValue === undefined) {
 			return; // skip null and undefined values
 		} else if (propValue.constructor === Object || Array.isArray(propValue)) { // recurse objects that already exisit on the target
-			$[extend](targetObject[prop] || {}, propValue);
+			targetObject[prop] = $[extend](targetObject[prop] || {}, propValue);
 		} else { 
 			// Property in destination object set; 
 			// update its value and retain enumerability
@@ -411,7 +411,7 @@ var ish = function(document, window, $) {
 					if (toMerge[e] === null || toMerge[e] === undefined) {
 						continue; // skip null and undefined values
 					} else if (toMerge[e].constructor === Object || Array.isArray( toMerge[e])) {
-						$[extend](newArray[e] || {}, toMerge[e]);
+						newArray[e] = $[extend](newArray[e] || {}, toMerge[e]);
 					} else {
 						targetObject[e]  = toMerge[e];
 					}
@@ -1121,48 +1121,6 @@ var ish = function(document, window, $) {
 		}
 	};
 	
-	/**
-	 * Return an object with a 
-	 * @name  ish.deepProto
-	 * @function
-	 * @param  {Object} object      The object which contains the value you're attempting to resolve.
-	 * @return {Object}             The resolved value.
-	 * @example
-	 *
-	 * var deepProtoObject = { 
-	 *     nested: { 
-	 *         value : 'a nested value',
-	 *         array: [1,2,'third',4,5]
-	 *     }
-	 * };
-	 * 
-	 * var value = ish.resolveObjectPath(object, 'nested.value'); // 'a nested value'
-	 * var arrayValue = ish.resolveObjectPath(object, 'nested.array[3]'); // 'third' 
-	 * 
-	 */
-	
-	$.deepProto = function (object) {
-	    // todo: consider Array more closely
-	    // when es6 is more common subclassing an array is not so difficult - worry about it then.
-	    var newObject = Object.create(object);
-	    for(var each in object) {
-	        var value = object[each];
-	        if(value){
-	            if(typeof value === 'object') {
-	                newObject[each] = $.deepProto(value);
-	            } else if(Array.isArray(object[each])) {
-	                for (var i = 0; i < object[each].length; i++) {
-	                    var val = object[each][i];
-	                    if(typeof val === 'object') {
-	                        val = $.deepProto(val);
-	                    }
-	                }
-	            }
-	        }
-	    }
-	    return newObject;
-	};
-	
 	var bindAttrName = $.bindAttrName = "ish-bind";
 	var noop = document.createElement('div');
 	
@@ -1414,7 +1372,7 @@ var ish = function(document, window, $) {
 		$.router = function(options){
 			var factory = Object.create($.fn.router);
 			ish.extend(factory, ish.emitter(), options);
-	
+			console.log('route ', options, factory);
 			var currentLocation = document.URL.replace(factory.baseURL,'');
 			//console.log('currentLocation ',currentLocation,factory.baseURL);
 			factory.popHandler = $(window).on('popstate', function(evt){
@@ -1433,9 +1391,10 @@ var ish = function(document, window, $) {
 				factory.emit('ROUTE_POP', route);
 				return stateData;
 			});
+			console.log('route ',currentLocation, options, factory);
 			// get the current url
 			//parses the inital route
-			parseURLroute.call(factory, currentLocation);
+			//parseURLroute.call(factory, currentLocation);
 			return factory;
 		};
 	

@@ -229,7 +229,7 @@ var ish = function(document, window, $) {
   	if (propValue === null || propValue === undefined) {
   		return; // skip null and undefined values
   	} else if (propValue.constructor === Object || Array.isArray(propValue)) { // recurse objects that already exisit on the target
-  		$[extend](targetObject[prop] || {}, propValue);
+  		targetObject[prop] = $[extend](targetObject[prop] || {}, propValue);
   	} else { 
   		// Property in destination object set; 
   		// update its value and retain enumerability
@@ -252,7 +252,7 @@ var ish = function(document, window, $) {
   				if (toMerge[e] === null || toMerge[e] === undefined) {
   					continue; // skip null and undefined values
   				} else if (toMerge[e].constructor === Object || Array.isArray( toMerge[e])) {
-  					$[extend](newArray[e] || {}, toMerge[e]);
+  					newArray[e] = $[extend](newArray[e] || {}, toMerge[e]);
   				} else {
   					targetObject[e]  = toMerge[e];
   				}

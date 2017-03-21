@@ -150,7 +150,7 @@
 	$.router = function(options){
 		var factory = Object.create($.fn.router);
 		ish.extend(factory, ish.emitter(), options);
-
+		console.log('route ', options, factory);
 		var currentLocation = document.URL.replace(factory.baseURL,'');
 		//console.log('currentLocation ',currentLocation,factory.baseURL);
 		factory.popHandler = $(window).on('popstate', function(evt){
@@ -169,9 +169,10 @@
 			factory.emit('ROUTE_POP', route);
 			return stateData;
 		});
+		console.log('route ',currentLocation, options, factory);
 		// get the current url
 		//parses the inital route
-		parseURLroute.call(factory, currentLocation);
+		//parseURLroute.call(factory, currentLocation);
 		return factory;
 	};
 
