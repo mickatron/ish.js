@@ -1,3 +1,6 @@
+
+// TODO: consider onBeforeLeave and state
+
 (function(){
 	var _historyAPI = window.history;
 
@@ -75,7 +78,7 @@
 			//console.log( 'routeString  ', routeString, matches);
 			// only 1  match should exisit in the matches object by now.
 			if (matches.index.length === 0) { 
-				this.routes.notFound();
+				this.routes.notFound(routeString);
 				this.emit('ROUTE_NOT_FOUND', { route: routeString });
 				return; 
 			} else if (matches.index.length > 1) { 
@@ -86,7 +89,7 @@
 			var splitMatchArray = matches.values[0].split('/');
 			splitMatchArray.shift();
 			//find slugs
-			var slugs = {};
+			slugs = {};
 			for (var match = 1; match < splitMatchArray.length; match++) {
 				// is it a slug? 
 				var isSlug = splitMatchArray[match].charAt(0) + splitMatchArray[match].charAt(splitMatchArray[match].length-1);
@@ -100,15 +103,15 @@
 			// add to the history
 			this.current = routeString;
 			this.slugs = slugs;
-			var routeData = { route: routeString, slugs: slugs };
 			
 			console.log('call route mthod ',this.routes.before);
 			// lastly call the method 
 			routeKey = matches.values[0];
 		}
+
 		callRouteFn.call(this, routeKey, slugs, stateData);
 
-		return routeData;
+		return { route: routeString, slugs: slugs };
 	}
 
 	$.fn.router = {
@@ -124,17 +127,18 @@
 			this.routes = {};
 			return this;
 		},
-		navigate: function(routeData){
+		navigate: function(route){
 			console.log('navigate');
+			var previous = this.current;
+			// parse url route
+			var routeData = parseURLroute.call(this, route);
 			// store the state datat in localStorage, history.state has a 640kB limit.
 			var stateString = JSON.stringify({data:$.store.data, state: $.store.states});
-			localStorage.setItem(this.current, stateString);
+			localStorage.setItem(previous, stateString);
 
-			_historyAPI.replaceState(routeData, "", this.current);
-			// parse url route
-			var route = parseURLroute.call(this, route);
+			_historyAPI.replaceState(routeData, "", previous);
 
-			this.emit('ROUTE_NAVIGATE', route);
+			this.emit('ROUTE_NAVIGATE', routeData);
 			return this;
 		},
 		destroy: function(){

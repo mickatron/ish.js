@@ -218,43 +218,51 @@ ishObject.attr = function(name, value) {
  * var obj2 = {d:'d',b:{ba:'ba-change',bc:{bcb:'added'}},c:[4,5,6]};
  * ish.extend(obj1,obj2);
  */
+
+function extendProp (targetObject, toMerge, prop){
+	var propValue = toMerge[prop];
+	if (propValue === null || propValue === undefined) {
+		return; // skip null and undefined values
+	} else if (propValue.constructor === Object || Array.isArray(propValue)) { // recurse objects that already exisit on the target
+		$[extend](targetObject[prop] || {}, propValue);
+	} else { 
+		// Property in destination object set; 
+		// update its value and retain enumerability
+		Object.defineProperty(targetObject, prop, {
+			enumerable: toMerge.propertyIsEnumerable(prop),
+			value: propValue
+		});
+	}
+}
 $[extend] = function() {
 	var args = arguments;
 	var targetObject = args[0];
-	// TODO: non enumerable properties???
-	// TODO: I dont think this will copy constructor prototype implementations...
-	// TOOD: currently definately wont copy Class prototype method as they're non-enumerable.
+	// TODO: I dont think this will copy over any constructor prototypes implementations...
 	// TODO: should I consider shallow copies?
-
 	for (var i = 1; i < args.length; i++) {
-
 		var toMerge = args[i];
 		if(Array.isArray(targetObject)){
 			var newArray = [];
 			for (var e = 0; e < toMerge.length; e++) {
 				if (toMerge[e] === null || toMerge[e] === undefined) {
 					continue; // skip null and undefined values
-				} else if (toMerge[e].constructor === Object) {
-					targetObject[e]  = $[extend](newArray[e] || {}, toMerge[e]);
-				} else if ( Array.isArray( toMerge[e] ) ) {
-					targetObject[e]  = $[extend](newArray[e] || [], toMerge[e]);
+				} else if (toMerge[e].constructor === Object || Array.isArray( toMerge[e])) {
+					$[extend](newArray[e] || {}, toMerge[e]);
 				} else {
 					targetObject[e]  = toMerge[e];
 				}
 			}
 		} else if(targetObject.constructor === Object){
+			// all keys incuding non-enums
+			var allKeys = Object.getOwnPropertyNames(toMerge);			
 			for (var prop in toMerge) {
-				var propValue = toMerge[prop];
-				if (propValue === null || propValue === undefined) {
-					continue; // skip null and undefined values
-				} else if (propValue.constructor === Object) { // recurse objects that already exisit on the target
-					targetObject[prop] = $[extend](targetObject[prop] || {}, propValue);
-				} else if (propValue.constructor === Array) {
-					targetObject[prop] = $[extend](targetObject[prop] || [], propValue);
-				}else { // Property in destination object set; update its value.
-					targetObject[prop] = propValue; 
-				}
-				
+				var keyInx = allKeys.indexOf(prop);
+				allKeys.splice(keyInx, 1);
+				extendProp (targetObject, toMerge, prop);
+			}
+			// extend any non-enumerable props left over
+			for (var each = 0; each < allKeys.length; each++) {
+				extendProp (targetObject, toMerge, allKeys[each]);
 			}
 		}
 	}

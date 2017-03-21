@@ -382,43 +382,51 @@ var ish = function(document, window, $) {
 	 * var obj2 = {d:'d',b:{ba:'ba-change',bc:{bcb:'added'}},c:[4,5,6]};
 	 * ish.extend(obj1,obj2);
 	 */
+	
+	function extendProp (targetObject, toMerge, prop){
+		var propValue = toMerge[prop];
+		if (propValue === null || propValue === undefined) {
+			return; // skip null and undefined values
+		} else if (propValue.constructor === Object || Array.isArray(propValue)) { // recurse objects that already exisit on the target
+			$[extend](targetObject[prop] || {}, propValue);
+		} else { 
+			// Property in destination object set; 
+			// update its value and retain enumerability
+			Object.defineProperty(targetObject, prop, {
+				enumerable: toMerge.propertyIsEnumerable(prop),
+				value: propValue
+			});
+		}
+	}
 	$[extend] = function() {
 		var args = arguments;
 		var targetObject = args[0];
-		// TODO: non enumerable properties???
-		// TODO: I dont think this will copy constructor prototype implementations...
-		// TOOD: currently definately wont copy Class prototype method as they're non-enumerable.
+		// TODO: I dont think this will copy over any constructor prototypes implementations...
 		// TODO: should I consider shallow copies?
-	
 		for (var i = 1; i < args.length; i++) {
-	
 			var toMerge = args[i];
 			if(Array.isArray(targetObject)){
 				var newArray = [];
 				for (var e = 0; e < toMerge.length; e++) {
 					if (toMerge[e] === null || toMerge[e] === undefined) {
 						continue; // skip null and undefined values
-					} else if (toMerge[e].constructor === Object) {
-						targetObject[e]  = $[extend](newArray[e] || {}, toMerge[e]);
-					} else if ( Array.isArray( toMerge[e] ) ) {
-						targetObject[e]  = $[extend](newArray[e] || [], toMerge[e]);
+					} else if (toMerge[e].constructor === Object || Array.isArray( toMerge[e])) {
+						$[extend](newArray[e] || {}, toMerge[e]);
 					} else {
 						targetObject[e]  = toMerge[e];
 					}
 				}
 			} else if(targetObject.constructor === Object){
+				// all keys incuding non-enums
+				var allKeys = Object.getOwnPropertyNames(toMerge);			
 				for (var prop in toMerge) {
-					var propValue = toMerge[prop];
-					if (propValue === null || propValue === undefined) {
-						continue; // skip null and undefined values
-					} else if (propValue.constructor === Object) { // recurse objects that already exisit on the target
-						targetObject[prop] = $[extend](targetObject[prop] || {}, propValue);
-					} else if (propValue.constructor === Array) {
-						targetObject[prop] = $[extend](targetObject[prop] || [], propValue);
-					}else { // Property in destination object set; update its value.
-						targetObject[prop] = propValue; 
-					}
-					
+					var keyInx = allKeys.indexOf(prop);
+					allKeys.splice(keyInx, 1);
+					extendProp (targetObject, toMerge, prop);
+				}
+				// extend any non-enumerable props left over
+				for (var each = 0; each < allKeys.length; each++) {
+					extendProp (targetObject, toMerge, allKeys[each]);
 				}
 			}
 		}
@@ -1254,6 +1262,9 @@ var ish = function(document, window, $) {
 		}
 		return this;
 	};
+	
+	// TODO: consider onBeforeLeave and state
+	
 	(function(){
 		var _historyAPI = window.history;
 	
@@ -1331,7 +1342,7 @@ var ish = function(document, window, $) {
 				//console.log( 'routeString  ', routeString, matches);
 				// only 1  match should exisit in the matches object by now.
 				if (matches.index.length === 0) { 
-					this.routes.notFound();
+					this.routes.notFound(routeString);
 					this.emit('ROUTE_NOT_FOUND', { route: routeString });
 					return; 
 				} else if (matches.index.length > 1) { 
@@ -1342,7 +1353,7 @@ var ish = function(document, window, $) {
 				var splitMatchArray = matches.values[0].split('/');
 				splitMatchArray.shift();
 				//find slugs
-				var slugs = {};
+				slugs = {};
 				for (var match = 1; match < splitMatchArray.length; match++) {
 					// is it a slug? 
 					var isSlug = splitMatchArray[match].charAt(0) + splitMatchArray[match].charAt(splitMatchArray[match].length-1);
@@ -1356,15 +1367,15 @@ var ish = function(document, window, $) {
 				// add to the history
 				this.current = routeString;
 				this.slugs = slugs;
-				var routeData = { route: routeString, slugs: slugs };
 				
 				console.log('call route mthod ',this.routes.before);
 				// lastly call the method 
 				routeKey = matches.values[0];
 			}
+	
 			callRouteFn.call(this, routeKey, slugs, stateData);
 	
-			return routeData;
+			return { route: routeString, slugs: slugs };
 		}
 	
 		$.fn.router = {
@@ -1380,17 +1391,18 @@ var ish = function(document, window, $) {
 				this.routes = {};
 				return this;
 			},
-			navigate: function(routeData){
+			navigate: function(route){
 				console.log('navigate');
+				var previous = this.current;
+				// parse url route
+				var routeData = parseURLroute.call(this, route);
 				// store the state datat in localStorage, history.state has a 640kB limit.
 				var stateString = JSON.stringify({data:$.store.data, state: $.store.states});
-				localStorage.setItem(this.current, stateString);
+				localStorage.setItem(previous, stateString);
 	
-				_historyAPI.replaceState(routeData, "", this.current);
-				// parse url route
-				var route = parseURLroute.call(this, route);
+				_historyAPI.replaceState(routeData, "", previous);
 	
-				this.emit('ROUTE_NAVIGATE', route);
+				this.emit('ROUTE_NAVIGATE', routeData);
 				return this;
 			},
 			destroy: function(){
