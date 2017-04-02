@@ -1,43 +1,65 @@
 // NPM MODULES
-var gulp = require('gulp');
-var del = require('del');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-var include = require("gulp-include");
-var jshint = require('gulp-jshint');
-var karma = require('karma').Server;
-var fileinclude = require('gulp-file-include');
-var shell = require('gulp-shell');
-var rename = require("gulp-rename");
+const gulp         = require('gulp');
+const del          = require('del');
+const concat       = require('gulp-concat');
+const sourcemaps   = require('gulp-sourcemaps');
+const uglify       = require('gulp-uglify');
+const include      = require("gulp-include");
+const jshint       = require('gulp-jshint');
+const karma        = require('karma').Server;
+const fileinclude  = require('gulp-file-include');
+const shell        = require('gulp-shell');
+const rename       = require("gulp-rename");
+const merge        = require('merge-stream');
+const lazypipe     = require('lazypipe');
+
 // Variables and Settings
-var _srcGlobs = ['**/*.js', '!node_modules/**/*.js', '!dist/**/*.js', '!docs/**/*.js', '!doc-template/**/*.js'];
-var _cleanGlobs = ['dist/*', 'docs/*'];
-var _karmaConf = __dirname + '/karma.conf.js';
-var _srcBuildFiles = ["ish.js", "ish.lite.js"];
-var _srcDest = 'dist';
-var _minifyGlobs = _srcBuildFiles.map( function(x){ return './'+_srcDest+'/'+x; } );
-var _srcBuildFileGlobs = _srcBuildFiles.map(function(x){ return './src/'+x;});
+const _srcGlobs = ['**/*.js', '!node_modules/**/*.js', '!dist/**/*.js', '!docs/**/*.js', '!doc-template/**/*.js'];
+const _cleanGlobs = ['dist/*', 'docs/*'];
+const _karmaConf = __dirname + '/karma.conf.js';
+const _srcBuildFiles = ["ish.js", "ish.lite.js"];
+const _srcDest = 'dist';
+const _srcBuildFileGlobs = _srcBuildFiles.map(function(x){ return './src/'+x;});
+
+function onError(err) {
+  this.emit('end');
+}
+
+function processJS() {
+  return lazypipe()
+    // lint
+    .pipe(jshint)
+    .pipe(jshint.reporter, 'jshint-stylish')
+    // bundle
+    .pipe(include)
+    .pipe(gulp.dest, _srcDest)
+    // start map
+    .pipe(sourcemaps.init)
+    // minify
+    .pipe(uglify)
+    .pipe(rename,{
+      suffix: '.min'
+    })
+    // map
+    .pipe(sourcemaps.write, '.')();
+}
 
 // TASKS
-gulp.task('cleanjs', function() {
-  return del(_cleanGlobs);
+gulp.task('clean', function() { return del(_cleanGlobs); });
+
+gulp.task('js', function() { 
+  var merged = merge();
+  _srcBuildFileGlobs.forEach(function(file){
+    merged.add(
+      gulp.src(file)
+      .pipe(processJS().on('error', onError))
+      .pipe(gulp.dest(_srcDest))
+    )
+  });
+  return merged;
 });
 
-gulp.task('lint', function() {
-  return  gulp.src(_srcGlobs)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
-});
-
-gulp.task("bundlejs", ['cleanjs'], function() {
-  return gulp.src( _srcBuildFileGlobs )
-    //.pipe(sourcemaps.init())  // TODO: having issues with source maps, may be caused by including code within closures
-    .pipe(include())
-    //.pipe(sourcemaps.write('.')) // TODO: having issues with source maps
-    .pipe(gulp.dest(_srcDest));
-});
-
-gulp.task('test', ['bundlejs'], function(done) {
+gulp.task('test', ['js'], function(done) {
   karma.start({
     configFile: _karmaConf,
     singleRun: true
@@ -46,22 +68,19 @@ gulp.task('test', ['bundlejs'], function(done) {
   });
 });
 
-gulp.task('minifyjs', ['bundlejs'], function() {
-  return gulp.src(_minifyGlobs)
-    .pipe(uglify())
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(gulp.dest(_srcDest));
+gulp.task('docjs', ['js'], shell.task([ 'jsdoc -c conf.json' ]));
+
+gulp.task('build', ['js', 'test', 'docjs' ]);
+gulp.task('builddev', ['js', 'test']);
+
+gulp.task('default', ['clean'], function() {
+  gulp.start('build');
 });
 
-gulp.task('docjs', ['bundlejs'], shell.task([
-  'jsdoc -c conf.json'
-]));
+gulp.task('dev', ['clean'], function() {
+  gulp.start('builddev');
+});
 
-gulp.task('default', ['buildjs']);
-gulp.task('buildjs', ['lint', 'docjs', 'test', 'minifyjs']);
-gulp.task('builddev', ['lint', 'test', 'minifyjs']);
-
-gulp.task('watch', function() { gulp.watch(_srcGlobs, ['buildjs']); });
+gulp.task('watch', function() { gulp.watch(_srcGlobs, ['build']); });
 gulp.task('watchdev', function() { gulp.watch(_srcGlobs, ['builddev']); });
+

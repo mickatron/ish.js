@@ -1,5 +1,5 @@
-
-// TODO: consider onBeforeLeave and state
+// TODO: catch refreshes?.?.?
+// TODO: 
 
 (function(){
 	var _historyAPI = window.history;
@@ -22,17 +22,28 @@
 	function callRouteFn(routeKey, slugs, stateData) {
 			var routes = this.routes;
 			if( routes.before ) routes.before( stateData );
-			routes[routeKey](slugs, stateData);
+			routes[routeKey].enter(slugs, stateData);
 			if( routes.after ) routes.after( stateData );
 	}
 
+	// TODO: split this up in smaller more specific tasks - it's too large
 	function parseURLroute (routeString, stateData){
 		routeString = routeString || '';
+		// get all the route keys
+		var keys = Object.keys(this.routes);
+		var routeKeys = [];
+		var wildcardKeys = keys.filter(function(item){  
+			if(item.substr(item.length -1) === '*') {
+				return true;
+			} else {
+				routeKeys.push(item);
+				return false;
+			}
+		});
 
-		var routeKeys = Object.keys(this.routes);
+		// test exact routes
 		var exact = routeKeys.indexOf(routeString);
 		var routeKey;
-		var slugs = null;
 
 		if(exact >= 0) {
 			routeKey =  routeKeys[exact];
@@ -85,33 +96,65 @@
 				console.error('More than 1 route found'); 
 			}
 
-			// get any slug values 
-			var splitMatchArray = matches.values[0].split('/');
-			splitMatchArray.shift();
-			//find slugs
-			slugs = {};
-			for (var match = 1; match < splitMatchArray.length; match++) {
-				// is it a slug? 
-				var isSlug = splitMatchArray[match].charAt(0) + splitMatchArray[match].charAt(splitMatchArray[match].length-1);
-				if(isSlug === '{}') {
-					// it's a slug!
-					var slugName =  splitMatchArray[match].slice(1,-1);
-					var slugValue = routeArray[match];
-					slugs[slugName] = slugValue;
-				}
-			}
-			// add to the history
-			this.current = routeString;
-			this.slugs = slugs;
-			
-			console.log('call route mthod ',this.routes.before);
-			// lastly call the method 
+			// set the current slugs and the routeKey to call
+			this.slugs = getSlugs(matches, routeArray); 
 			routeKey = matches.values[0];
 		}
 
-		callRouteFn.call(this, routeKey, slugs, stateData);
+		// call previous onLeave handler
+		var routeFnObj = this.routes[this.current];
+		if(routeFnObj && routeFnObj.leave) routeFnObj.leave();
+		
+		if(this.current){
+			// call previous onLeave handler for wildcards
+			for (var e = 0; e < wildcardKeys.length; e++) {
+				if(this.current.indexOf( wildcardKeys[e].replace('*','') ) === 0 ){
+					var leaveFn = this.routes[ wildcardKeys[e] ].leave;
+					if(leaveFn) leaveFn();
+				}
+			}
+		}
+		// test and call wildcards
+		for (var d = 0; d < wildcardKeys.length; d++) {
+			if(routeString.indexOf( wildcardKeys[d].replace('*','') ) === 0 ){
+				callRouteFn.call(this, wildcardKeys[d], this.slugs, stateData);
+			}
+		}
 
-		return { route: routeString, slugs: slugs };
+		// call the singel route found in the first tests
+		callRouteFn.call(this, routeKey, this.slugs, stateData);
+		this.current = routeString;
+		var returnVal =  {route: routeString, previousRoute: this.current, slugs: this.slugs };
+		
+		return returnVal;
+	}
+	
+
+	function getSlugs(matches, routeArray){
+		var hasSlugs = false;
+		// get any slug values 
+		var splitMatchArray = matches.values[0].split('/');
+		splitMatchArray.shift();
+		//find slugs
+		var slugs = {};
+		for (var match = 1; match < splitMatchArray.length; match++) {
+			// is it a slug? 
+			var isSlug = splitMatchArray[match].charAt(0) + splitMatchArray[match].charAt(splitMatchArray[match].length-1);
+			if(isSlug === '{}') {
+				hasSlugs = true;
+				// it's a slug!
+				var slugName =  splitMatchArray[match].slice(1,-1);
+				var slugValue = routeArray[match];
+				slugs[slugName] = slugValue;
+			}
+		}
+		return hasSlugs ? slugs : null;
+	}
+
+	function setState() {
+		// store the state datat in localStorage, history.state has a 640kB limit.
+		var stateString = JSON.stringify({data:$.store.data, states: $.store.states});
+		localStorage.setItem(this.current, stateString);
 	}
 
 	$.fn.router = {
@@ -128,17 +171,10 @@
 			return this;
 		},
 		navigate: function(route){
-			console.log('navigate');
-			var previous = this.current;
-			// parse url route
-			var routeData = parseURLroute.call(this, route);
-			// store the state datat in localStorage, history.state has a 640kB limit.
-			var stateString = JSON.stringify({data:$.store.data, state: $.store.states});
-			localStorage.setItem(previous, stateString);
-
-			_historyAPI.replaceState(routeData, "", previous);
-
-			this.emit('ROUTE_NAVIGATE', routeData);
+			setState.call(this); // set state of the current page
+			var routeData = parseURLroute.call(this, route); // parse url route and switch pages
+			_historyAPI.pushState(routeData, '', this.current);
+			this.emit('ON_NAVIGATE', routeData);
 			return this;
 		},
 		destroy: function(){
@@ -147,32 +183,34 @@
 		}
 	};
 
+	var popHandler = function(evt){
+		setState.call(this);
+		//get state
+		var route;
+		var stateData;
+		if (history.state){
+			var historyState = history.state;
+			stateData = JSON.parse(localStorage.getItem(historyState.route));
+			route = parseURLroute.call(this, historyState.route, stateData);
+		} else {
+			currentLocation = document.URL.replace(this.baseURL,'');
+			route = parseURLroute.call(this, currentLocation);
+		}
+		this.emit('ON_POP', route);
+		return stateData;
+	};
+
 	$.router = function(options){
 		var factory = Object.create($.fn.router);
 		ish.extend(factory, ish.emitter(), options);
-		console.log('route ', options, factory);
 		var currentLocation = document.URL.replace(factory.baseURL,'');
 		//console.log('currentLocation ',currentLocation,factory.baseURL);
-		factory.popHandler = $(window).on('popstate', function(evt){
-			//get state
-			console.log('onPop');
-			var route;
-			var stateData;
-			if (history.state){
-				var historyState = JSON.parse(history.state);
-				stateData = localStorage.getItem(historyState.route);
-				route = parseURLroute.call(factory, historyState.route, stateData);
-			} else {
-				currentLocation = document.URL.replace(factory.baseURL,'');
-				route = parseURLroute.call(factory, currentLocation);
-			}
-			factory.emit('ROUTE_POP', route);
-			return stateData;
-		});
-		console.log('route ',currentLocation, options, factory);
-		// get the current url
+		factory.popHandler = popHandler.bind(factory);
+		$(window).on('popstate', factory.popHandler);
 		//parses the inital route
-		//parseURLroute.call(factory, currentLocation);
+		parseURLroute.call(factory, currentLocation);
+		// add history state for the current page
+		_historyAPI.replaceState({route: factory.current, slugs: factory.slugs }, "", factory.current);
 		return factory;
 	};
 

@@ -159,7 +159,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
 })(ish);
  */
 var ish = function(document, window, $) {
-	'use strict';
+	//'use strict';
 	/* Lib Core
 	---------------------------------------*/
 	//=include /js/ish.core.js

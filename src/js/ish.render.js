@@ -41,7 +41,7 @@ $.updateTemplate = function (updateNode, updates){
 	// TODO refactor, should sit outside of this fn
 	var updateTemplateEachFn = function(node){ $.renderBind(node, updates); };
 	for(var each in updates) {
-		$('['+bindAttrName+'*='+each+']', updateNode).forEach(updateTemplateEachFn);
+		$('['+bindAttrName+'*="'+each+'"]', updateNode).forEach(updateTemplateEachFn);
 	}
 	return $;
 };

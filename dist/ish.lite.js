@@ -230,13 +230,16 @@ var ish = function(document, window, $) {
   		return; // skip null and undefined values
   	} else if (propValue.constructor === Object || Array.isArray(propValue)) { // recurse objects that already exisit on the target
   		targetObject[prop] = $[extend](targetObject[prop] || {}, propValue);
-  	} else { 
-  		// Property in destination object set; 
-  		// update its value and retain enumerability
-  		Object.defineProperty(targetObject, prop, {
-  			enumerable: toMerge.propertyIsEnumerable(prop),
-  			value: propValue
-  		});
+  	} else {
+  		/*var descriptor = Object.getOwnPropertyDescriptor(targetObject, prop);
+  		console.log('descriptor ',prop, descriptor, (typeof descriptor !== 'undefined' && descriptor.writable === 'true'), !targetObject[prop] );
+  		
+  		if((typeof descriptor !== 'undefined' && typeof descriptor.set !== 'undefined') || !targetObject[prop]) {
+  			console.log('extend ',prop);
+  			targetObject[prop] = propValue;
+  		}*/
+  
+  		targetObject[prop] = propValue;
   	}
   }
   $[extend] = function() {
@@ -251,8 +254,10 @@ var ish = function(document, window, $) {
   			for (var e = 0; e < toMerge.length; e++) {
   				if (toMerge[e] === null || toMerge[e] === undefined) {
   					continue; // skip null and undefined values
-  				} else if (toMerge[e].constructor === Object || Array.isArray( toMerge[e])) {
+  				} else if (toMerge[e].constructor === Object ){ 
   					newArray[e] = $[extend](newArray[e] || {}, toMerge[e]);
+  				} else if ( Array.isArray( toMerge[e])) {
+  					newArray[e] = $[extend](newArray[e] || [], toMerge[e]);
   				} else {
   					targetObject[e]  = toMerge[e];
   				}
