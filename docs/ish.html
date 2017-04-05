@@ -51,8 +51,6 @@
             
             <li data-name="ish.bindToObject"><a href="ish.html#.bindToObject">bindToObject</a></li>
             
-            <li data-name="ish.deepProto"><a href="ish.html#.deepProto">deepProto</a></li>
-            
             <li data-name="ish.ish"><a href="ish.html#.ish">ish</a></li>
             
             <li data-name="ish.renderBind"><a href="ish.html#.renderBind">renderBind</a></li>
@@ -146,6 +144,33 @@
         
     </li>
 
+    <li data-name="ish.emitter">
+        
+        <a href="ish.emitter.html">ish.emitter</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.emitter.emit"><a href="ish.emitter.html#.emit">emit</a></li>
+            
+            <li data-name="ish.emitter.flush"><a href="ish.emitter.html#.flush">flush</a></li>
+            
+            <li data-name="ish.emitter.subscribe"><a href="ish.emitter.html#.subscribe">subscribe</a></li>
+            
+            <li data-name="ish.emitter.unsubscribe"><a href="ish.emitter.html#.unsubscribe">unsubscribe</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
     <li data-name="ish.fn.easing">
         
         <a href="ish.fn.easing.html">ish.fn.easing</a>
@@ -203,6 +228,31 @@
             <li data-name="ish.fn.easing.easeOutSine"><a href="ish.fn.easing.html#.easeOutSine">easeOutSine</a></li>
             
             <li data-name="ish.fn.easing.linear"><a href="ish.fn.easing.html#.linear">linear</a></li>
+            
+            
+        </ul>
+        
+    </li>
+
+    <li data-name="ish.store">
+        
+        <a href="ish.store.html">ish.store</a>
+        
+        <!--<span class="static">static</span>-->
+        
+        
+        
+        
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Methods</span></li>
+        
+            <li data-name="ish.store.createComState"><a href="ish.store.html#.createComState">createComState</a></li>
+            
+            <li data-name="ish.store.createDataState"><a href="ish.store.html#.createDataState">createDataState</a></li>
+            
+            <li data-name="ish.store.flush"><a href="ish.store.html#.flush">flush</a></li>
             
             
         </ul>
@@ -330,6 +380,16 @@
 
 	 
 
+	
+		<h3 class="c-api-doc__title">Namespaces</h3>
+
+		<dl>
+			<dt><a href="ish.emitter.html">emitter</a></dt>
+			<dd></dd>
+		
+			<dt><a href="ish.store.html">store</a></dt>
+			<dd></dd>
+		</dl>
 	
 
 -->
@@ -1048,170 +1108,6 @@
         <h5>Example:</h5>
         
     <pre class="prettyprint"><code>var template = '&lt;p ish-bind="textContent:text">&lt;/p>'var node = ish.renderTemplate(template, {text:'text has been rendered'});// you would usualy use ish.updateTemplate, this is just for exmapleish.renderBind(node, {text: 'text has been updated text'});</code></pre>
-
-    
-</div>
-			
-				
-<div class="c-content-block__inner">
-    
-        
-        
-            <h4 class="c-api-doc__name" id=".deepProto">deepProto(object)</h4>
-        
-        
-
-
-<dl class="c-details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-        
-            <a href="js_ish.state.js.html#line35" class="c-api-doc__goto-source c-button--outline">line 35</a>
-
-        
-
-        
-    
-
-
-
-    
-
-    
-
-    
-
-    
-
-    <div class="c-description">
-        <h5>Description: </h5> <p>Return an object with a</p>
-    </div>
-    
-
-    
-        
-        
-                
-<div class="c-returns">
-	<h5 class="c-returns__header">Returns</h5>
-	
-<code>Object</code>
-
-
-	
-
-	
-	    <p>The resolved value.</p>
-</div>
-
-
-
-            
-
-    
-
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="c-params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th>Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name">object</td>
-            
-
-            <td class="type">
-            
-                <code>
-                    
-<code>Object</code>
-
-
-                </code>
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The object which contains the value you're attempting to resolve.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-    
-        <h5>Example:</h5>
-        
-    <pre class="prettyprint"><code>var deepProtoObject = {     nested: {         value : 'a nested value',        array: [1,2,'third',4,5]    }};var value = ish.resolveObjectPath(object, 'nested.value'); // 'a nested value'var arrayValue = ish.resolveObjectPath(object, 'nested.array[3]'); // 'third' </code></pre>
 
     
 </div>
@@ -2636,7 +2532,7 @@
 </div>
 
     <!-- <footer>
-        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Apr 02 2017 15:05:12 GMT+1000 (AUS Eastern Standard Time)
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Apr 05 2017 23:12:24 GMT+1000 (AUS Eastern Standard Time)
     </footer> -->
 <script src="../../js/dist/ish.min.js"> </script>
 <script src="main.js"> </script>

@@ -200,6 +200,12 @@
 		return stateData;
 	};
 
+	/**
+	 * [router description]
+	 * @param  {options} options [description]
+	 * @extends {ish.emitter}
+	 * @return {$.router}         [description]
+	 */
 	$.router = function(options){
 		var factory = Object.create($.fn.router);
 		ish.extend(factory, ish.emitter(), options);

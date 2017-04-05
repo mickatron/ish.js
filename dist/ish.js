@@ -816,38 +816,21 @@ var ish = function(document, window, $) {
 		});
 		return this;
 	};
-	/**
-	 * A deprecated factory helper function. Not included in any default dist, compile your own if you wish to use. This will be removed before official beta release.
-	 * @function
-	 * @name  ishObject.invoke
-	 * @param {Object} module    The module or components function body.
-	 * @param {Object} options   The module or components options Object.
-	 * @param {Object} context   An Object context to invoke/execute the module or component upon.
-	 * @return {Object}          Each instance in referenced by number in the order they were invoked.
-	 * @example
-	 * // basic usage, no options, context or parentObject used
-	 * ish('selector').invoke(function($element, options) {
-	 * 		//The module code body
-	 * },{options},null);
-	 * 
-	 */
-	ishObject.invoke = function(module, options, context) {
-		options = options || {};
-		var createdModules = []; // {}; // could/should this be an array?
-		options.selector = this.selector;
-		this.forEach(function($el, i) {
-			var currContext = context || {};
-			options.node = $el[0];
-			createdModules[i] = module.call(currContext, options, $el[0], options.selector);
-		});
-		return createdModules;
-	};
+	//!=include /js/ish.invoke.js // Deprecated, extra optional. needs removal before beta
 
 	/* Lib Optional Components
 	---------------------------------------*/
 	//!=include /js/ish.easing.js // just if you really need them
+	
 	$.fn.emitter = {
 		log: [],
+		/**
+		 * Emit an action or data to subcribers.
+		 * @memberOf ish.emitter
+		 * @param  {String}   type The name of the emission.
+		 * @param  {Object} argsObject   An Object of data to be passed with the emission.
+		 * @return {$.emitter} Chainable.        
+		 */
 		emit: function(type, argsObject){
 			var listeners = this.listeners[type];
 			if(!listeners) return this;
@@ -857,11 +840,25 @@ var ish = function(document, window, $) {
 			if($.fn.emitter.log !== false) $.fn.emitter.log.push({type: type, arguments: argsObject });
 			return this;
 		},
+		/**
+		 * Subcribe from an a specific emission.
+		 * @memberOf ish.emitter
+		 * @param  {String}   type The name of the emission type you are subscribing.
+		 * @param  {Function} fn   The function that you are subscribing.
+		 * @return {$.emitter} Chainable.        
+		 */
 		subscribe: function(type, fn){
 			this.listeners[type] = this.listeners[type] || [];
 			this.listeners[type].push(fn);
 			return this;
 		},
+		/**
+		 * Unsubcribe from an a specific emission.
+		 * @memberOf ish.emitter
+		 * @param  {String}   type The name of the emission type you are unsubscribing.
+		 * @param  {Function} fn   The function that you are unsubscribing.
+		 * @return {$.emitter} Chainable.        
+		 */
 		unsubscribe: function(type, fn){
 			var listeners = this.listeners[type];
 			if(listeners){
@@ -869,9 +866,23 @@ var ish = function(document, window, $) {
 				listeners.splice(index, 1);
 			}		
 			return this;
+		},
+		/**
+		 * Remove all subscribers from the emitter instance.
+		 * @memberOf ish.emitter
+		 * @return {$.emitter} Chainable.        
+		 */
+		flush : function(){
+			this.listeners = null;
+			return this;
 		}
 	};
-	
+	/**
+	 * A basic emitter factory.
+	 * @name  ish.emitter
+	 * @namespace
+	 * @return {emitter} An instance of the $.emitter
+	 */
 	$.emitter = function(){
 		var factory = Object.create($.fn.emitter);
 		factory.listeners = {};
@@ -1089,15 +1100,32 @@ var ish = function(document, window, $) {
 	};
 	
 	
-	
+	/**
+	 * A state and data store.
+	 * @name ish.store
+	 * @namespace
+	 * @type {Object}
+	 */
 	$.store = {
 		data: {},
 		states: {},
+		/**
+		 * Flush the store of all data and state.
+		 * @memberOf ish.store
+		 * @return {$.store} Chainable.
+		 */
 		flush: function(){
 			this.states = {};
 			this.data = {};
 			return this;
 		},
+		/**
+		 * Create a data object in the store.
+		 * @memberOf ish.store
+		 * @param  {String}   name The name of the data object to create.
+		 * @param  {Function} fn   The initialization function containing actions etc...
+		 * @return {Object}        The created data object.
+		 */
 		createDataState: function(name, fn){
 			var ref = this.data[name] = $.emitter();
 			ref.actions = {};
@@ -1106,6 +1134,13 @@ var ish = function(document, window, $) {
 			fn.call(ref);
 			return ref;
 		},
+		/**
+		 * Create a state object in the store.
+		 * @memberOf ish.store
+		 * @param  {String}   name The name of the state object to create.
+		 * @param  {Function} fn   The initialization function containing actions etc...
+		 * @return {Object}        The created state object.
+		 */
 		createComState: function(name, fn){
 			if(typeof name === 'string' ){
 				if(!this.states[name]) {
@@ -1424,6 +1459,12 @@ var ish = function(document, window, $) {
 			return stateData;
 		};
 	
+		/**
+		 * [router description]
+		 * @param  {options} options [description]
+		 * @extends {ish.emitter}
+		 * @return {$.router}         [description]
+		 */
 		$.router = function(options){
 			var factory = Object.create($.fn.router);
 			ish.extend(factory, ish.emitter(), options);
