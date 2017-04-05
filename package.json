@@ -25,6 +25,7 @@
   "dependencies": {},
   "devDependencies": {
     "del": "^2.0.2",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.0",
     "gulp-bump": "^2.7.0",
     "gulp-concat": "^2.6.1",
