@@ -1,6 +1,6 @@
 {
   "name": "ish.js",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1",
   "author": "Michael Hargreaves <code@digitalfeast.com.au> (http://digitalfeast.com.au)",
   "license": "MIT",
   "description": "A tiny jQ'ish Javascript library.",
@@ -52,7 +52,8 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "lazypipe": "^1.0.1",
     "merge-stream": "^1.0.1",
-    "phantomjs": "^1.9.18"
+    "phantomjs": "^1.9.18",
+    "run-sequence": "^1.2.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
