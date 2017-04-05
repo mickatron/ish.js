@@ -1,5 +1,5 @@
 
-Ish.js is a super tiny Javascript library with a jQuery'ish syntax. [Visit the full documentation][docs].
+Ish.js(Alpha) is a super tiny Javascript library with a jQuery'ish syntax. [Visit the full documentation][docs].
 
 ## Distributed files
 
