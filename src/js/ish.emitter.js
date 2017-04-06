@@ -57,7 +57,7 @@ $.fn.emitter = {
 /**
  * A basic emitter factory.
  * @name  ish.emitter
- * @namespace
+ * @constructor
  * @return {emitter} An instance of the $.emitter
  */
 $.emitter = function(){

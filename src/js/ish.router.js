@@ -158,18 +158,39 @@
 	}
 
 	$.fn.router = {
+		/**
+		 * Add a route to the router instance.
+		 * @memberOf ish.router
+		 * @param {String}   route The route path you're adding.
+		 * @param {Object} fn    The routing object conatining 'enter' and 'leave' functions keyed by their respective name.
+		 * @return {ish.router}       Chainable, returns its own instance.
+		 */
 		add: function(route, fn){
 			this.routes[route] = fn;
 			return this;
 		},
+		/**
+		 * Remove a route from the router instance.
+		 * @param {String}   route The route path to remove.
+		 * @return {ish.router}       Chainable, returns its own instance.
+		 */
 		remove: function(route){
 			delete this.routes[route];
 			return this;
 		},
+		/**
+		 * Flush/remove all routes from the router instance.
+		 * @return {ish.router}       Chainable, returns its own instance.
+		 */
 		flush: function(){
 			this.routes = {};
 			return this;
 		},
+		/**
+		 * Navigate to the specified route path.
+		 * @param {String}   route The route path to remove.
+		 * @return {ish.router}       Chainable, returns its own instance.
+		 */
 		navigate: function(route){
 			setState.call(this); // set state of the current page
 			var routeData = parseURLroute.call(this, route); // parse url route and switch pages
@@ -177,6 +198,10 @@
 			this.emit('ON_NAVIGATE', routeData);
 			return this;
 		},
+		/**
+		 * Destroy the router instance.
+		 * @return {null}   
+		 */
 		destroy: function(){
 			$(window).off('popstate', this.popHandler);
 			return null;
@@ -201,10 +226,36 @@
 	};
 
 	/**
-	 * [router description]
-	 * @param  {options} options [description]
+	 * An application router.
+	 * @name  ish.router
+	 * @constructor
 	 * @extends {ish.emitter}
-	 * @return {$.router}         [description]
+	 * @param  {Object} options The utilities options object.
+	 * @param  {String} options.baseURL The base URL of the application.
+	 * @param  {Object} options.routes The routing object.
+	 * @return {$.router}         The router instance
+	 *
+	 * @example
+	 * var router = ish.router({ 
+	 *		baseURL: 'http://ish.stateful.local',
+	 *		routes: {
+	 *			notFound: function(url){
+	 *			},
+	 *			before: function(history){
+	 *			
+	 *			},
+	 *			after: function(history){
+	 *			
+	 *			},
+	 *			'/':  {
+	 *				enter: function(slugs, history){
+	 *
+	 *				},
+	 *				leave: function(slugs, history){
+	 *				}
+	 *			}
+	 *		}
+	 * };
 	 */
 	$.router = function(options){
 		var factory = Object.create($.fn.router);
