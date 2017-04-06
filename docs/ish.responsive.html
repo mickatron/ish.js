@@ -79,18 +79,28 @@
         <ul class="c-menu__members">
             <li><span class="c-menu__subtitle">Events</span></li>
             
-                <li data-name="ish.responsive.event:onBreakpoint"><a href="ish.responsive.html#.event:onBreakpoint">onBreakpoint</a></li>
+                <li data-name="ish.responsive.event:onMediaBreak"><a href="ish.responsive.html#.event:onMediaBreak">onMediaBreak</a></li>
+            
+            
+        </ul>
+        
+        
+        <ul class="c-menu__members">
+            <li><span class="c-menu__subtitle">Properties</span></li>
+        
+            <li data-name="ish.responsive.destroy"><a href="ish.responsive.html#.destroy">destroy</a></li>
             
             
         </ul>
         
         
         
-        
         <ul class="c-menu__members">
             <li><span class="c-menu__subtitle">Methods</span></li>
         
-            <li data-name="ish.responsive.responsiveObj.destroy"><a href="ish.responsive.html#.responsiveObj.destroy">responsiveObj.destroy</a></li>
+            <li data-name="ish.responsive.add"><a href="ish.responsive.html#.add">add</a></li>
+            
+            <li data-name="ish.responsive.remove"><a href="ish.responsive.html#.remove">remove</a></li>
             
             
         </ul>
@@ -347,10 +357,10 @@
     <!--<dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
 
-        <a href="js_ish.responsive.js.html">js/ish.responsive.js</a>, <a href="js_ish.responsive.js.html#line75">line 75</a>
+        <a href="js_ish.responsive.js.html">js/ish.responsive.js</a>, <a href="js_ish.responsive.js.html#line91">line 91</a>
         
 
-      <a href="js_ish.responsive.js.html#line75" class="button outline">js/ish.responsive.js</a>
+      <a href="js_ish.responsive.js.html#line91" class="button outline">js/ish.responsive.js</a>
 
     </li></ul></dd>-->
     
@@ -540,7 +550,7 @@
     
     <h5>Fires:</h5>
     <ul>
-        <li><a href="ish.responsive.html#.event:onBreakpoint">ish.responsive.event:onBreakpoint</a></li>
+        <li>event:onMediaBreak</li>
     </ul>
     
 
@@ -566,15 +576,26 @@
 		width: 1024
 	}],
 	eventPrefix: 'ish.responsive'
- });
- ish(window).on('ish.responsive.onBreakpoint', function(evt){
-	console.log('breakpoint event: ',evt.data.name,evt);
- });</code></pre>
+});
+mediaBreaks.subscribe('onMediaBreak', function(data){
+	console.log('Media break: ',data.name);
+});</code></pre>
 
     
 </div>
 		</div>
 	
+
+	
+		<h3 class="c-api-doc__title">Extends</h3>
+
+		
+
+
+    <ul>
+        <li><a href="ish.emitter.html">ish.emitter</a></li>
+    </ul>
+
 
 	
 
@@ -597,7 +618,7 @@
     
         
         
-            <h4 class="c-api-doc__name" id=".event:onBreakpoint">onBreakpoint</h4>
+            <h4 class="c-api-doc__name" id=".event:onMediaBreak">onMediaBreak</h4>
         
         
 
@@ -633,10 +654,10 @@
     <!--<dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
 
-        <a href="js_ish.responsive.js.html">js/ish.responsive.js</a>, <a href="js_ish.responsive.js.html#line44">line 44</a>
+        <a href="js_ish.responsive.js.html">js/ish.responsive.js</a>, <a href="js_ish.responsive.js.html#line45">line 45</a>
         
 
-      <a href="js_ish.responsive.js.html#line44" class="button outline">js/ish.responsive.js</a>
+      <a href="js_ish.responsive.js.html#line45" class="button outline">js/ish.responsive.js</a>
 
     </li></ul></dd>-->
     
@@ -717,6 +738,11 @@
 
     
 
+    <div class="c-description">
+        <h5>Description: </h5> <p>An event/action emitted by ish.emitter.</p>
+    </div>
+    
+
     
         
 
@@ -736,6 +762,11 @@
 
 
     
+        <h5>Example:</h5>
+        
+    <pre class="prettyprint"><code>mediaBreaks.subscribe('onMediaBreak', function(data){		console.log('Media break: ',data.name);});</code></pre>
+
+    
 </div>
 			
 		</div>
@@ -743,6 +774,90 @@
 
 
 
+	
+		<h3 class="c-api-doc__title">Properties</h3>
+
+		<div class="c-api-doc c-content-block--faux-border">
+			
+				
+<div class="c-content-block__inner">
+	<h4 class="c-api-doc__name" id=".destroy">destroy<span class="type-signature"></span></h4>
+
+	<a href="js_ish.responsive.js.html#line140" class="c-api-doc__goto-source c-button--outline">line 140</a>
+
+	
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+
+        <a href="js_ish.responsive.js.html">js/ish.responsive.js</a>, <a href="js_ish.responsive.js.html#line140">line 140</a>
+        
+
+      <a href="js_ish.responsive.js.html#line140" class="button outline">js/ish.responsive.js</a>
+
+    </li></ul></dd>-->
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+	
+
+	
+	<div class="description">
+		<p>Removes all breakpoints for the instance and returns null. We cannot destroy the module internally, but you can use the return value to null out your references if you wish.</p>
+	</div>
+	
+
+	
+
+	
+
+	
+		<h5>Example</h5>
+		
+    <pre class="prettyprint"><code>mediaBreaks.destroy();</code></pre>
+
+	
+</div>
+
+			
+		</div>
 	
 
 	
@@ -754,7 +869,7 @@
     
         
         
-            <h4 class="c-api-doc__name" id=".responsiveObj.destroy">responsiveObj.destroy()</h4>
+            <h4 class="c-api-doc__name" id=".add">add(settings)</h4>
         
         
 
@@ -797,7 +912,7 @@
 
 
         
-            <a href="js_ish.responsive.js.html#line130" class="c-api-doc__goto-source c-button--outline">line 130</a>
+            <a href="js_ish.responsive.js.html#line67" class="c-api-doc__goto-source c-button--outline">line 67</a>
 
         
 
@@ -815,7 +930,7 @@
     
 
     <div class="c-description">
-        <h5>Description: </h5> <p>Removes all breakpoints for the instance and returns null. We cannot destroy the module internally, but you can use the return value to null out your references if you wish.</p>
+        <h5>Description: </h5> <p>Add one or more breakpoints to the instance.</p>
     </div>
     
 
@@ -826,13 +941,13 @@
 <div class="c-returns">
 	<h5 class="c-returns__header">Returns</h5>
 	
-<code>null</code>
+<code><a href="ish.responsive.html">ish.responsive</a></code>
 
 
 	
 
 	
-	    <p>Returns null;</p>
+	    <p>Chainable, returns its own instance.</p>
 </div>
 
 
@@ -842,22 +957,227 @@
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-    
-        <h5>Example:</h5>
+        <h5>Parameters:</h5>
         
-    <pre class="prettyprint"><code>mediaBreaks.destroy();</code></pre>
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">settings</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Array</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An Array containing breakpoint settings.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+</div>
+			
+				
+<div class="c-content-block__inner">
+    
+        
+        
+            <h4 class="c-api-doc__name" id=".remove">remove(settings)</h4>
+        
+        
+
+
+<dl class="c-details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+            <a href="js_ish.responsive.js.html#line78" class="c-api-doc__goto-source c-button--outline">line 78</a>
+
+        
+
+        
+    
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <div class="c-description">
+        <h5>Description: </h5> <p>Remove one or more breakpoint object from the instance.</p>
+    </div>
+    
+
+    
+        
+        
+                
+<div class="c-returns">
+	<h5 class="c-returns__header">Returns</h5>
+	
+<code><a href="ish.responsive.html">ish.responsive</a></code>
+
+
+	
+
+	
+	    <p>Chainable, returns its own instance.</p>
+</div>
+
+
+
+            
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="c-params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th>Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name">settings</td>
+            
+
+            <td class="type">
+            
+                <code>
+                    
+<code>Array</code>
+
+
+                </code>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An Array containing breakpoint settings.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
 
     
 </div>
@@ -880,7 +1200,7 @@
 </div>
 
     <!-- <footer>
-        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Apr 06 2017 22:33:37 GMT+1000 (AUS Eastern Standard Time)
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Apr 07 2017 01:42:25 GMT+1000 (AUS Eastern Standard Time)
     </footer> -->
 <script src="../../js/dist/ish.min.js"> </script>
 <script src="main.js"> </script>

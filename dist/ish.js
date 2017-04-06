@@ -931,24 +931,40 @@ var ish = function(document, window, $) {
 					tempState === '') {
 					
 					el.state[tempValueType] = tempState;
+	
 					/**
+					 * An event/action emitted by ish.emitter.
 					 * @memberOf ish.responsive
-					 * @event ish.responsive.onBreakpoint
+					 * @event onMediaBreak
 					 * @property {String} name The name of the breakpoint as defined in the options object.
+					 * @example
+					 * mediaBreaks.subscribe('onMediaBreak', function(data){
+					 * 		console.log('Media break: ',data.name);
+					 * });
 					 */
-					$(window).trigger(el.eventPrefix + '.onBreakpoint', {
-						name: el.state[tempValueType]
-					});
+					this.emit('onMediaBreak', { name: el.state[tempValueType] } );
 				}
 			});
 		};
 		// EXPOSED PROTOTYPE
 		$.fn.responsive = {
+			/**
+			 * Add one or more breakpoints to the instance.
+			 * @param {Array} settings An Array containing breakpoint settings.
+			 * @return {ish.responsive}       Chainable, returns its own instance.
+		 	 * @memberOf ish.responsive
+			 */
 			add : function(settings) {
 				_settings.push(settings);
 				setState();
 				return this;
 			},
+			/**
+			 * Remove one or more breakpoint object from the instance.
+			 * @param {Array} settings  An Array containing breakpoint settings.
+			 * @return {ish.responsive}       Chainable, returns its own instance.
+			 * @memberOf ish.responsive
+			 */
 			remove : function(settings) {
 				_settings.forEach(function(el, i) {
 					if (el === settings) _settings.splice(i, 1);
@@ -966,7 +982,8 @@ var ish = function(document, window, $) {
 	 * Calls an event when breakpoints are reached. Needs a prototypal review.
 	 * @name  ish.responsive
 	 * @constructor
-	 * @fires ish.responsive.onBreakpoint
+	 * @extends {ish.emitter}
+	 * @fires onMediaBreak
 	 * @param {object} options
 	 * @param {Array} options.breakpoints An Array of Objects where the key is the name of the breakpoint and the value is the value that breakpoint will be triggered.
 	 * @param {string} options.eventPrefix The prefix or namespace events will be called under. 
@@ -984,15 +1001,16 @@ var ish = function(document, window, $) {
 			width: 1024
 		}],
 		eventPrefix: 'ish.responsive'
-	 });
-	 ish(window).on('ish.responsive.onBreakpoint', function(evt){
-		console.log('breakpoint event: ',evt.data.name,evt);
-	 });
+	});
+	mediaBreaks.subscribe('onMediaBreak', function(data){
+		console.log('Media break: ',data.name);
+	});
 	 */
 	
 	$.responsive = function(options) {
 	
 		var responsiveObj = Object.create($.fn.responsive);
+		ish.extend(responsiveObj, ish.emitter());
 	
 		var _settings = $.extend({
 				breakpoints: [{
@@ -1011,6 +1029,7 @@ var ish = function(document, window, $) {
 	
 		/**
 		 * Removes all breakpoints for the instance and returns null. We cannot destroy the module internally, but you can use the return value to null out your references if you wish. 
+		 * @name  destroy
 		 * @memberOf ish.responsive
 		 * @return {null} Returns null;
 		 * @example
