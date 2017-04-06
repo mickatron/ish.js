@@ -24,14 +24,15 @@ TBA
 
 ## Installation &amp; Quick Start
 
-Install with Git, Bower or NPM. 
+Install with Git, NPM or Yarn. 
 
     // Git
     $ git clone https://github.com/mickatron/ish.js.git
-    // Bower
-    //Coming Soon
     // NPM
-    //Coming Soon
+    $ npm i -D ish.js
+    // Yarn
+    $ yarn add ish.js --dev
+
 
 Then include the 'dist/ish.min.js' file on your html page and you're ready to go.
 
