@@ -6,7 +6,7 @@ Ish.js(Alpha) is a super tiny Javascript library with a jQuery'ish syntax. [Visi
 There's two compiled files available in the dist folder.
 
  -   `ish.lite.min.js` is around 3KB and includes only the ish.core.js and ish.events.js methods. Minified it weighs in just under 3KB.
- -   `ish.min.js` weighs in at around 8kb and incldes all Ish.js library methods.
+ -   `ish.min.js` weighs in at around 9kb and incldes all Ish.js library methods.
 
 ### Compiling a custom version
 
@@ -105,7 +105,7 @@ This is not a full list, please see the full [documentation][docs] for all avail
  -  Error reporting.
  -  Improved Documentation and Theme   
  -  Improved testing
- -  A few todo's listed in the responsive component
+ -  review store/state component
 
  
  [docs]: http://ish.digitalfeast.com.au/js/docs

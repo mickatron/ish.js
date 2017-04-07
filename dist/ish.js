@@ -7,14 +7,14 @@
  * @fileoverview 
 
 
-Ish.js is a super tiny Javascript library with a jQuery'ish syntax. [Visit the full documentation][docs].
+Ish.js(Alpha) is a super tiny Javascript library with a jQuery'ish syntax. [Visit the full documentation][docs].
 
 ## Distributed files
 
 There's two compiled files available in the dist folder.
 
  -   `ish.lite.min.js` is around 3KB and includes only the ish.core.js and ish.events.js methods. Minified it weighs in just under 3KB.
- -   `ish.min.js` weighs in at around 8kb and incldes all Ish.js library methods.
+ -   `ish.min.js` weighs in at around 9kb and incldes all Ish.js library methods.
 
 ### Compiling a custom version
 
@@ -32,14 +32,15 @@ TBA
 
 ## Installation &amp; Quick Start
 
-Install with Git, Bower or NPM. 
+Install with Git, NPM or Yarn. 
 
     // Git
     $ git clone https://github.com/mickatron/ish.js.git
-    // Bower
-    //Coming Soon
     // NPM
-    //Coming Soon
+    $ npm i -D ish.js
+    // Yarn
+    $ yarn add ish.js --dev
+
 
 Then include the 'dist/ish.min.js' file on your html page and you're ready to go.
 
@@ -70,6 +71,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
     ish.extends();
 
 ## Optional Methods
+This is not a full list, please see the full [documentation][docs] for all availiable methods.
 
     // AJAX
     ish.ajax();
@@ -83,10 +85,19 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
     ish('selector').addClass();
     ish('selector').removeClass();
     
-    // Watchable Object
-    $.watchable(Object);
-    // observable Object and Array
-    $.observable();
+    //Responsive Util
+    ish.responsive();
+    //Routing
+    ish.router();
+    // Templating/rendering
+    ish.renderTemplate()
+    ish.updateTemplate()
+    ish.renderBind()
+    // State/Store
+    ish.store
+    
+
+
 
 ## Tutorials
  - [Getting Started][tut1]
@@ -95,19 +106,23 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
  - (Coming soon) Using the Tween Utility
 
 ## Documentation
-[Visit the full documentation][docs].
+[Visit the full documentation][docs]
 
 ## Immediate To-dos;
 
  -  Error reporting.
  -  Improved Documentation and Theme   
  -  Improved testing
- -  A few todo's listed in the responsive component
+ -  review store/state component
 
  
  [docs]: http://ish.digitalfeast.com.au/js/docs
  [tut1]: http://ish.digitalfeast.com.au/js/docs/tutorial-Getting_Started.html
  [tut2]: http://ish.digitalfeast.com.au/js/docs/tutorial-Compiling_a_Custom_Package.html
+
+
+
+
 
 
 
