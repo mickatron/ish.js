@@ -63,6 +63,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
     ish.extends();
 
 ## Optional Methods
+This is not a full list, please see the full [documentation][docs] for all availiable methods.
 
     // AJAX
     ish.ajax();
@@ -76,10 +77,19 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
     ish('selector').addClass();
     ish('selector').removeClass();
     
-    // Watchable Object
-    $.watchable(Object);
-    // observable Object and Array
-    $.observable();
+    //Responsive Util
+    ish.responsive();
+    //Routing
+    ish.router();
+    // Templating/rendering
+    ish.renderTemplate()
+    ish.updateTemplate()
+    ish.renderBind()
+    // State/Store
+    ish.store
+    
+
+
 
 ## Tutorials
  - [Getting Started][tut1]
@@ -88,7 +98,7 @@ Then include the 'dist/ish.min.js' file on your html page and you're ready to go
  - (Coming soon) Using the Tween Utility
 
 ## Documentation
-[Visit the full documentation][docs].
+[Visit the full documentation][docs]
 
 ## Immediate To-dos;
 
