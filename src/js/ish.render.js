@@ -1,3 +1,9 @@
+/**
+ * The name of the HTML attribute used to specify bindings.
+ * @memberOf ish
+ * @name bindAttrName
+ * @type {String}
+ */
 var bindAttrName = $.bindAttrName = "ish-bind";
 var noop = document.createElement('div');
 

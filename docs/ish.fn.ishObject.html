@@ -37,6 +37,8 @@
         <ul class="c-menu__members">
             <li><span class="c-menu__subtitle">Properties</span></li>
         
+            <li data-name="ish.bindAttrName"><a href="ish.html#.bindAttrName">bindAttrName</a></li>
+            
             <li data-name="ish.fn"><a href="ish.html#.fn">fn</a></li>
             
             
@@ -369,6 +371,104 @@
 
 
 
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="c-props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<code>Number</code>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The number of items returned in the collection.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<code>Number</code>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The context item passed to the ish() selector engine.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+
+            <td class="type">
+            
+                
+<code>String</code>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The selector string passed to the ish() selector engine.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
 				
 					<p>When you invoke the <code>ish('selector')</code> method <code>ish.fn.ishObject</code> members are inherited through Prototype Delegation to the returned collection.
 The result is just like a jQuery Object, there is utility methods, a length, context and selector property.</p>
@@ -618,7 +718,7 @@ The result is just like a jQuery Object, there is utility methods, a length, con
 
 
         
-            <a href="js_ish.core.js.html#line182" class="c-api-doc__goto-source c-button--outline">line 182</a>
+            <a href="js_ish.core.js.html#line186" class="c-api-doc__goto-source c-button--outline">line 186</a>
 
         
 
@@ -813,7 +913,7 @@ it's not found.</p>
 
 
         
-            <a href="js_ish.core.js.html#line340" class="c-api-doc__goto-source c-button--outline">line 340</a>
+            <a href="js_ish.core.js.html#line343" class="c-api-doc__goto-source c-button--outline">line 343</a>
 
         
 
@@ -959,7 +1059,7 @@ it's not found.</p>
     
         
         
-            <h4 class="c-api-doc__name" id=".dimension">dimension(type, margins, clientHeight)</h4>
+            <h4 class="c-api-doc__name" id=".dimension">dimension(type, margins, excludeScrollBar)</h4>
         
         
 
@@ -1002,7 +1102,7 @@ it's not found.</p>
 
 
         
-            <a href="js_ish.core.js.html#line300" class="c-api-doc__goto-source c-button--outline">line 300</a>
+            <a href="js_ish.core.js.html#line304" class="c-api-doc__goto-source c-button--outline">line 304</a>
 
         
 
@@ -1122,7 +1222,7 @@ it's not found.</p>
 
         <tr>
             
-                <td class="name">clientHeight</td>
+                <td class="name">excludeScrollBar</td>
             
 
             <td class="type">
@@ -1140,7 +1240,7 @@ it's not found.</p>
 
             
 
-            <td class="description last"><p>Exclude the horizontal scrollbars height from the result.</p></td>
+            <td class="description last"><p>Exclude the scrollbars width/height from the result.</p></td>
         </tr>
 
     
@@ -1216,7 +1316,7 @@ it's not found.</p>
 
 
         
-            <a href="js_ish.core.js.html#line135" class="c-api-doc__goto-source c-button--outline">line 135</a>
+            <a href="js_ish.core.js.html#line139" class="c-api-doc__goto-source c-button--outline">line 139</a>
 
         
 
@@ -1761,7 +1861,7 @@ selector you will be required to filter the collection before making the check.<
 
 
         
-            <a href="js_ish.core.js.html#line159" class="c-api-doc__goto-source c-button--outline">line 159</a>
+            <a href="js_ish.core.js.html#line163" class="c-api-doc__goto-source c-button--outline">line 163</a>
 
         
 
@@ -1925,7 +2025,7 @@ selector you will be required to filter the collection before making the check.<
 
 
         
-            <a href="js_ish.core.js.html#line120" class="c-api-doc__goto-source c-button--outline">line 120</a>
+            <a href="js_ish.core.js.html#line124" class="c-api-doc__goto-source c-button--outline">line 124</a>
 
         
 
@@ -2262,7 +2362,7 @@ Its inclusion in the library is intended to save you writing loops to cover mult
 
 
         
-            <a href="js_ish.core.js.html#line277" class="c-api-doc__goto-source c-button--outline">line 277</a>
+            <a href="js_ish.core.js.html#line281" class="c-api-doc__goto-source c-button--outline">line 281</a>
 
         
 
@@ -3102,7 +3202,7 @@ It's inclusion in the library is intended to save you writing loops to cover mul
 </div>
 
     <!-- <footer>
-        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Apr 07 2017 22:50:07 GMT+1000 (AUS Eastern Standard Time)
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Apr 18 2017 23:24:03 GMT+1000 (AUS Eastern Standard Time)
     </footer> -->
 <script src="../../js/dist/ish.min.js"> </script>
 <script src="main.js"> </script>

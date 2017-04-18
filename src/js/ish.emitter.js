@@ -50,7 +50,7 @@ $.fn.emitter = {
 	 * @return {$.emitter} Chainable.        
 	 */
 	flush : function(){
-		this.listeners = null;
+		this.listeners = {};
 		return this;
 	}
 };

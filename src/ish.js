@@ -1,9 +1,5 @@
 /** 
  * 
- * @author Michael Hargreaves <code@digitalfeast.com.au>
- * @version 0.0.1 (alpha)
- * @license MIT
- *
  * @fileoverview 
 
 
@@ -200,6 +196,6 @@ var ish = function(document, window, $) {
 	//=include /js/ish.render.js
 	//=include /js/ish.router.js
 
-	return $;
 
+    return $;
 }(document, this); 

@@ -85,6 +85,10 @@ var $ = function(selector, context, forceSelector) {
 $.fn = {
 	/**
 	 * @mixin ish.fn.ishObject
+	 * @property {Number} length 	The number of items returned in the collection.
+	 * @property {Number} context 	The context item passed to the ish() selector engine.
+	 * @property {String} selector 	The selector string passed to the ish() selector engine.
+	 * 
 	 * @description
 	 * When you invoke the `ish('selector')` method `ish.fn.ishObject` members are inherited through Prototype Delegation to the returned collection.
 	 * The result is just like a jQuery Object, there is utility methods, a length, context and selector property.
@@ -303,16 +307,17 @@ ishObject.offset = function() {
  * @function
  * @param  {String} type          'width' or 'height'.
  * @param  {Boolean} margins      Include margins in the return result.
- * @param  {Boolean} clientHeight Exclude the horizontal scrollbars height from the result.
+ * @param  {Boolean} excludeScrollBar Exclude the scrollbars width/height from the result.
  * @return {Integer}              The height of the element.
  * @example
  * ish('selector').width();
  */
-ishObject.dimension = function(type, margins, clientHeight) {
+ishObject.dimension = function(type, margins, excludeScrollBar) {
 	var disp;
+	var target = this[0];
 	if (this.selector !== (window || document)) {
-		disp = this[0].style.display;
-		if (disp === 'none') this[0].style.display = 'block';
+		disp = target.style.display;
+		if (disp === 'none') target.style.display = 'block';
 	}
 	var height = 0;
 	var mt = 0;
@@ -322,18 +327,16 @@ ishObject.dimension = function(type, margins, clientHeight) {
 		mb = type === 'height' ? this.css('marginBottom') : this.css('marginRight');
 		height = mt + mb;
 	}
-
-	if (this[0] === window) {
-		height += type === 'height' ? this[0].outerHeight : this[0].outerWidth;
-	} else if (clientHeight) {
-		height += type === 'height' ? this[0].clientHeight : this[0].clientWidth;
-		//this[0].style.display = '';
+	if (target === window) {
+		height += type === 'height' ? target.outerHeight : target.outerWidth;
+	} else if (excludeScrollBar) {
+		height += type === 'height' ? target.clientHeight : target.clientWidth;
 	} else {
-		height += type === 'height' ? this[0].offsetHeight : this[0].offsetWidth;
-
+		height += type === 'height' ? target.offsetHeight : target.offsetWidth;
 	}
-	if (this.selector !== (window || document))
-		if (disp === 'none') this[0].style.display = 'none';
+	if (this.selector !== (window || document) && disp === 'none') {
+		target.style.display = 'none';
+	}
 	return height;
 };
 

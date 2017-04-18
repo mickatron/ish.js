@@ -56,7 +56,7 @@
 			var fnKeyMatches = matches.values;
 
 			// if theres more than one match refine by string comparison
-			if(fnIndexMatches.length > 1){
+			if(fnIndexMatches && fnIndexMatches.length > 1){
 				var refineMatch = {
 					index:[],
 					values:[]
