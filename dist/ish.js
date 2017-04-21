@@ -1321,10 +1321,10 @@ var ish = function(document, window, $) {
 		}
 	
 		function callRouteFn(routeKey, slugs, stateData) {
-				var routes = this.routes;
-				if( routes.before ) routes.before( stateData );
-				routes[routeKey].enter(slugs, stateData);
-				if( routes.after ) routes.after( stateData );
+			var routes = this.routes;
+			if( routes.before ) routes.before( stateData );
+			routes[routeKey].enter(slugs, stateData);
+			if( routes.after ) routes.after( stateData );
 		}
 	
 		// TODO: split this up in smaller more specific tasks - it's too large
@@ -1355,7 +1355,7 @@ var ish = function(document, window, $) {
 				var matches = arrayFindString(routeArray[0], routeKeys);
 				var fnIndexMatches = matches.index;
 				var fnKeyMatches = matches.values;
-	
+				
 				// if theres more than one match refine by string comparison
 				if(fnIndexMatches && fnIndexMatches.length > 1){
 					var refineMatch = {
@@ -1386,27 +1386,29 @@ var ish = function(document, window, $) {
 					}
 					matches = refineMatch;
 				}
-				
 				//console.log( 'routeString  ', routeString, matches);
 				// only 1  match should exisit in the matches object by now.
-				if (matches.index.length === 0) { 
-					this.routes.notFound(routeString);
-					this.emit('ROUTE_NOT_FOUND', { route: routeString });
-					return; 
-				} else if (matches.index.length > 1) { 
-					console.error('More than 1 route found'); 
-				}
+				if(matches !== -1){
+					if (matches.index.length === 0) { 
+						this.routes.notFound(routeString);
+						this.emit('ROUTE_NOT_FOUND', { route: routeString });
+						return; 
+					} else if (matches.index.length > 1) { 
+						console.error('More than 1 route found'); 
+					}
 	
-				// set the current slugs and the routeKey to call
-				this.slugs = getSlugs(matches, routeArray); 
-				routeKey = matches.values[0];
+					// set the current slugs and the routeKey to call
+					this.slugs = getSlugs(matches, routeArray); 
+					routeKey = matches.values[0];
+				}
 			}
 	
-			// call previous onLeave handler
-			var routeFnObj = this.routes[this.current];
-			if(routeFnObj && routeFnObj.leave) routeFnObj.leave();
+			
 			
 			if(this.current){
+				// call previous onLeave handler
+				var routeFnObj = this.routes[this.current];
+				if(routeFnObj && routeFnObj.leave) routeFnObj.leave();
 				// call previous onLeave handler for wildcards
 				for (var e = 0; e < wildcardKeys.length; e++) {
 					if(this.current.indexOf( wildcardKeys[e].replace('*','') ) === 0 ){
@@ -1415,18 +1417,21 @@ var ish = function(document, window, $) {
 					}
 				}
 			}
+			var returnVal;
 			// test and call wildcards
 			for (var d = 0; d < wildcardKeys.length; d++) {
 				if(routeString.indexOf( wildcardKeys[d].replace('*','') ) === 0 ){
 					callRouteFn.call(this, wildcardKeys[d], this.slugs, stateData);
+					returnVal =  {route: wildcardKeys[d], previousRoute: this.current, slugs: this.slugs };
 				}
 			}
 	
-			// call the singel route found in the first tests
-			callRouteFn.call(this, routeKey, this.slugs, stateData);
+			if(routeKey){
+				// call the single route found in the first tests
+				callRouteFn.call(this, routeKey, this.slugs||null, stateData);
+				returnVal =  {route: routeString, previousRoute: this.current, slugs: this.slugs };
+			}
 			this.current = routeString;
-			var returnVal =  {route: routeString, previousRoute: this.current, slugs: this.slugs };
-			
 			return returnVal;
 		}
 		
@@ -1466,7 +1471,7 @@ var ish = function(document, window, $) {
 			 * @param {Object} fn    The routing object conatining 'enter' and 'leave' functions keyed by their respective name.
 			 * @return {ish.router}       Chainable, returns its own instance.
 			 */
-			add: function(route, fn){
+			addRoute: function(route, fn){
 				this.routes[route] = fn;
 				return this;
 			},
@@ -1475,7 +1480,7 @@ var ish = function(document, window, $) {
 			 * @param {String}   route The route path to remove.
 			 * @return {ish.router}       Chainable, returns its own instance.
 			 */
-			remove: function(route){
+			removeRoute: function(route){
 				delete this.routes[route];
 				return this;
 			},
@@ -1483,7 +1488,7 @@ var ish = function(document, window, $) {
 			 * Flush/remove all routes from the router instance.
 			 * @return {ish.router}       Chainable, returns its own instance.
 			 */
-			flush: function(){
+			flushRoutes: function(){
 				this.routes = {};
 				return this;
 			},
@@ -1560,7 +1565,7 @@ var ish = function(document, window, $) {
 		 */
 		$.router = function(options){
 			var factory = Object.create($.fn.router);
-			ish.extend(factory, ish.emitter(), options);
+			 factory = ish.extend({}, ish.emitter(), factory, options);
 			var currentLocation = document.URL.replace(factory.baseURL,'');
 			//console.log('currentLocation ',currentLocation,factory.baseURL);
 			factory.popHandler = popHandler.bind(factory);

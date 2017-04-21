@@ -35,7 +35,30 @@ describe('core', function() {
     });
   });
 
+  describe('ish() - ish() selector', function() {
+    var $link, $context;
 
+    beforeEach(function() {
+      appendToDom('section', ['a']);
+
+      $context = ish('section');
+      $link = ish('a', $context);
+    });
+    afterEach(function() {
+      destroyDom();
+    });
+    it('should have a length of 1', function() {
+      expect($link.length).toEqual(1);
+    });
+    it('should return on method', function() {
+      expect(typeof $link.on).toBe('function');
+    });
+
+    it('should return trigger method', function() {
+      expect(typeof $link.trigger).toBe('function');
+    });
+
+  });
   describe('ish() - native addEventListener events', function() {
     var spy;
     beforeEach(function() {
@@ -112,7 +135,7 @@ describe('core', function() {
   });
 
   // ish.extend() tests
-  describe('ish.extend()', function() {
+  describe('ish.extend(Object) ', function() {
     var defaults = {
       key: 'key value',
       key2: {
@@ -148,6 +171,32 @@ describe('core', function() {
       expect(extendedObject.key2.key2).toBe('key2 value');
       expect(typeof extendedObject.key2.key3).toBe('object');
     });
+  });
+
+
+  describe('ish.extend(Array)', function() {
+
+    var defaultArray = [12,'hello',123,'yes', {key: 'value'}, [123,'value']];
+    var newArray = [34,'goodbye',345,null, {key:'updated'}, [456, 'updated']];
+
+    var extendedArray = ish.extend(defaultArray, newArray);
+
+     it('should contain correct values', function() {
+      expect(extendedArray[0]).toBe(34);
+      expect(extendedArray[1]).toBe('goodbye');
+      expect(extendedArray[2]).toBe(345);
+      expect(extendedArray[3]).toBe('yes'); // null values are not merged
+    });
+
+    it('should merge nested Object', function() {
+      expect(extendedArray[4].key).toBe('updated');
+    });
+
+    it('should merge nested Array', function() {
+      expect(extendedArray[5][1]).toBe(456);
+      expect(extendedArray[5][2]).toBe('updated');
+    });
+
   });
 
   // nth()
@@ -323,6 +372,43 @@ describe('core', function() {
 
   });
 
+
+  // width()
+  describe("ish('selector').css()", function() {
+    beforeEach(function(done) {
+      getHTML('/base/tests/html/width-height.test.html', function(data) {
+        if (data.error) console.log(data.error);
+        done();
+      });
+    });
+
+    afterEach(function() {
+      destroyDom();
+    });
+
+    it('should set style value', function() {
+      var $target = ish('.styled');
+      $target.css('height', '280px');
+      expect($target.css('height')).toBe(280);
+    });
+
+    it('should set style values as object', function() {
+      var $target = ish('.styled');
+      $target.css({
+        width: '100px',
+        color: '#000000'        
+      });
+      console.log($target.css('color'));
+      expect($target.css('width')).toBe(100);
+      expect($target.css('color')).toBe('#000000');
+    });
+
+    it('should get style value', function() {
+      var $target = ish('.styled');
+      expect($target.css('height')).toBe(100);
+    });
+
+  });
   /*
   
   TODO: create these tests
