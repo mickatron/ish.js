@@ -11,6 +11,14 @@ describe('core', function() {
     it('should return trigger method', function() {
       expect(typeof $empty.trigger).toBe('function');
     });
+    it('works with context', function() {
+        appendToDom('section', ['a']);
+        var $emptyWithContext = ish('',ish('section'));
+        expect(typeof $emptyWithContext.on).toBe('function');
+        destroyDom();
+    });
+
+
   });
 
   describe('ish() - matched selector', function() {
@@ -236,7 +244,6 @@ describe('core', function() {
       appendToDom('section', ['a']);
 
       $link = ish('section > a')[1];
-      $link = ish('section > a').indexOf($link);
     });
 
     afterEach(function() {
@@ -244,9 +251,11 @@ describe('core', function() {
     });
 
     it('should find node at index 1', function() {
-      expect($link).toEqual(1);
+      expect(ish('section > a').indexOf($link)).toEqual(1);
     });
-
+    it('should not find node', function() {
+      expect(ish('section > a').indexOf(ish('div a'))).toEqual(-1);
+    });
   });
 
 

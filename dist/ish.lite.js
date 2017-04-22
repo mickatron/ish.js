@@ -31,7 +31,7 @@ var ish = function(document, window, $) {
   	context = context || document;
   
   	var found;
-  	if (isNode(selector) || selector === window || selector === document) {
+  	if (selector instanceof Node || selector === window || selector === document) {
   		found = [selector];
   		selector = forceSelector || selector;
   	} else {
@@ -118,6 +118,7 @@ var ish = function(document, window, $) {
   	ishObject: ishObject
   };
   
+  /*
   //Returns true if it is a DOM node
   function isNode(o) {
   	return (
@@ -125,7 +126,7 @@ var ish = function(document, window, $) {
   		o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName === "string"
   	);
   }
-  
+  */
   /**
    * Returns the item at the specified index in the `ishObject`.
    * @name  ish.fn.ishObject.nth

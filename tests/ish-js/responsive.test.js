@@ -29,7 +29,7 @@ describe('responsive:', function() {
 			width: 1100
 		})
 		var foundNew = false;
-		mediaBreaks.breakpoints.forEach(function(el){
+		mediaBreaks._settings.breakpoints.forEach(function(el){
 			if(el.name === large) {
 				foundNew = true;
 			}

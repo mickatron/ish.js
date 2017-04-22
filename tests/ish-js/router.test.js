@@ -99,14 +99,6 @@ describe('router', function() {
 			router.navigate('/slugged/123');
 			expect(router.current).toEqual('/slugged/123');
 			expect(router.slugs).toEqual( { slug : '123' } );
-			
-			router.navigate('/test/one/123');
-			expect(router.current).toEqual("/test/one/123");
-			expect(router.slugs).toEqual( { slug : '123' } );
-
-			history.back();
-			expect(router.current).toEqual('/slugged/123');
-			expect(router.slugs).toEqual( { slug : '123' } );
 		});
 
 		it('wildcard path', function() {
@@ -119,6 +111,23 @@ describe('router', function() {
 			expect(router.current).toEqual('/wildcard/123/something');
 			expect(router.slugs).toEqual( { slug : '123' } );
 		});
+
+		it('history.back() is supported', function() {
+			router.navigate('/slugged/123');
+			expect(router.current).toEqual('/slugged/123');
+			expect(router.slugs).toEqual( { slug : '123' } );
+			
+			router.navigate('/test/one/123');
+			expect(router.current).toEqual("/test/one/123");
+			expect(router.slugs).toEqual( { slug : '123' } );
+
+			history.back();
+			ish(window).trigger('popstate');
+			expect(router.current).toEqual('/slugged/123');
+			expect(router.slugs).toEqual( { slug : '123' } );
+		});
+
+
 
 		it('path not found', function() {
 			router.navigate('/path/not/found');
