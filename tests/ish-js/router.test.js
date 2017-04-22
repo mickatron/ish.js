@@ -21,6 +21,20 @@ describe('router', function() {
 					leave: function(slugs, history){
 					}
 				},
+				'/test/one/{slug}':  {
+					enter: function(slugs, history){
+
+					},
+					leave: function(slugs, history){
+					}
+				},
+				'/test/two/{slug}':  {
+					enter: function(slugs, history){
+
+					},
+					leave: function(slugs, history){
+					}
+				},
 				'/slugged/{slug}':  {
 					enter: function(slugs, history){
 
@@ -60,7 +74,6 @@ describe('router', function() {
 		
 	});
 
-
 	it('can remove() path', function() {
 		router.removeRoute('/addedPath');
 		expect(router.routes['/addedPath']).toBe(undefined);
@@ -86,32 +99,31 @@ describe('router', function() {
 			router.navigate('/slugged/123');
 			expect(router.current).toEqual('/slugged/123');
 			expect(router.slugs).toEqual( { slug : '123' } );
+			
+			router.navigate('/test/one/123');
+			expect(router.current).toEqual("/test/one/123");
+			expect(router.slugs).toEqual( { slug : '123' } );
 
+			window.history.back();
+			expect(router.current).toEqual('/slugged/123');
+			expect(router.slugs).toEqual( { slug : '123' } );
 		});
 
 		it('wildcard path', function() {
-
 			router.navigate('/wildcard/something');
 			expect(router.current).toEqual('/wildcard/something');
-
-			
 		});
 
 		it('wildcard/slugged path', function() {
 			router.navigate('/wildcard/123/something');
 			expect(router.current).toEqual('/wildcard/123/something');
 			expect(router.slugs).toEqual( { slug : '123' } );
-
 		});
 
 		it('path not found', function() {
 			router.navigate('/path/not/found');
 			console.log(router.current);
-
 		});
 	});
-
-
-
 
 });

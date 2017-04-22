@@ -57,7 +57,7 @@ var ish = function(document, window, $) {
   	var obj = Object.create(ishObject);
   
   	for (var n = 0; n < length; n++) {
-  		obj[n] = found[n] || found;
+  		obj[n] = found[n]; // || found;
   	}
   
   	/**

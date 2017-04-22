@@ -20,7 +20,7 @@ describe('render:', function() {
 	});
 
 	describe('$.renderBind()', function() {
-		it('', function() {
+		it('should render a bind on an exisiting DOM Node', function() {
 			var template = '<p ish-bind="textContent:text"></p>'
 			var node = ish.renderTemplate(template, {text:'text has been rendered'});
 			// you would usualy use ish.updateTemplate, this is just for exmaple
@@ -28,6 +28,46 @@ describe('render:', function() {
 			expect(node.textContent).toEqual('text has been updated text');
 
 		});
+	});
+
+	describe('$.bindToObject()', function() {
+		beforeEach(function(done) {
+			getHTML('/base/tests/html/form-bind.test.html', function(data) {
+				if (data.error) console.log(data.error);
+				done();
+			});
+		});
+
+		afterEach(function() {
+			destroyDom();
+		});
+
+
+		it('should bind values', function() {
+			var obj = {};
+			var form = ish('[user-form]');
+			ish('input, textarea', form).forEach(function($el){
+				ish.bindToObject($el, obj);
+			});
+			ish('input[type="radio"][checked]').forEach(function($el){
+				ish.bindToObject($el, obj);
+			});
+
+			ish('select').forEach(function($el){
+				var selected = ish('option[selected]', $el);
+				//console.log('selected ',selected);
+				//if(selected)  // ish.bindToObject(selected, obj);
+			});
+
+			expect(obj.name).toEqual('John Smith');
+			expect(obj.email).toEqual('john@smith.com');
+			expect(obj.textarea).toEqual('text area value');
+
+			expect(obj.gender).toEqual('male');
+
+			console.log("bound obj values ",obj);
+		});
+
 	});
 
 });
