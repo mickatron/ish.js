@@ -1,6 +1,6 @@
 {
   "name": "ish.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Michael Hargreaves <code@digitalfeast.com.au> (http://digitalfeast.com.au)",
   "license": "MIT",
   "description": "A tiny jQ'ish Javascript library.",
