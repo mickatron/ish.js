@@ -330,7 +330,7 @@ var ish = function(document, window, $) {
   	if (margins) {
   		mt = type === 'height' ? this.css('marginTop') : this.css('marginLeft');
   		mb = type === 'height' ? this.css('marginBottom') : this.css('marginRight');
-  		height = mt + mb;
+  		height = parseInt(mt) + parseInt(mb);
   	}
   	if (target === window) {
   		height += type === 'height' ? target.outerHeight : target.outerWidth;
@@ -362,8 +362,19 @@ var ish = function(document, window, $) {
   		}
   	} else if (!value) {
   		//get the style
-  		var typeStr = prop.slice(0, 6) + '-' + prop.slice(6).toLowerCase();
-  		return parseInt(this[0].style[prop] || window.getComputedStyle(this[0]).getPropertyValue(typeStr));
+  		var typeStr = prop;
+  		var lastIndex = 0;
+  		for(var i = 0; i < prop.length; i++) {
+  			var character = prop.charAt(i);
+  			
+  			if(character === character.toUpperCase()) {
+  				typeStr = prop.slice(lastIndex, i) + '-' + prop.slice(i).toLowerCase();
+  				lastIndex = i;
+  				break;
+  			}
+  		}
+  		var value = this[0].style[prop] || window.getComputedStyle(this[0]).getPropertyValue(typeStr);
+  		return value;
   	} else {
   		// set the style
   		this[forEach](function($el) {

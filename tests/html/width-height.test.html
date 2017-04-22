@@ -5,8 +5,12 @@
 		width: 200px; 
 		height: 100px;
 	}
+	.styled-percentage {
+		width:100%;
+		height:100%;
+	}
 	.styled-padded {
-		 padding: 10px 20px;
+		padding: 10px 20px;
 		width: 200px; 
 		height: 100px;
 	}
@@ -24,7 +28,7 @@
 </style>
 
 <!-- Just Width and Height Set -->
-<div class="styled"></div>
+<div class="styled"><div class="styled-percentage"></div></div>
 <div class="inline-styled" style="width: 100px; height: 200px;"></div>
 <!-- With Padding -->
 <div class="styled-padded"></div>
@@ -35,3 +39,5 @@
 <!-- With Padding and Margins -->
 <div class="styled-padded-margin"></div>
 <div class="inline-styled-padded-margin" style="width: 100px; height: 200px; padding: 20px 10px; margin: 20px 10px;"></div>
+
+<div class="styled-percentage"></div>

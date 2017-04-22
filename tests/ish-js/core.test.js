@@ -307,6 +307,13 @@ describe('core', function() {
     });
 
 
+    it('percentages - should have a height of 280px', function() {
+      var $target = ish('.styled-percentage');
+      expect($target.width(true)).toEqual(200);
+    });
+
+
+
     // TODO, add clientHeight tests
 
   });
@@ -389,7 +396,7 @@ describe('core', function() {
     it('should set style value', function() {
       var $target = ish('.styled');
       $target.css('height', '280px');
-      expect($target.css('height')).toBe(280);
+      expect($target.css('height')).toBe('280px');
     });
 
     it('should set style values as object', function() {
@@ -398,14 +405,19 @@ describe('core', function() {
         width: '100px',
         color: '#000000'        
       });
-      console.log($target.css('color'));
-      expect($target.css('width')).toBe(100);
-      expect($target.css('color')).toBe('#000000');
+      expect($target.css('width')).toBe('100px');
+      expect($target.css('color')).toBe('rgb(0, 0, 0)');
     });
 
     it('should get style value', function() {
-      var $target = ish('.styled');
-      expect($target.css('height')).toBe(100);
+      var $target = ish('.styled-padded');
+      expect($target.css('height')).toBe('100px');
+      expect($target.css('paddingLeft')).toBe('20px');
+      expect($target.css('paddingTop')).toBe('10px');
+
+      var $targetOne = ish('.inline-styled');
+      expect($targetOne.css('height')).toBe('200px');
+
     });
 
   });
