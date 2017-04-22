@@ -88,4 +88,13 @@ describe('delegation', function() {
     ish('section > a').trigger('click');
     expect(spy.calls.count()).toEqual(6);
   });
+
+  it('delagted events should be removable', function() {
+    ish('body').on('click', spy, 'section > a');
+    ish('body').off('click', spy, 'section > a');
+    ish('section > a').trigger('click');
+    expect(spy.calls.count()).toEqual(0);
+  });
+
+
 });
