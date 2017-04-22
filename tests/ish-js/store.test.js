@@ -58,6 +58,13 @@ describe('$.store.createDataState()', function() {
 				}.bind(this);
 			});
 			expect(typeof store.states.component[0].actions.set).toBe('function');
+
+			store.createComState(state, function(){
+				this.actions.another  = function(state){
+					this.emit('ON_ANOTHER', {state: this.store, });
+				};
+			});
+			expect(typeof store.states.component[0].actions.another).toBe('function');
 		});
 
 
