@@ -52,7 +52,8 @@
 				 * 		console.log('Media break: ',data.name);
 				 * });
 				 */
-				this.emit('onMediaBreak', { name: el.state[tempValueType] } );
+				el._this.break = el.state[tempValueType];
+				el._this.emit('onMediaBreak', { name: el.state[tempValueType] } );
 			}
 		});
 	};
@@ -123,6 +124,7 @@ $.responsive = function(options) {
 	ish.extend(responsiveObj, ish.emitter());
 
 	var _settings = $.extend({
+			_this: responsiveObj,
 			breakpoints: [{
 				name: 'mobile',
 				width: 0
