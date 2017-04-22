@@ -1,0 +1,25 @@
+<form user-form>
+	<label for="name">name:</label>
+	<input id="name" ish-bind="value:name" type="text" value="John Smith" >
+	<label for="email">email:</label>
+	<input id="email" ish-bind="value:email" type="text" value="john@smith.com">
+
+	<label for="textarea">name:</label>
+	<textarea id="textarea" ish-bind="value:textarea">text area value</textarea>
+
+	<input type="radio" ish-bind="value:gender" name="gender" value="male" checked>
+	<input type="radio" ish-bind="value:gender" name="gender" value="female">
+	<input type="radio" ish-bind="value:gender" name="gender" value="other">
+
+	<input type="checkbox" ish-bind="value:interest.coding" id="coding" name="interest" value="coding" checked>
+    <input type="checkbox" ish-bind="value:interest.music" id="music" name="interest" value="music" checked>
+    <input type="checkbox" ish-bind="value:interest.cooking" id="cooking" name="interest" value="cooking">
+
+	<select ish-bind="value:car" name="car">
+		<option value="volvo">Volvo</option>
+		<option value="saab">Saab</option>
+		<option value="fiat">Fiat</option>
+		<option value="audi" selected>Audi</option>
+	</select>
+
+</form>
