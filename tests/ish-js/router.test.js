@@ -1,13 +1,13 @@
 describe('router', function() {
 	'use strict';
 	var router;
+	var notFoundSpy;
 	beforeEach(function() {
+		notFoundSpy = jasmine.createSpy('notFoundSpy');
 		router = ish.router({
 			baseURL: 'http://ish.stateful.local',
 			routes: {
-				notFound: function(url){
-
-				},
+				notFound: notFoundSpy,
 				before: function(history){
 				
 				},
@@ -104,7 +104,7 @@ describe('router', function() {
 			expect(router.current).toEqual("/test/one/123");
 			expect(router.slugs).toEqual( { slug : '123' } );
 
-			window.history.back();
+			history.back();
 			expect(router.current).toEqual('/slugged/123');
 			expect(router.slugs).toEqual( { slug : '123' } );
 		});
@@ -122,7 +122,8 @@ describe('router', function() {
 
 		it('path not found', function() {
 			router.navigate('/path/not/found');
-			console.log(router.current);
+			//console.log(router.current);
+			expect(notFoundSpy.calls.count()).toEqual(1)
 		});
 	});
 

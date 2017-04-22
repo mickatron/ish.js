@@ -429,9 +429,9 @@ var ish = function(document, window, $) {
 					if (toMerge[e] === null || toMerge[e] === undefined) {
 						continue; // skip null and undefined values
 					} else if (toMerge[e].constructor === Object ){ 
-						newArray[e] = $[extend](newArray[e] || {}, toMerge[e]);
+						targetObject[e] = $[extend](targetObject[e] || {}, toMerge[e]);
 					} else if ( Array.isArray( toMerge[e])) {
-						newArray[e] = $[extend](newArray[e] || [], toMerge[e]);
+						targetObject[e] = $[extend](targetObject[e] || [], toMerge[e]);
 					} else {
 						targetObject[e]  = toMerge[e];
 					}

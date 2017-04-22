@@ -193,8 +193,8 @@ describe('core', function() {
     });
 
     it('should merge nested Array', function() {
-      expect(extendedArray[5][1]).toBe(456);
-      expect(extendedArray[5][2]).toBe('updated');
+      expect(extendedArray[5][0]).toBe(456);
+      expect(extendedArray[5][1]).toBe('updated');
     });
 
   });
