@@ -1065,7 +1065,7 @@ var ish = function(document, window, $) {
 		 * 
 		 */
 		responsiveObj.destroy = function() {
-			responsiveFn.remove(_settings);
+			responsiveObj.remove(_settings);
 			return null;
 		};
 	

@@ -37,4 +37,8 @@ describe('responsive:', function() {
 		expect(foundNew).toEqual(true);
 	});
 
+	it('can destroy instance', function(){
+		mediaBreaks =mediaBreaks.destroy();
+		expect(mediaBreaks).toEqual(null);
+	});
 });	
