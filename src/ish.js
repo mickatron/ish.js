@@ -116,14 +116,6 @@ This is not a full list, please see the full [documentation][docs] for all avail
  [tut1]: http://ish.digitalfeast.com.au/js/docs/tutorial-Getting_Started.html
  [tut2]: http://ish.digitalfeast.com.au/js/docs/tutorial-Compiling_a_Custom_Package.html
 
-
-
-
-
-
-
-
-
  */
 
 
@@ -170,7 +162,7 @@ This is not a full list, please see the full [documentation][docs] for all avail
 })(ish);
  */
 var ish = function(document, window, $) {
-	//'use strict';
+	'use strict';
 	/* Lib Core
 	---------------------------------------*/
 	//=include /js/ish.core.js

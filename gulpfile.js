@@ -7,7 +7,6 @@ const uglify       = require('gulp-uglify');
 const include      = require("gulp-include");
 const jshint       = require('gulp-jshint');
 const karma        = require('karma').Server;
-const fileinclude  = require('gulp-file-include');
 const shell        = require('gulp-shell');
 const rename       = require("gulp-rename");
 const merge        = require('merge-stream');
